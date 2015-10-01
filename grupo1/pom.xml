@@ -5,9 +5,7 @@
 	<artifactId>grupo1</artifactId>
 	<version>1.0</version>
 	<packaging>pom</packaging>
-	<name>TIW-Archetype</name>
-	<description>Archetype for rapid development. This archetype build a parent project with submodules like EAR, EJB, WAR, Util and Persistence model.
-	Useful for Internet Technologies for the web subject of Carlos III University. Computer Science</description>
+	<name>Dokulearning</name>
 	
 
 
@@ -840,4 +838,5 @@
     <module>grupo1-util</module>
     <module>grupo1-model</module>
   </modules>
+  <description>Proyecto TIW UC3M GRUPO 1</description>
 </project>
