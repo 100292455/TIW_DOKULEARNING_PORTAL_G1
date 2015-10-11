@@ -30,10 +30,13 @@ label {
 	<form action="login" method="post">
 
 
-		<label for="usuario">Usuario:</label><input type="text" name="usuario"
-			id="usuario" /><br /> <label for="password">Password:</label><input
-			type="password" name="password" id="password" /> <input
-			type="submit" value="Enviar" />
+		<label for="usuario">Usuario:</label>
+		<input type="text" name="usuario" id="usuario" /><br /> 
+		
+		<label for="password">Password:</label>
+		<input type="password" name="password" id="password" /> 
+		
+		<input type="submit" value="Enviar" />
 
 	</form>
 </body>
