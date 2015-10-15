@@ -17,8 +17,8 @@ import javax.servlet.http.HttpSession;
  * Este filtro intercepta cualquier peticion que vaya a la pagina listado.jsp y comprueba que el usuario se haya autenticado con un token en sesion, en caso contrario le devuelve a la pagina de login.jsp
  * @author David Palomar
  */
-@WebFilter( urlPatterns = { "/listadoCursos.jsp" })
-public class LoginFilter implements Filter {
+//@WebFilter( urlPatterns = { "/contenidoCurso.jsp" })
+public class ContenidoCursoFilter implements Filter {
 
 
 
@@ -33,7 +33,7 @@ public class LoginFilter implements Filter {
 			
 			chain.doFilter(request, response); 
 		}else{
-			request.getRequestDispatcher("/login.jsp").forward(request, response);
+			request.getRequestDispatcher("/listadoCursos.jsp").forward(request, response);
 		}
 
 	}

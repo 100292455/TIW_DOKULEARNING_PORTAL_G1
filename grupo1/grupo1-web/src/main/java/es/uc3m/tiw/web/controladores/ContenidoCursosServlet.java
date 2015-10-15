@@ -1,6 +1,7 @@
 package es.uc3m.tiw.web.controladores;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -12,10 +13,10 @@ import javax.servlet.http.HttpSession;
 
 import es.uc3m.tiw.web.dominio.Usuario;
 
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
-	private static final String ENTRADA_JSP = "/listadoCursos.jsp";
-	private static final String LOGIN_JSP = "/login.jsp";
+@WebServlet("/contenidoCursos")
+public class ContenidoCursosServlet extends HttpServlet {
+	private static final String ENTRADA_JSP = "/contenidoCurso.jsp";
+	private static final String FORMULARIOMATRICULA_JSP = "/formularioMatricula.jsp";
 	private static final long serialVersionUID = 1L;
 	private Usuario usuario;
 	private ArrayList<Usuario> usuarios;
@@ -46,28 +47,45 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String user = request.getParameter("usuario");
-		String password = request.getParameter("password");
-		String mensaje ="";
-		String pagina = "";
-		pagina = LOGIN_JSP;
-		HttpSession sesion = request.getSession();
-		Usuario u = comprobarUsuario(user, password);
-		if (u != null){
+		HttpSession sesion = request.getSession(true);
+		if (sesion.getAttribute("acceso")!=null && sesion.getAttribute("acceso").equals("ok")) { //buscamos el token de autenticacion
 			
-			pagina = ENTRADA_JSP;
-			request.setAttribute("usuarios", usuarios);
-			sesion.setAttribute("usuario", u);
-			sesion.setAttribute("acceso", "ok");
+			response.setContentType("text/html");
+			PrintWriter out = response.getWriter();
+			out.println("Peticion recibida por post");
+			out.println("<h1>Acceso OK "+"</h1>");
+			out.close();
 			
 		}else{
-			
-			mensaje = "Usuario o password incorrectos";
-			request.setAttribute("mensaje", mensaje);
+			response.setContentType("text/html");
+			PrintWriter out = response.getWriter();
+			out.println("Peticion recibida por GET");
+			out.println("<h1>No acceso"+"</h1>");
+			out.close();
 		}
+		//String password = request.getParameter("password");
+		//String mensaje ="";
+		//String pagina = "";
+		//pagina = FORMULARIOMATRICULA_JSP;
 		
-			this.getServletContext().getRequestDispatcher(pagina).forward(request, response);
+		//Usuario u = comprobarUsuario(user, password);
+		
+		//if (u != null){
+			
+		//pagina = ENTRADA_JSP;
+		//request.setAttribute("usuarios", usuarios);
+		//sesion.setAttribute("usuario", u);
+		//sesion.setAttribute("acceso", "ok");
+			
+		//}else{
+			
+			
+		//mensaje = "Usuario o password incorrectos";
+		//request.setAttribute("mensaje", mensaje);
+		//}
+		
+		
+			//this.getServletContext().getRequestDispatcher(pagina).forward(request, response);
 			
 		
 	}
