@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -39,12 +40,6 @@
 			
 			
 			/*MODIFICANDO ESTRELLA*/
-			
-
-			
-			
-			
-			
 			
 			
 			$("#salario_slider").slider({
@@ -372,230 +367,45 @@
 				
 				<div id="lista_ofertas">
 					
-					<!--OFERTA 1-->
-					<div id="oferta1" class="oferta">
-						<div class="cuerpo"><br>
-							<a href="#"   class="titulo"><h3 class="cabecera">Responsable informÃ¡tica</h3></a>
-							<p class = "ofertas-empresa">Microsoft Inc.<span><img class="estrella" src="images/usuario/estrella1.png" alt="estrella" title="Favoritos"></span></p>
-							<br>
-							<p style="margin-left:20px;">Responsable IT junior, con posibilidades de promociÃ³n interna, con experiencia a nivel analista o programador
-							de soluciones SAP Business One,-Conocimientos en Business Objects (Crystal reports).-Conocimientos de SAP...<a href="#" style="font-size: 12px; margin-left: 5px;" title="Saber mÃ¡s de esta oferta">Saber mÃ¡s</a>
-							</p>
-							
-							<p class="campos_busqueda">CategorÃ­a: | Estudios requeridos: | Provincia: </p>
-							<p class="campos_filtro">Puesto: | Experiencia mÃ­nima requerida: | Jornada: | Tipo de contrato: </p>
-							
-							
-						</div>
-						
-						<div class="iconos">
-							<a href="#" title="compartir en g+"><img src="images/usuario/google_plus.jpg" alt="gplus" class="img1"></a>
-							<a href="#" title="compartir en linkedin"><img src="images/usuario/linkedin.jpg" alt="gplus" class="img2"></a><br>
-							<a href="#" title="compartir por correo"><img src="images/usuario/gmail.jpg" alt="gplus" class="img3"></a>
-							<a href="#" title="compartir por facebook"><img src="images/usuario/facebook.png" alt="gplus" class="img4"></a>
-						</div>
+					<table border="1">
+							<tr>
+								<th>Curso</th>
+								<th>Descripcion</th>
+								<th>Dificultad</th>
+								<th>Horas</th>
+								<th>Precio Inicial</th>
+								<th>Precio Final</th>
+								<th>Fecha Fin del Descuento</th>
+								<th>Destacado</th>
+								<th>Estado</th>
+							</tr>
+							<c:forEach items="${cursos }" var="curso">
+							<!-- recorremos todos los objetos de la coleccion usuarios y cada objeto devuelto lo asignamos a la variable usuario -->
+								<tr>
+
+				<!-- Curso es un POJO por lo que podemos acceder a sus propiedades sin necesidad de get/set -->
+									<td><a  href="contenidoCursos?nombreCurso=${curso.DES_titulo }">${curso.DES_titulo }</a></td>
+									<td>${curso.DES_descripcion }</td>
+									<td>${curso.TIPO_dificultad }</td>
+									<td>${curso.horas }</td>
+									<td>${curso.precio_inicial }</td>
+									<td>${curso.precio_final }</td>
+									<td>${curso.fechaFinDescuento }</td>
+									<td>${curso.TIPO_destacado }</td>
+									<td>${curso.TIPO_estado}</td>
+									
+								</tr>
+
+							</c:forEach>
+						</table>			
 						<div class="inferior">
-							<form action="contenidoCursos" method="post">
-								<input type="submit" value="Enviar"/>
-							</form>
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Seguir empresa</a>
+							<a  class="opciones_inferiores" href="contenidoCursos?nombreCurso=tituloCurso">Ver contenido</a>
 							<a  class="opciones_inferiores" href="http://www.w3schools.com">Favoritos</a>
 
 						</div>
 						
 
-					</div>
-					
-					<!--OFERTA 2-->
-					
-					<div id="oferta2" class="oferta">
-						<div class="cuerpo"><br>
-							<a href="#"  class="titulo"><h3 class="cabecera">TÃ©cnico informÃ¡tico</h3></a>
-							<p class = "ofertas-empresa">Microsoft Inc.<span><img class="estrella" src="images/usuario/estrella1.png" alt="estrella" title="Favoritos"></span></p>
-							<br>
-							<p style="margin-left:20px;"> Si-Legal, consultora ubicada en Barcelona, precisa incorporar a su equipo un administrador de sistemas.
-							Su funciÃ³n serÃ¡ velar por el buen funcionamiento de la infraestructura informÃ¡tica propia y la de nuestro
-							clientes.Sus tareas serÃ¡n:
-							GestiÃ³n de Backups.
-							Soporte Nivel 1 y Nivel 2.
-							AdministraciÃ³n de Pc y servidores.<a href="#" style="font-size: 12px; margin-left: 5px;" title="Saber mÃ¡s de esta oferta">Saber mÃ¡s</a>
-							</p>
-							<p class="campos_busqueda">CategorÃ­a: | Estudios requeridos: | Provincia: </p>
-							<p class="campos_filtro">Puesto: | Experiencia mÃ­nima requerida: | Jornada: | Tipo de contrato: </p>
-						</div>
-						
-						<div class="iconos">
-							<a href="#" title="compartir en g+"><img src="images/usuario/google_plus.jpg" alt="gplus" class="img1"></a>
-							<a href="#" title="compartir en linkedin"><img src="images/usuario/linkedin.jpg" alt="gplus" class="img2"></a><br>
-							<a href="#" title="compartir por correo"><img src="images/usuario/gmail.jpg" alt="gplus" class="img3"></a>
-							<a href="#" title="compartir por facebook"><img src="images/usuario/facebook.png" alt="gplus" class="img4"></a>
-						</div>
-						<div class="inferior">
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Inscribirse</a>
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Seguir empresa</a>
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Favoritos</a>
-						</div>
-					</div>
-					
-					<!--OFERTA 3-->
-					<div id="oferta3" class="oferta">
-						<div class="cuerpo"><br>
-							<a href="#"  class="titulo"><h3 class="cabecera">Analista Programador Oracle PL/SQL con ingles</h3></a>
-							<p class = "ofertas-empresa">Microsoft Inc.<span><img class="estrella" src="images/usuario/estrella1.png" alt="estrella" title="Favoritos"></span></p>
-							<br>
-							<p style="margin-left:20px;"> Precisamos incorporar un Analista Programador Oracle PL/SQL para proyecto ubicado en Boston,MA en el sector bancario.
-							<a href="#" style="font-size: 12px; margin-left: 5px;" title="Saber mÃ¡s de esta oferta">Saber mÃ¡s</a>
-							</p>
-							
-							<p class="campos_busqueda">CategorÃ­a: | Estudios requeridos: | Provincia: </p>
-							<p class="campos_filtro">Puesto: | Experiencia mÃ­nima requerida: | Jornada: | Tipo de contrato: </p>
-	
-						</div>
-						<div class="iconos">
-							<a href="#" title="compartir en g+"><img src="images/usuario/google_plus.jpg" alt="gplus" class="img1"></a>
-							<a href="#" title="compartir en linkedin"><img src="images/usuario/linkedin.jpg" alt="gplus" class="img2"></a><br>
-							<a href="#" title="compartir por correo"><img src="images/usuario/gmail.jpg" alt="gplus" class="img3"></a>
-							<a href="#" title="compartir por facebook"><img src="images/usuario/facebook.png" alt="gplus" class="img4"></a>
-						</div>
-						<div class="inferior">
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Inscribirse</a>
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Seguir empresa</a>
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Favoritos</a>
-						</div>
-						
-						
-					</div>
-					
-					
-					<!--OFERTA 4-->
-					<div id="oferta4" class="oferta">
-						<div class="cuerpo"><br>
-							<a href="#"  class="titulo"><h3 class="cabecera">Responsable Desarrollo SW mantenimientos internos</h3></a>
-							<p class = "ofertas-empresa">Microsoft Inc.<span><img class="estrella" src="images/usuario/estrella1.png" alt="estrella" title="Favoritos"></span></p>
-							<br>
-							<p style="margin-left:20px;"> P Aegon selecciona para integraciÃ³n en el Ã¡rea de IT un Responsable de Desarrollo de Software (PL/ SQL y Java) de productos
-							de seguros.?QUÃ BUSCAMOS?<a href="#" style="font-size: 12px; margin-left: 5px;" title="Saber mÃ¡s de esta oferta">Saber mÃ¡s</a>
-							</p>
-							
-							<p class="campos_busqueda">CategorÃ­a: | Estudios requeridos: | Provincia: </p>
-							<p class="campos_filtro">Puesto: | Experiencia mÃ­nima requerida: | Jornada: | Tipo de contrato: </p>
-						</div>
-						<div class="iconos">
-							<a href="#" title="compartir en g+"><img src="images/usuario/google_plus.jpg" alt="gplus" class="img1"></a>
-							<a href="#" title="compartir en linkedin"><img src="images/usuario/linkedin.jpg" alt="gplus" class="img2"></a><br>
-							<a href="#" title="compartir por correo"><img src="images/usuario/gmail.jpg" alt="gplus" class="img3"></a>
-							<a href="#" title="compartir por facebook"><img src="images/usuario/facebook.png" alt="gplus" class="img4"></a>
-						</div>
-						<div class="inferior">
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Inscribirse</a>
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Seguir empresa</a>
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Favoritos</a>
-						</div>
-						
-						
-					</div>
-					
-					
-					<!--OFERTA 5-->
-					
-					<div id="oferta5" class="oferta">
-						<div class="cuerpo"><br>
-							<a href="#"  class="titulo"><h3 class="cabecera">
-								Programador PHP (administraciÃ³n Linux)
-							</h3></a>
-							<p class = "ofertas-empresa">Microsoft Inc.<span><img class="estrella" src="images/usuario/estrella1.png" alt="estrella" title="Favoritos"></span></p>
-							<br>
-							<p style="margin-left:20px;"> Precisamos incorporar un Programador Web con conocimientos de administraciÃ³n de sistemas para nuestras Oficinas ubicadas en Girona
-							capital.Sus funciones serÃ¡n las del mantenimiento, desarrollo y mejora de...
-							<a href="#" style="font-size: 12px; margin-left: 5px;" title="Saber mÃ¡s de esta oferta">Saber mÃ¡s</a>
-							</p>
-							
-							<p class="campos_busqueda">CategorÃ­a: | Estudios requeridos: | Provincia: </p>
-							<p class="campos_filtro">Puesto: | Experiencia mÃ­nima requerida: | Jornada: | Tipo de contrato: </p>
-	
-						</div>
-						<div class="iconos">
-							<a href="#" title="compartir en g+"><img src="images/usuario/google_plus.jpg" alt="gplus" class="img1"></a>
-							<a href="#" title="compartir en linkedin"><img src="images/usuario/linkedin.jpg" alt="gplus" class="img2"></a><br>
-							<a href="#" title="compartir por correo"><img src="images/usuario/gmail.jpg" alt="gplus" class="img3"></a>
-							<a href="#" title="compartir por facebook"><img src="images/usuario/facebook.png" alt="gplus" class="img4"></a>
-						</div>
-						<div class="inferior">
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Inscribirse</a>
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Seguir empresa</a>
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Favoritos</a>
-
-						</div>
-						
-						
-					</div>
-					
-					<!--OFERTA 6-->
-					
-					<div id="oferta6" class="oferta">
-						<div class="cuerpo"><br>
-							<a href="#"  class="titulo"><h3 class="cabecera">
-								Ingeniero InformÃ¡tico
-							</h3></a>
-							<p class = "ofertas-empresa">Microsoft Inc.<span><img class="estrella" src="images/usuario/estrella1.png" alt="estrella" title="Favoritos"></span></p>
-							<br>
-							<p style="margin-left:20px;">  Qdem selecciona para importante proyecto de soporte un Ingeniero informÃ¡tico con conocimientos demostrables en:
-							- InstalaciÃ³n y configuraciÃ³n de S.O: Windows 7, Windows 8, MS Office 2010, MS Office 2013, dispositivos
-							<a href="#" style="font-size: 12px; margin-left: 5px;" title="Saber mÃ¡s de esta oferta">Saber mÃ¡s</a>
-							</p>
-							
-							<p class="campos_busqueda">CategorÃ­a: | Estudios requeridos: | Provincia: </p>
-							<p class="campos_filtro">Puesto: | Experiencia mÃ­nima requerida: | Jornada: | Tipo de contrato: </p>
-	
-						</div>
-						<div class="iconos">
-							<a href="#" title="compartir en g+"><img src="images/usuario/google_plus.jpg" alt="gplus" class="img1"></a>
-							<a href="#" title="compartir en linkedin"><img src="images/usuario/linkedin.jpg" alt="gplus" class="img2"></a><br>
-							<a href="#" title="compartir por correo"><img src="images/usuario/gmail.jpg" alt="gplus" class="img3"></a>
-							<a href="#" title="compartir por facebook"><img src="images/usuario/facebook.png" alt="gplus" class="img4"></a>
-						</div>
-						<div class="inferior">
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Inscribirse</a>
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Seguir empresa</a>
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Favoritos</a>
-
-						</div>
-						
-						
-					</div>
-					
-					<!--OFERTA 7-->
-					<div id="oferta7" class="oferta">
-						<div class="cuerpo"><br>
-							<a href="#"  class="titulo"><h3 class="cabecera">
-								Beca Software development
-							</h3></a>
-							<p class = "ofertas-empresa">Microsoft Inc.<span><img class="estrella" src="images/usuario/estrella1.png" alt="estrella" title="Favoritos"></span></p>
-							<br>
-							<p style="margin-left:20px;"> Altran EspaÃ±a es una compaÃ±Ã­a perteneciente al grupo Altran, lÃ­der global en TecnolÃ³gica eI, con una red internacional de 21.000
-							profesionales y 500 grandes clientes en todo el mundo. Altran estÃ¡ presente en Europa,...
-							<a href="#" style="font-size: 12px; margin-left: 5px;" title="Saber mÃ¡s de esta oferta">Saber mÃ¡s</a>
-							</p>
-							
-							<p class="campos_busqueda">CategorÃ­a: | Estudios requeridos: | Provincia: </p>
-							<p class="campos_filtro">Puesto: | Experiencia mÃ­nima requerida: | Jornada: | Tipo de contrato: </p>
-	
-						</div>
-						<div class="iconos">
-							<a href="#" title="compartir en g+"><img src="images/usuario/google_plus.jpg" alt="gplus" class="img1"></a>
-							<a href="#" title="compartir en linkedin"><img src="images/usuario/linkedin.jpg" alt="gplus" class="img2"></a><br>
-							<a href="#" title="compartir por correo"><img src="images/usuario/gmail.jpg" alt="gplus" class="img3"></a>
-							<a href="#" title="compartir por facebook"><img src="images/usuario/facebook.png" alt="gplus" class="img4"></a>
-						</div>
-						<div class="inferior">
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Inscribirse</a>
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Seguir empresa</a>
-							<a  class="opciones_inferiores" href="http://www.w3schools.com">Favoritos</a>
-
-						</div>
-						
-						
-					</div>
+				</div>
 					
 					<div class="paginas">
 						<a href="#" class="num_paginas"> <img class="flechita" src="images/usuario/izquierda.jpg" alt="anterior">&nbsp; &nbsp;</a>

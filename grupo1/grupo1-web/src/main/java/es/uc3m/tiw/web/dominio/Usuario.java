@@ -1,22 +1,27 @@
 package es.uc3m.tiw.web.dominio;
 
 public class Usuario {
-
+	
+	int id_usuario;
 	String nombre;
 	String apellidos;
 	String usuario;
 	String password;
-	public Usuario() {
-		// TODO Auto-generated constructor stub
-	}
-	public Usuario(String nombre, String apellidos, String usuario,
-			String password) {
+	
+	public Usuario(int id_usuario, String nombre, String apellidos,
+			String usuario, String password) {
 		super();
+		this.id_usuario = id_usuario;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.usuario = usuario;
 		this.password = password;
 	}
+	
+	public Usuario() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Usuario(String usuario, String password) {
 		super();
 		this.usuario = usuario;
@@ -45,6 +50,12 @@ public class Usuario {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public int getId_usuario() {
+		return id_usuario;
+	}
+	public void setId_usuario(int id_usuario) {
+		this.id_usuario = id_usuario;
 	}
 	
 }

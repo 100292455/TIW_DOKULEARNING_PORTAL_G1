@@ -1,5 +1,7 @@
 package es.uc3m.tiw.web.dominio;
 
+import java.util.Date;
+
 public class Curso {
 
 	int ID_curso;
@@ -12,6 +14,32 @@ public class Curso {
 	int TIPO_destacado;
 	int COD_profesor;
 	int TIPO_estado;
+	Date fechaFinDescuento;
+	
+	
+	public Date getFechaFinDescuento() {
+		return fechaFinDescuento;
+	}
+	public void setFechaFinDescuento(Date fechaFinDescuento) {
+		this.fechaFinDescuento = fechaFinDescuento;
+	}
+	public Curso(int iD_curso, String dES_titulo, String dES_descripcion,
+			int tIPO_dificultad, int horas, int precio_inicial,
+			int precio_final, int tIPO_destacado, int cOD_profesor,
+			int tIPO_estado, Date fechaFinDescuento) {
+		super();
+		ID_curso = iD_curso;
+		DES_titulo = dES_titulo;
+		DES_descripcion = dES_descripcion;
+		TIPO_dificultad = tIPO_dificultad;
+		this.horas = horas;
+		this.precio_inicial = precio_inicial;
+		this.precio_final = precio_final;
+		TIPO_destacado = tIPO_destacado;
+		COD_profesor = cOD_profesor;
+		TIPO_estado = tIPO_estado;
+		this.fechaFinDescuento = fechaFinDescuento;
+	}
 	public Curso() {
 		// TODO Auto-generated constructor stub
 	}

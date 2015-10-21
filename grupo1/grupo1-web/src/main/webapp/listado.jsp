@@ -44,6 +44,7 @@
 			</tr>
 
 		</c:forEach>
+		
 	</table>
 	<p>
 		<a href="login.jsp">Volver</a>

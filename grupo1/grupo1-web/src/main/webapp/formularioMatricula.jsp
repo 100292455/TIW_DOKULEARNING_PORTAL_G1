@@ -79,7 +79,7 @@
 						<div id="dialog-form-1" title="Inicia sesión con tu correo">
 						  <p class="validateTips">¡Bienvenido empresa!</p>
 
-						  <form >
+						  <form>
 
 						 	<fieldset class = "popup" id = "popup-empresa">
 
@@ -134,39 +134,43 @@
 	
 			<section> 
 				
-				<h4>EMPIEZA A CREAR TU NUEVO PERFIL (PARTICULAR)</h4>
+				<h4>Registro de Matriculaci&oacuten</h4>
+				<h6>Para ver el contenido de este curso debes matricularte en el mismo.</h6>
 
-				
-				<div id="cuestionario">
+				<form action="AñadirMatricula" method="post">
+				<label for="curso">Nombre Curso:</label><input type="text" name="nombreCurso" id="curso"/><br/>
+				<input type="submit" value="Enviar"/>
+			    </form>
+			    <div id="cuestionario">
 				
 				
 					<div><div>
 							<!--Nombre-->
-							<p><span class=obligatorio>Nombre</span><span class=aster>*</span><span class=obligatorio>:</span></p>
+							<p><span class=obligatorio>Nombre de la empresa</span><span class=aster>*</span><span class=obligatorio>:</span></p>
 							<p id="mens1" class = "mens">Te falta rellenar la casilla nombre*</p>							
-							<input  type="text" name="nombre" placeholder="Carlos" />							
+							<input  type="text" name="nombre" placeholder="Microsoft Ibérica S.R.L." />							
 
 					</div>		
 							<!--Apellido-->
 					<div>		
-							<p><span class=obligatorio>Apellidos</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens2" class = "mens">Te falta rellenar la casilla apellido*</p>							
-							<input  type="text" name="apellidos" placeholder="Ruiz" />
+							<p><span class=obligatorio>Tipo de empresa</span><span class=aster>*</span><span class=obligatorio>:</span></p>
+							<p id="mens2" class = "mens">Te falta rellenar el tipo*</p>							
+							<input  type="text" name="apellidos" placeholder="Empresa multinacional dedicada al sector del software y hardware" />
 
 							
 					</div></div>
 							<!--Fecha-->
 					<div><div>
-							<p><span class=obligatorio>Fecha de nacimiento</span><span class=aster>*</span><span class=obligatorio>:</span></p>	
-							<p id="mens3" class = "mens">No has rellenado la fecha</p>
-							<input type="text" name="fecha" placeholder="dd/mm/aaaa" />
+							<p><span class=obligatorio>Dirección comercial</span><span class=aster>*</span><span class=obligatorio>:</span></p>	
+							<p id="mens3" class = "mens">No has rellenado la dirección comercial</p>
+							<input type="text" name="fecha" placeholder="Centro Empresarial La Finca - Edificio 1" />
 							
 					</div>		
 							<!--Email-->
 					<div>		
-							<p><span class=obligatorio>Email</span><span class=aster>*</span><span class=obligatorio>:</span></p>	
-							<p id="mens4" class = "mens">Te falta rellenar la casilla correo*</p>							
-							<input type="email" name="correo" placeholder="carlos_ruiz@gmail.com" />
+							<p><span class=obligatorio>Ciudad</span><span class=aster>*</span><span class=obligatorio>:</span></p>	
+							<p id="mens4" class = "mens">Te falta rellenar la casilla de ciudad*</p>							
+							<input type="text" name="correo" placeholder="28223 Pozuelo de Alarcón (Madrid)" />
 
 					</div></div>		
 							<!--Telefono-->
@@ -177,44 +181,33 @@
 					</div>		
 							<!--Población-->
 					<div>		
-							<p><span class=obligatorio>Población</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens6" class = "mens">Te falta rellenar la casilla apellido*</p>
-							<input  type="text" name="poblacion" placeholder="Las Rozas" />
+							<p><span class=obligatorio>Email</span><span class=aster>*</span><span class=obligatorio>:</span></p>
+							<p id="mens6" class = "mens">Te falta rellenar la casilla email*</p>
+							<input  type="email" name="poblacion" placeholder="microsoftiberica@outlook.com" />
 
 					</div></div>		
 							<!--Provincia-->
 					<div><div>		
-							<p><span class=obligatorio>provincia</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens7" class = "mens">Te falta rellenar la casilla apellido*</p>							
-							<input  type="text" name="provincia" placeholder="Madrid" />
+							<p><span class=obligatorio>Representante RRHH</span><span class=aster>*</span><span class=obligatorio>:</span></p>
+							<p id="mens7" class = "mens">Te falta rellenar la casilla de representante*</p>							
+							<input  type="text" name="provincia" placeholder="Marisa Torres" />
 
-					</div>		
-							<!--Código Postal-->
-					<div>		
-							<p><span class=obligatorio>Código postal</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens8" class = "mens">Te falta rellenar la casilla apellido*</p>							
-							<input  type="text" name="codigo" placeholder="28920" />
-
-					</div></div>		
-							<!--Contraseña 1-->
-					<div><div>
-							
-							<p><span class=obligatorio>Contraseña</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens9" class = "mens">Tienes que rellenar el campo de la contraseña*</p>							
-							<input type="password" name="contraseña1" placeholder="max. 8 caracteres a-z, 0-9" />
-
-					</div>
-							<!--Contraseña 2-->
-					<div>
-							<p><span class=obligatorio>Confirmar contraseña</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens10" class = "mens">Tienes que rellenar el campo de confirmar contraseña*</p>
-							<input type="password" name="contraseña2" placeholder="max. 8 caracteres a-z, 0-9" />
 					</div></div>
-							<!--Código Postal-->
-					<div id = "subir-imagen">
-							<p>Subir imagen perfil:</p>
-							<input type="file" name="imagen"/>
-					</div>
+					
+								<!--Contraseña 1-->
+						<div><div>
+
+								<p><span class=obligatorio>Contraseña</span><span class=aster>*</span><span class=obligatorio>:</span></p>
+								<p id="mens9" class = "mens">Tienes que rellenar el campo de la contraseña*</p>							
+								<input type="password" name="contraseña1" placeholder="max. 8 caracteres a-z, 0-9" />
+
+						</div>
+								<!--Contraseña 2-->
+						<div>
+								<p><span class=obligatorio>Confirmar contraseña</span><span class=aster>*</span><span class=obligatorio>:</span></p>
+								<p id="mens10" class = "mens">Tienes que rellenar el campo de confirmar contraseña*</p>
+								<input type="password" name="contraseña2" placeholder="max. 8 caracteres a-z, 0-9" />
+						</div></div>	
 					
 					<div id = "condiciones"> 
 						<p> He leído  y acepto los términos y condiciones de uso<span class=aster>*</span>
@@ -231,15 +224,10 @@
 					funcionalidades interactivas y otros materiales que Ud. pueda visualizar en, o acceder a través de, o aportar a, el Servicio.<br>2. Aceptación de los Términos y Condiciones<br>2.1 Para poder utilizar los Servicios, deberá
 					aceptar previamente los Términos y Condiciones. Ud. no podrá utilizar los Servicios si no acepta los Términos y Condiciones.<br>2.2 Puede aceptar los Términos y Condiciones mediante la simple utilización de los Servicios.
 						</p>
-					</div>
-					
-					<div id = "registrar-boton">
+						<div id = "registrar-boton">
 						<input class = "registrar" name='registrar' type="submit" value="CREAR USUARIO">					
 					</div>
-
-							
-			</div>
-				
+					</div>
 				<div id = "redes-sociales">
 						
 					<h4>SÍGUENOS EN LAS REDES SOCIALES</h4>
