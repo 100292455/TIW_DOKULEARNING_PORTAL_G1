@@ -245,12 +245,10 @@
 	
 	
 		
-	#mi-empresa, #seguidores {
-		display:inline-table;
-	}
+	
 	
 	#mi-empresa {
-		width:958px;
+		width:1200px;
 		border-rigth: solid white 1px;
 		background: rgba(110,110,110,0.2);
 
@@ -267,7 +265,7 @@
 		/*INFORMACION PRINCIPAL DE MI EMPRESA*/
 		
 		#informacion-empresa {
-			margin: 20px 0;
+			margin: 25% 0;
 			background-color:white;
 			padding:0 10px 10px 10px ;
 

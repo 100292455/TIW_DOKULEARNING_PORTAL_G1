@@ -2,6 +2,8 @@ package es.uc3m.tiw.web.controladores;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,11 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import es.uc3m.tiw.web.dominio.Curso;
+import es.uc3m.tiw.web.dominio.Leccion;
 
-@WebServlet("/BajaCursos")
-public class BajaCursosServlet extends HttpServlet {
-	private static final String ENTRADA_JSP = "/GestionCursos.jsp";
-	private static final String GESTION_CURSOS_JSP = "/GestionCursos.jsp";
+
+@WebServlet("/BajaLeccionServlet")
+public class BajaLeccionServlet extends HttpServlet {
+	private static final String ENTRADA_JSP = "/gestionlecciones.jsp";
+	private static final String GESTION_CURSOS_JSP = "/gestionlecciones.jsp";
 	private static final long serialVersionUID = 1L;
 	@Override
 	public void init() throws ServletException {
@@ -34,28 +38,28 @@ public class BajaCursosServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	/* Cuando el profesor clique en BORRAR CURSO, eliminamos el curso del arrayList 'cursos'. Habria que eliminarlo de la BBDD */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String pagina = "";
 		pagina = GESTION_CURSOS_JSP;
-		
 		HttpSession sesion = request.getSession();	
 		ServletContext context = sesion.getServletContext();
-		String idCursoStr = request.getParameter("IdCurso");
-		int idCurso = Integer.parseInt(idCursoStr);
-		ArrayList<Curso> cursos = (ArrayList<Curso>) context.getAttribute("cursos");
-		sesion.removeAttribute("cursos");
-		for (Curso curso : cursos) {
-			if (curso.getID_curso() == idCurso) {
-				cursos.remove(curso);
+		String idleccionStr = request.getParameter("IdLeccion");
+		int idleccion = Integer.parseInt(idleccionStr);
+		ArrayList<Leccion> lecciones = (ArrayList<Leccion>) context.getAttribute("lecciones");
+		
+		
+		sesion.removeAttribute("lecciones");
+		for (Leccion leccion : lecciones) {
+			if (leccion.getId_leccion()== idleccion) {
+				lecciones.remove(leccion);
+			
 				break;
 			}
 		}
 		
 		pagina = ENTRADA_JSP;
-		sesion.setAttribute("cursos", cursos);
-		
+		sesion.setAttribute("lecciones", lecciones);
 		this.getServletContext().getRequestDispatcher(pagina).forward(request, response);
 		
 	}

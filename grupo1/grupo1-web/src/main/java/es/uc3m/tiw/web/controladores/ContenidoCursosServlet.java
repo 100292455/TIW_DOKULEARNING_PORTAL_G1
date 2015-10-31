@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import es.uc3m.tiw.web.dominio.Curso;
+import es.uc3m.tiw.web.dominio.Matricula;
 import es.uc3m.tiw.web.dominio.Usuario;
 
 @WebServlet("/contenidoCursos")
@@ -21,18 +23,11 @@ public class ContenidoCursosServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Usuario usuarioMatriculado;
 	private ArrayList<Usuario> usuarios;
-	private ArrayList<Usuario> usuariosMatriculados;
+	private ArrayList<Curso> cursos;
+	private ArrayList<Matricula> matriculas;//BBDD matriculas
 	@Override
 	public void init() throws ServletException {
-	
-		//Crear BBDD de alumnos matriculados en este curso
-		usuarioMatriculado = new Usuario(1, "Pepe", "dd", "david", "clave");
-		Usuario usuarioMatriculado1 = new Usuario(2, "Juan", "perez", "juan", "12345678");
-		Usuario usuarioMatriculado2 = new Usuario(3, "Daniel", "Garcia", "dani", "12345678");
-		usuariosMatriculados = new ArrayList<Usuario>();
-		usuariosMatriculados.add(usuarioMatriculado);
-		usuariosMatriculados.add(usuarioMatriculado1);
-		usuariosMatriculados.add(usuarioMatriculado2);
+		matriculas = new ArrayList<Matricula>();
 		
 	}
        
@@ -42,29 +37,28 @@ public class ContenidoCursosServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+/*--------- RECUPERAR LAS TABLAS DE LA BBDD ---------*/
 		HttpSession sesion = request.getSession();
 		ServletContext context = sesion.getServletContext();
-		
-		//Coger BBDD usuarios del sistema
 		usuarios = (ArrayList<Usuario>) context.getAttribute("usuarios");
-		
+		cursos = (ArrayList<Curso>) context.getAttribute("cursos");
+		matriculas = (ArrayList<Matricula>) context.getAttribute("matriculas");
 		Usuario user = (Usuario) context.getAttribute("usuario");
-		String nombreCurso = request.getParameter("nombreCurso");
+		int id_usuario = user.getID_usuario();//Coger id del usuario
+		String nombreCurso = request.getParameter("nombreCurso");//Coger nombre del curso a matricular
+		int id_cursoMatricular = cogerIdCurso(nombreCurso).getID_curso();//Rescatar el id del curso a matricular
+		boolean usuarioMatriculado = comprobarUsuarioMatriculado(id_usuario,id_cursoMatricular, matriculas);//Comprobar si el usuario ya esta matriculado en el curso
 		
-		//Comprobar si el usuario esta dentro de la BBDD del curso
-		Usuario u = comprobarUsuario(user.getNombre(), user.getPassword());
-		
-		//Si el usuario esta dentro de la BBDD de este curso el servlet le manda a ver el contenido del curso
-		if (u != null){
+		//Si el usuario esta matriculado en este curso, el servlet le manda a ver el contenido del curso
+		if (usuarioMatriculado == true){
+			context.setAttribute("idCurso", id_cursoMatricular);
 			this.getServletContext().getRequestDispatcher(ENTRADACONTENIDOCURSO_JSP).forward(request, response);
 		}
-		//Si el usuario no esta dentro de la BBDD de este curso le manda a matricularse
+		//Si el usuario no matriculado en este curso le manda a matricularse
 		else{
+			
 			//Meto el titulo del curso en el contexto para que el servlet AñadirMatriculaServlet pueda leerlo
-			context.setAttribute("cursoMatricular", nombreCurso);
-			//meto la bbdd del curso en el contexto para poder actualizarla cuando el usuario se matricule
-			context.setAttribute("usuariosMatriculados", usuariosMatriculados);
+			context.setAttribute("nombreCurso", nombreCurso);
 			this.getServletContext().getRequestDispatcher(AVISOMATRICULA_JSP).forward(request, response);
 
 		}		
@@ -77,15 +71,29 @@ public class ContenidoCursosServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
 
-	private Usuario  comprobarUsuario(String user, String password) {
-		Usuario u = null;
-		for (Usuario usuario : usuariosMatriculados) {
-			if (user.equals(usuario.getNombre()) && password.equals(usuario.getPassword())){
-				u = usuario;
+	//Comprobar si el usuario ya esta matriculado en el curso
+	private boolean  comprobarUsuarioMatriculado(int id_usuario,int id_cursoMatricular,ArrayList<Matricula> matriculas) {
+		boolean b = false;
+		for (Matricula matricula : matriculas) {
+			if (matricula.getCod_alumno()==id_usuario && matricula.getCod_curso()==id_cursoMatricular){
+				b = true;
+				break;
+			}
+			
+		}
+		return b;
+	}
+	
+	//Coger id del curso al que queremos matrcular al usuario
+	private Curso  cogerIdCurso(String nombreCurso) {
+		Curso c = null;
+		for (Curso curso : cursos) {
+			if (nombreCurso.equals(curso.getDES_titulo())){
+				c = curso;
 				break;
 			}
 		}
-		return u;
+		return c;
 	}
 
 }

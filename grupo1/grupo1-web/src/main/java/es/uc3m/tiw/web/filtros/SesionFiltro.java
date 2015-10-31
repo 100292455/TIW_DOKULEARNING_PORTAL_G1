@@ -2,10 +2,10 @@ package es.uc3m.tiw.web.filtros;
 
 import java.io.IOException;
 
-import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -14,12 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * Este filtro intercepta cualquier peticion que vaya a la pagina listado.jsp y comprueba que el usuario se haya autenticado con un token en sesion, en caso contrario le devuelve a la pagina de login.jsp
- * @author David Palomar
+ * Servlet Filter implementation class SesionFiltro
  */
-@WebFilter( urlPatterns = { "/listadoCursos.jsp" })
-public class LoginFilter implements Filter {
-
+@WebFilter( urlPatterns = {"/misCursos.jsp","/formulario-usuario.jsp","/listadoCursos.jsp","/GestionCupones.jsp","/formularioPago.jsp", "/contenidoCurso.jsp", "/miPerfilAlumno.jsp", "/miPerfilProfesor.jsp", "/avisoMatricula.jsp", "/GestionCursos.jsp" })
+public class SesionFiltro implements Filter {
 
 
 	/**
@@ -28,12 +26,12 @@ public class LoginFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
 		HttpSession sesion =  ((HttpServletRequest)request).getSession(); //accedemos a la sesion del servidor usando un casting al objeto HttpServletRequest ya que nos pasan solamente ServletRequest
-		
-		if (sesion.getAttribute("acceso")!=null && sesion.getAttribute("acceso").equals("ok")) { //buscamos el token de autenticacion
+		ServletContext context = sesion.getServletContext();
+		if (context.getAttribute("acceso")!=null && context.getAttribute("acceso").equals("ok")) { //buscamos el token de autenticacion
 			
 			chain.doFilter(request, response); 
 		}else{
-			request.getRequestDispatcher("/login.jsp").forward(request, response);
+			request.getRequestDispatcher("/SesionProfesor.jsp").forward(request, response);
 		}
 
 	}

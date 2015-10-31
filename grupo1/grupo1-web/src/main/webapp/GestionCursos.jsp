@@ -6,7 +6,7 @@
 	<head>
 
 
-		<!-- Información sobre el documento -->
+		<!-- InformaciÃ³n sobre el documento -->
 	
 		<title>Practica TIW: Gestion de cursos</title>
 		<meta charset="UTF-8">
@@ -14,6 +14,7 @@
 		<meta name="description" content="Web de cursos en linea">
 		<meta name="author" content="Miguel Solera Martin">
 		<link href="<c:url value="/style/empresa-mis-ofertas.css" />" rel="stylesheet" type="text/css" >
+		<link rel="stylesheet" type="text/css" href="style/busqueda.css">
 		<link href="<c:url value="http://fonts.googleapis.com/css?family=Ubuntu" />" rel='stylesheet' type='text/css'>
 		<link href="<c:url value="/script/jquery-ui-1.11.2.custom/jquery-ui.css" />" rel="stylesheet">
 		<script src="<c:url value="/script/jquery-ui-1.11.2.custom/external/jquery/jquery.js" />"></script>
@@ -31,41 +32,32 @@
 		
 	
 			<!-- CABECERA-->
-			
-			<header>
-			
-				<div id = "cabecera-logo">
-				
-					<a href="index-empresa.jsp">	
-					
-						<img class = "cabecera" src="images/logo.png" alt="Error en la imagen">    
-				
-						<h1 class = "cabecera">DOKULEARNING</h1>
-				
-					</a>
-			
-				</div>
-				
-				<nav>
-					<ul>
-						<li id = "menu-empresa"><a href = "mi-empresa.jsp">MI PERFIL</a></li>
-						<li id = "menu-ofertas"><a href = "#">MIS CURSOS</a></li>
-					</ul>	
-				</nav>
-			
-				<div id = "cabecera-sesion">
-			
-					<img class = "cabecera-sesion" src="images/index/microsoft.jpg" alt="Error en la imagen"> 
-				
-					<div id = "cabecera-sesion-men">
-						<p class = "cabecera-sesion">Microsoft Inc.</p>
-						<a href = "index.jsp">Cerrar sesión</a>
-							
-					</div>
-					
-				</div>
-			
-			</header>
+            
+    
+                <header>
+                
+                <a href="index.jsp">    
+                    
+                    <img class = "cabecera" src="images/logo.png" alt="Error en la imagen">    
+                
+                    <h1 class = "cabecera">DOKU</h1>
+                
+                </a>
+                
+                    <a href = "GestionCursos.jsp"><p class = "cabecera1" id = "cabecera-empresa">MIS CURSOS</p></a>
+                    
+                    <p class = "cabecera">|</p>
+                        
+                    <a href = "miPerfilProfesor.jsp"><p class = "cabecera1" id = "cabecera-usuario">MI PERFIL</p></a>
+                    
+                     <p class = "cabecera">|</p>
+                        
+                    <a href = "sesion?accion=salir"><p class = "cabecera1" id = "cabecera-usuario">SALIR</p></a>
+                    
+                    
+            
+            </header>
+
 			
 
 			<!--CUERPO DE LA PAGINA-->
@@ -74,7 +66,8 @@
 				
 				<div id = "mi-empresa">
 				
-					<input type = "button" name = "actualizar" value = "Añadir curso" id = "añadir-oferta1" class = "añadir-oferta">
+					<input type = "button" name = "actualizar" value = "Añadir curso" id = "añadir-oferta1" class = "añadir-oferta añadir-curso">
+					<a href="GestionCupones.jsp"><input style="margin-top:8%; margin-left:4%" type = "button" value = "Añadir cupon" id = "añadir-oferta2" class = "añadir-oferta" ></a>
 				
 					<h4>MIS CURSOS</h4>
 					
@@ -122,12 +115,13 @@
 										</c:otherwise>
 									</c:choose>
 								</div>
-								
+							
+								<!-- TO-DO -->
 								<div class = "ofertas-seguidores">
-									<img src = "images/edicion/seguidores-icon.png" alt = "Error en la imagen">
-									<p class = "numero-seguidores">Matriculados: TO-DO</p>
+									<img src = "images/cursoImages/curso_${curso.ID_curso }.jpg" alt = "Error en la imagen del curso ${curso.ID_curso }">
+									<p class = "numero-seguidores"><a style="color:white" href="EnlaceCS?IdCurso=${curso.ID_curso }">Gestionar este Curso</a></p>
 								</div>
-								
+								<!-- *** -->
 								<div class = "ofertas-edicion">
 									<form action="BajaCursos" method="post">
 										<input type="hidden" name="IdCurso" value="${curso.ID_curso }">
@@ -141,7 +135,7 @@
 		<!-- 				</c:forEach> -->
 						</ul>
 						
-						<input type = "button" name = "actualizar" value = "Añadir curso" id = "añadir-oferta2" class = "añadir-oferta">
+						<input type = "button" name = "actualizar" value = "Añadir curso" id = "añadir-oferta3" class = "añadir-oferta añadir-curso">
 						
 						<c:if test="${ mensaje != null }">
 							<p class="error">${mensaje }</p>
@@ -150,41 +144,32 @@
 						<div id="añadir">
 
 					        <h2> Añade un nuevo curso </h2>  
-							
-							<!-- ******************* TO-DO ******************* -->
-					        <!-- ******* AÑADIR FOTOGRAFIA DEL CURSO ********* -->
-					        <!-- http://www.tutorialspoint.com/jsp/jsp_file_uploading.htm -->
-					        <!-- INCLUIR EN WEB.XML
-					        <web-app>
-								....
-								<context-param> 
-   									<description>Location to store uploaded file</description> 
-    								<param-name>file-upload</param-name> 
-    								<param-value>
-         								c:\apache-tomcat-5.5.29\webapps\data\
-     								</param-value> 
-								</context-param>
-								....
-								
-							</web-app> 
-							-->
+							<!-- 				
 							<div id="formul">  
 					        	<p class="nombre">Seleccione una imagen para el curso<span class=aster>*</span>.</p>  
 					        </div>
-							<form action="imageUploadServlet" method="post" enctype="multipart/form-data">
-								<input type="file" name="file" size="50" /> <br />
+							<form action="UploadCursoImagesServlet" method="post" enctype="multipart/form-data">
+								<input type="hidden" name="Curso" size="60" />
+								<input type="file" name="file" size="60" /> <br />
 								<input type="submit" value="Cargar Imagen" />
 							</form>
 							<!-- ***************************************************************** -->
 			
-							<form action="AltaCursos" method="post">
+							<form action="AltaCursos" method="post" enctype="multipart/form-data">
+							
+							<div id="formul">  
+					        	<p class="nombre">Seleccione una imagen para el curso<span class=aster>*</span>.</p>  
+					        </div>
+							
+							<input type="hidden" name="Curso" size="60" />
+							<input type="file" name="file" size="60" /> <br />
 							
 					        <!-- Titulo del curso -->
 
 					       	<div id="formul1">  
 					        	<p class="nombre">Titulo del curso<span class=aster>*</span>:</p>
 						        <p  id="mens1">No ha especificado el titulo del curso*</p>
-						        <input type="text" name="titulo" id="añadir-titulo"  placeholder = "Título del curso"/>
+						        <input type="text" name="titulo" id="añadir-titulo"  placeholder = "TÃ­tulo del curso"/>
 					      	</div>
 
 					        <!-- Horas del curso -->
@@ -207,11 +192,11 @@
 								</select> 
 					        </div>
 
-					        <!-- Descripción del curso -->
+					        <!-- DescripciÃ³n del curso -->
 
 					        <div id="formul4">  
-					        	<p class="nombre">Descripción del curso<span class=aster>*</span>:</p>  
-						        <p  id="mens4">No ha especificado la descripción del curso*</p>
+					        	<p class="nombre">DescripciÃ³n del curso<span class=aster>*</span>:</p>  
+						        <p  id="mens4">No ha especificado la descripciÃ³n del curso*</p>
 								<textarea id="añadir-descripcion" name="descripcion" placeholder = "Descripcion del curso"></textarea>
 					        </div>
 					
@@ -258,17 +243,17 @@
 
 			<footer>  
 				<ul id="pie">
-					<li> Copyright © jooglecam.com</li>
+					<li> Copyright Â© jooglecam.com</li>
 				 	<li><a href="#">Aviso legal	</a></li>
 				 	<li><a href="#">Privacidad 	 </a></li>
-				 	<li><a href="#">Política de cookies	</a></li>
+				 	<li><a href="#">PolÃ­tica de cookies	</a></li>
 				 	<li><a href="#">Accesibilidad  </a></li>
 				 	<li><a href="#">Contacto </a></li>
 				 	<li><a href="#">Ayuda  </a></li>
 				</ul>
 			</footer>
 		
-		<script src ="<c:url value="script/empresa-mis-ofertas.js" />" type = "text/javascript" ></script>
+		<script src ="<c:url value="script/empresa-mis-ofertas2.js" />" type = "text/javascript" ></script>
 		
 		
 	</body>

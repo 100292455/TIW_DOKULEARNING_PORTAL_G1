@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- Informaci√≥n sobre el documento -->
+	<head>
+
+
+		<!-- InformaciÛn sobre el documento -->
 	
 		<title>Practica final: Inicio</title>
 		
@@ -20,7 +19,11 @@
 		<!--CSS de la pagina-->
 		
 		<link rel="stylesheet" type="text/css" href="./style/index.css">
-
+		
+		
+		<!--SCRIPT de la pagina-->
+		<link href="./script/jquery-ui-1.11.2.custom/jquery-ui.css" rel="stylesheet">
+		
 		<!--CSS redes sociales-->
 		
 			<link rel="stylesheet" type="text/css" href="./script/plugin/circle/css/common.css" />
@@ -28,13 +31,16 @@
 			<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css' />
 			<script type="text/javascript" src="./script/plugin/circle/js/modernizr.custom.79639.js"></script>		
 		
-		<!--SCRIPT de la pagina-->
-		<link href="./script/jquery-ui-1.11.2.custom/jquery-ui.css" rel="stylesheet">
-				<script type="text/javascript" src="./script/plugin/slick/slick.min.js"></script>
-</head>
-<body>
+		
 
-		<!-- CABECERA-->
+
+    
+	</head>
+	
+	
+	<body>
+
+			<!-- CABECERA-->
 	
 			<header>
 				
@@ -46,51 +52,29 @@
 				
 				</a>
 				
-					<p class = "cabecera1" id = "cabecera-empresa" onclick = "window.location.href='./SesionProfesor.jsp'">INICAR SESION</p>
+					<p class = "cabecera1" id = "cabecera-empresa" onclick = "window.location.href='./login.jsp'">INICAR SESION</p>
 				
 					<input class = "cabecera" name='registrar' type="button" value="REGISTRAR" onclick = "window.location.href='./formulario-usuario.jsp'">
 					
 			</header>
 			
-			</header>
+			<!--MENU-->
+	
 			
-		<!-- MENU -->
-		<section>
-			<div id = "formulario">
-				<div id = "formulario-2">					
-						<c:choose>
-							<c:when test="${not empty mensaje }">
-								<p class="error">${mensaje }</p>
-							</c:when>
-							<c:otherwise>
-								<p>Introduce tu usuario y clave para entrar</p>
-							</c:otherwise>
-						</c:choose>
+
+			<!--CUERPO DE LA PAGINA-->
+	
+			<section> 
+				
+				<div id = "fondo-indice">
+					
+					<img alt="Error en la imagen" src="./images/fondolearning.png">
+					
+				</div>
+
+				<div id = "redes-sociales">
 						
-				<!-- el siguiente formulario  envia los datos al SesionServlet. Los parametros contienen el atributo name -->
-						
-						<form action="sesion" method="post">
-							<div class = "input-sesion">
-								<label for="usuario">Usuario:</label><br>
-								<input type="text" name="usuario" id="usuario" />
-							</div>
-							
-							<div class = "input-sesion">
-								<label for="password">Password:</label><br>
-								<input type="password" name="password" id="password" /> 
-							</div>
-										
-							<div class = input-submit>			
-								<input type="submit" value="Enviar" id="input-submit"/>
-							</div>
-							
-							</form>
-					</div>
-			</div>
-			
-			<div id = "redes-sociales">
-						
-					<h4>S√çGUENOS EN LAS REDES SOCIALES</h4>
+					<h4>SÕGUENOS EN LAS REDES SOCIALES</h4>
 						
 					<ul class="ch-grid">
 						<li>
@@ -139,21 +123,33 @@
 					</ul>
 						
 				</div>
-		</section>
-		
-		<!--PIE DE PAGINA-->
+				
+				
+			</section>
+
+	
+			<!--PIE DE PAGINA-->
 
 			<footer>  
 				<ul id="pie">
-					<li> Copyright ¬© jooglecam.com</li>
+					<li> Copyright © jooglecam.com</li>
 				 	<li><a href="#">Aviso legal	</a></li>
 				 	<li><a href="#">Privacidad 	 </a></li>
-				 	<li><a href="#">Pol√≠tica de cookies	</a></li>
+				 	<li><a href="#">PolÌtica de cookies	</a></li>
 				 	<li><a href="#">Accesibilidad  </a></li>
 				 	<li><a href="#">Contacto </a></li>
 				 	<li><a href="#">Ayuda  </a></li>
 				</ul>
 			</footer>
+			
+	
+			
+
 		
-</body>
+	
+		
+		
+		
+	</body>
+
 </html>

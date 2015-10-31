@@ -48,7 +48,124 @@
 	        <link rel="stylesheet" type="text/css" href="style/formacion/style10.css" />
 	        <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css' />
 			
-    
+            <script>
+            
+
+        	function validar(){
+        		
+          		var nombre = document.getElementById("nombre");
+          		var apellidos = document.getElementById("apellidos");
+        		var sexo = document.getElementById("sex");
+        		var correo = document.getElementById("correo");
+        		var telefono = document.getElementById("telefono");
+        		var cobro = document.getElementById("cobro");
+        		var rol = document.getElementById("rol");
+        		var contraseña1 = document.getElementById("password1");
+        		var contraseña2 = document.getElementById("password2");
+        		
+        		var validacion = true; /*variable para crear la oferta*/
+        	    
+        	    
+        		
+        		if (nombre.value == "" || nombre.value == null || nombre.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+        			  $("#mens1").show();
+        	         validacion=false;
+        	     }
+        			
+
+        		if (apellidos.value == "" || apellidos.value == null || apellidos.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+        	         $("#mens2").show();
+        	         validacion=false;
+
+        	     }else{
+        	         $("#mens2").hide();      /* Si si lo introduce, esconde el mensaje */
+        	         }
+        		
+        		if (sexo.value == "" || sexo.value == null || sexo.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+        	         $("#mens3").show();
+        	         validacion=false;
+
+        	     }else{
+        	         $("#mens3").hide();      /* Si si lo introduce, esconde el mensaje */
+        	         }
+        		if(sexo.value !="M" && sexo.value !="H"){
+        			alert("Tienes que introducir M o H en el campo de sexo");
+        			validacion=false;
+        		}
+              
+        		if (correo.value == "" || correo.value == null || correo.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+        	         $("#mens4").show();
+        	         validacion=false;
+
+        	     }else{
+        	         $("#mens4").hide();      /* Si si lo introduce, esconde el mensaje */
+        	         }
+        		
+        		if (telefono.value == "" || telefono.value == null || telefono.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+        	         $("#mens5").show();
+        	         validacion=false;
+
+        	     }else{
+        	         $("#mens5").hide();      /* Si si lo introduce, esconde el mensaje */
+        	         }
+
+        		
+        		if (cobro.value == "" || cobro.value == null || cobro.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+        	         $("#mens6").show();
+        	         validacion=false;
+
+        	     }else{
+        	         $("#mens6").hide();      /* Si si lo introduce, esconde el mensaje */
+        	         }
+
+        		if (rol.value == "" || rol.value == null || rol.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+        	         $("#mens7").show();
+        	         validacion=false;
+
+        	     }else{
+        	         $("#mens7").hide();      /* Si si lo introduce, esconde el mensaje */
+        	         }
+        			 
+        		if(rol.value !="Profesor" && rol.value !="Alumno"){
+        			alert("Tienes que introducir Profesor o Alumno en el campo de rol");
+        			validacion=false;
+        		}
+        			 
+        		if (contraseña2.value == "" || contraseña2.value == null || contraseña2.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+        	         $("#mens10").show();
+        	         validacion=false;
+
+        	     }else{
+        	         $("#mens10").hide();      /* Si si lo introduce, esconde el mensaje */
+        	         }
+
+        		if (contraseña1.value == "" || contraseña1.value == null || contraseña1.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+        	         $("#mens9").show();
+        	         validacion=false;
+
+        	     }else{
+        	         $("#mens9").hide();      /* Si si lo introduce, esconde el mensaje */
+        	         }
+        	
+        			if(document.getElementById("acepto").checked){
+        			}else{
+        				alert("Debe aceptar los términos y condiciones");
+        				validacion=false;
+        				}
+        	if(contraseña2.value != contraseña1.value){
+        		alert("Contraseñas diferentes");
+        		validacion=false;
+        	}
+        	
+        	if(validacion==true){
+        		alert("Usuario creado correctamente");
+        	}	
+
+				return validacion;
+        	}
+            
+            
+            </script>
 	</head>
 	
 	
@@ -59,27 +176,20 @@
 	
 				<header>
 
-					<a href="src/index.html">	
+					<a href="src/main/webapp/index.jsp">	
 
 						<img class = "cabecera" src="images/logo.png" alt="Error en la imagen">    
 
-						<h1 class = "cabecera">LAVORO</h1>
+						<h1 class = "cabecera">DOKU</h1>
 
 					</a>
 
-						<p class = "cabecera1" id = "cabecera-empresa">EMPRESA</p>
+						
 
-						<p class = "cabecera">|</p>
-
-						<p class = "cabecera1" id = "cabecera-usuario">PARTICULAR</p>
-
-						<input class = "cabecera" name='registrar' type="button" value="REGISTRAR" id="popup-boton">
+					
 
 
-						<div id="dialog-form-1" title="Inicia sesión con tu correo">
-						  <p class="validateTips">¡Bienvenido empresa!</p>
-
-						  <form>
+						  <form >
 
 						 	<fieldset class = "popup" id = "popup-empresa">
 
@@ -134,80 +244,88 @@
 	
 			<section> 
 				
-				<h4>Registro de Matriculaci&oacuten</h4>
-				<h6>Para ver el contenido de este curso debes matricularte en el mismo.</h6>
+				<h4>EMPIEZA A CREAR TU NUEVO PERFIL (PARTICULAR)</h4>
 
-				<form action="AñadirMatricula" method="post">
-				<label for="curso">Nombre Curso:</label><input type="text" name="nombreCurso" id="curso"/><br/>
-				<input type="submit" value="Enviar"/>
-			    </form>
-			    <div id="cuestionario">
+				<form method="POST" action="FormularioUsuario" onsubmit="return validar();">
+				
+				<div id="cuestionario">
+				
 				
 				
 					<div><div>
 							<!--Nombre-->
-							<p><span class=obligatorio>Nombre de la empresa</span><span class=aster>*</span><span class=obligatorio>:</span></p>
+							<p><span class=obligatorio>Nombre</span><span class=aster>*</span><span class=obligatorio>:</span></p>
 							<p id="mens1" class = "mens">Te falta rellenar la casilla nombre*</p>							
-							<input  type="text" name="nombre" placeholder="Microsoft Ibérica S.R.L." />							
+							<input  type="text" id="nombre" name="nombre" placeholder="Carlos" />							
 
 					</div>		
 							<!--Apellido-->
 					<div>		
-							<p><span class=obligatorio>Tipo de empresa</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens2" class = "mens">Te falta rellenar el tipo*</p>							
-							<input  type="text" name="apellidos" placeholder="Empresa multinacional dedicada al sector del software y hardware" />
+							<p><span class=obligatorio>Apellidos</span><span class=aster>*</span><span class=obligatorio>:</span></p>
+							<p id="mens2" class = "mens">Te falta rellenar la casilla apellido*</p>							
+							<input  type="text" name="apellidos" id="apellidos" placeholder="Ruiz" />
 
 							
 					</div></div>
-							<!--Fecha-->
+							<!--sexo-->
 					<div><div>
-							<p><span class=obligatorio>Dirección comercial</span><span class=aster>*</span><span class=obligatorio>:</span></p>	
-							<p id="mens3" class = "mens">No has rellenado la dirección comercial</p>
-							<input type="text" name="fecha" placeholder="Centro Empresarial La Finca - Edificio 1" />
+							<p><span class=obligatorio>Sexo (H/M)</span><span class=aster>*</span><span class=obligatorio>:</span></p>	
+							<p id="mens3" class = "mens">No has rellenado el sexo</p>
+							<input type="text" name="sex" id="sex" placeholder="H" />
 							
 					</div>		
 							<!--Email-->
 					<div>		
-							<p><span class=obligatorio>Ciudad</span><span class=aster>*</span><span class=obligatorio>:</span></p>	
-							<p id="mens4" class = "mens">Te falta rellenar la casilla de ciudad*</p>							
-							<input type="text" name="correo" placeholder="28223 Pozuelo de Alarcón (Madrid)" />
+							<p><span class=obligatorio>Email</span><span class=aster>*</span><span class=obligatorio>:</span></p>	
+							<p id="mens4" class = "mens">Te falta rellenar la casilla correo*</p>							
+							<input type="email" name="correo" id="correo"placeholder="carlos_ruiz@gmail.com" />
 
 					</div></div>		
 							<!--Telefono-->
 					<div><div>		
 							<p><span class=obligatorio>Telefono</span><span class=aster>*</span><span class=obligatorio>:</span></p>	
 							<p id="mens5" class = "mens">Has rellenado mal el teléfono</p>
-							<input  type="text" name="telefono" placeholder="666666666" />
+							<input  type="text" name="telefono" id="telefono" placeholder="666666666" />
 					</div>		
-							<!--Población-->
+							<!--Modo de cobro-->
 					<div>		
-							<p><span class=obligatorio>Email</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens6" class = "mens">Te falta rellenar la casilla email*</p>
-							<input  type="email" name="poblacion" placeholder="microsoftiberica@outlook.com" />
+							<p><span class=obligatorio>Modo de cobro</span><span class=aster>*</span><span class=obligatorio>:</span></p>
+							<p id="mens6" class = "mens">Te falta rellenar la casilla de modo de cobro*</p>
+							<input  type="text" name="cobro" id="cobro" placeholder="Contrato indefinido" />
 
 					</div></div>		
-							<!--Provincia-->
+							<!--Rol -->
 					<div><div>		
-							<p><span class=obligatorio>Representante RRHH</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens7" class = "mens">Te falta rellenar la casilla de representante*</p>							
-							<input  type="text" name="provincia" placeholder="Marisa Torres" />
+							<p><span class=obligatorio>Rol(Profesor/Alumno)</span><span class=aster>*</span><span class=obligatorio>:</span></p>
+							<p id="mens7" class = "mens">Te falta rellanar la casilla tu rol: Profesor/Alumno*</p>							
+							<input  type="text" name="rol" id="rol" placeholder="Profesor" />
 
+					</div>		
+							<!--Intereses-->
+					<div>		
+							<p><span class=obligatorio>Intereses</span><span class=aster></span><span class=obligatorio>:</span></p>
+							<input  type="text" name="int" id="int" placeholder="Ciencias Sociales" />
+
+					</div></div>		
+							<!--Contraseña 1-->
+					<div><div>
+							
+							<p><span class=obligatorio>Contraseña</span><span class=aster>*</span><span class=obligatorio>:</span></p>
+							<p id="mens9" class = "mens">Tienes que rellenar el campo de la contraseña*</p>							
+							<input type="password" name="contraseña1" id="password1" placeholder="max. 8 caracteres a-z, 0-9" />
+
+					</div>
+							<!--Contraseña 2-->
+					<div>
+							<p><span class=obligatorio>Confirmar contraseña</span><span class=aster>*</span><span class=obligatorio>:</span></p>
+							<p id="mens10" class = "mens">Tienes que rellenar el campo de confirmar contraseña*</p>
+							<input type="password" name="contraseña2" id="password2"  placeholder="max. 8 caracteres a-z, 0-9" />
 					</div></div>
-					
-								<!--Contraseña 1-->
-						<div><div>
-
-								<p><span class=obligatorio>Contraseña</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-								<p id="mens9" class = "mens">Tienes que rellenar el campo de la contraseña*</p>							
-								<input type="password" name="contraseña1" placeholder="max. 8 caracteres a-z, 0-9" />
-
-						</div>
-								<!--Contraseña 2-->
-						<div>
-								<p><span class=obligatorio>Confirmar contraseña</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-								<p id="mens10" class = "mens">Tienes que rellenar el campo de confirmar contraseña*</p>
-								<input type="password" name="contraseña2" placeholder="max. 8 caracteres a-z, 0-9" />
-						</div></div>	
+							<!--Código Postal-->
+					<div id = "subir-imagen">
+							<p>Subir imagen perfil:</p>
+							<input type="file" name="imagen"/>
+					</div>
 					
 					<div id = "condiciones"> 
 						<p> He leído  y acepto los términos y condiciones de uso<span class=aster>*</span>
@@ -224,10 +342,15 @@
 					funcionalidades interactivas y otros materiales que Ud. pueda visualizar en, o acceder a través de, o aportar a, el Servicio.<br>2. Aceptación de los Términos y Condiciones<br>2.1 Para poder utilizar los Servicios, deberá
 					aceptar previamente los Términos y Condiciones. Ud. no podrá utilizar los Servicios si no acepta los Términos y Condiciones.<br>2.2 Puede aceptar los Términos y Condiciones mediante la simple utilización de los Servicios.
 						</p>
-						<div id = "registrar-boton">
-						<input class = "registrar" name='registrar' type="submit" value="CREAR USUARIO">					
 					</div>
-					</div>
+					
+					<div id = "registrar-boton">
+						<input class = "registrar1" name='registrar1' type="submit" value="CREAR USUARIO">					
+					</div>	
+				
+						
+			</div>
+				</form>	
 				<div id = "redes-sociales">
 						
 					<h4>SÍGUENOS EN LAS REDES SOCIALES</h4>

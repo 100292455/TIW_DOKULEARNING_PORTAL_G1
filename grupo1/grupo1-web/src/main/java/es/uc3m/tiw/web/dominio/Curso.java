@@ -14,19 +14,19 @@ public class Curso {
 	int TIPO_destacado;
 	int COD_profesor;
 	int TIPO_estado;
-	Date fechaFinDescuento;
+	String fechaFinDescuento;
 	
 	
-	public Date getFechaFinDescuento() {
+	public String getFechaFinDescuento() {
 		return fechaFinDescuento;
 	}
-	public void setFechaFinDescuento(Date fechaFinDescuento) {
+	public void setFechaFinDescuento(String fechaFinDescuento) {
 		this.fechaFinDescuento = fechaFinDescuento;
 	}
 	public Curso(int iD_curso, String dES_titulo, String dES_descripcion,
 			int tIPO_dificultad, int horas, int precio_inicial,
 			int precio_final, int tIPO_destacado, int cOD_profesor,
-			int tIPO_estado, Date fechaFinDescuento) {
+			int tIPO_estado, String fechaFinDescuento) {
 		super();
 		ID_curso = iD_curso;
 		DES_titulo = dES_titulo;

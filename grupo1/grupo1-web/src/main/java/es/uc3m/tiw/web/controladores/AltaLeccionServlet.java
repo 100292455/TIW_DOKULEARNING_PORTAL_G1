@@ -15,27 +15,29 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import es.uc3m.tiw.web.dominio.Curso;
+import es.uc3m.tiw.web.dominio.Leccion;
+import es.uc3m.tiw.web.dominio.Seccion;
 
-@WebServlet("/AltaCursos")
+@WebServlet("/AltaLeccion")
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
 maxFileSize=1024*1024*10,      // 10MB
 maxRequestSize=1024*1024*50,
 location = "/")   // 50MB
-public class AltaCursosServlet extends HttpServlet {
-	private static final String ENTRADA_JSP = "/GestionCursos.jsp";
-	private static final String GESTION_CURSOS_JSP = "/GestionCursos.jsp";
+public class AltaLeccionServlet extends HttpServlet {
+	private static final String ENTRADA_JSP = "/gestionlecciones.jsp";
+	private static final String GESTION_CURSOS_JSP = "/gestionlecciones.jsp";
 	private static final long serialVersionUID = 1L;
-	private static final String SAVE_DIR = "cursoImages";
-	private Curso curso;
-	private ArrayList<Curso> cursos;
-	private int new_IDCurso = 0;
+	private static final String SAVE_DIR = "lecciones";
+	private Leccion leccion;
 	ServletContext context;
+	private ArrayList<Leccion> lecciones;
+	private int new_IDLeccion = 0;
 	@Override
 	public void init() throws ServletException {
 	
-		cursos = new ArrayList<Curso>();
-	    context= this.getServletConfig().getServletContext();
-		context.setAttribute("cursos", cursos);
+		context= this.getServletConfig().getServletContext();
+		lecciones=(ArrayList<Leccion>) context.getAttribute("lecciones");
+		
 		
 	}
        
@@ -53,7 +55,7 @@ public class AltaCursosServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		cursos=(ArrayList<Curso>) context.getAttribute("cursos");
+		context= this.getServletConfig().getServletContext();
 		
 		// gets absolute path of the web application
         String appPath = "/home/tiw/workspace/maven.1444917813281/grupo1/grupo1-web/src/main/webapp/images";
@@ -61,27 +63,30 @@ public class AltaCursosServlet extends HttpServlet {
         String savePath = appPath + File.separator + SAVE_DIR;
 		
 		String titulo = request.getParameter("titulo");
-		String descripcion = request.getParameter("descripcion");
-		String dificultadStr = request.getParameter("dificultad");
-		String horasStr = request.getParameter("horas");
-		String precioStr = request.getParameter("precio");
-		/* TO-DO Hay que rescatar el codigo del profesor que imparte el curso */
-		String codProfStr = "10";
+		String formato = request.getParameter("formato");
+		String descripcion= request.getParameter("descripcion");
+		 
+		int id_seccion= (int) context.getAttribute("idseccion");
+		
+		Seccion seccionactual=(Seccion) context.getAttribute("seccion_actual");
+		String nombreseccionactual=seccionactual.getNombre();
+		context.setAttribute("nombreseccionactual",nombreseccionactual);
+		
+		
+		
 		/*****/
 		
 		String mensaje ="";
 		String pagina = "";
 		pagina = ENTRADA_JSP;
 		
-		
-		String m = comprobarCurso(titulo, descripcion, dificultadStr, horasStr, precioStr);
+	
+		String m = comprobarLeccion(titulo, descripcion, formato);
 		if (m == null || m == ""){
-			int dificultad = Integer.parseInt(dificultadStr);
-			int horas = Integer.parseInt(horasStr);
-			int precio = Integer.parseInt(precioStr);  
-			int codProf = Integer.parseInt(codProfStr);
+		  
+			
 		
-			Curso c = crearCurso(titulo, descripcion, dificultad, horas, precio, codProf);
+			Leccion c = crearLeccion(titulo, descripcion,formato,id_seccion);
 			
 			// creates the save directory if it does not exists
 	        File fileSaveDir = new File(savePath);
@@ -90,52 +95,48 @@ public class AltaCursosServlet extends HttpServlet {
 	        }
 	         
 	        for (Part part : request.getParts()) {
-	            String fileName = "curso_"+c.getID_curso()+".jpg";
+	            String fileName = "leccion_"+c.getId_leccion()+".jpg";
 	            part.write(savePath + File.separator + fileName);
 	        }
 			
 			pagina = GESTION_CURSOS_JSP;
-			context.setAttribute("cursos", cursos);
-			
+			context.setAttribute("lecciones", lecciones);
+			context.setAttribute("leccion", c);
 			
 		}else{
 			
 			mensaje = m;
 			request.setAttribute("mensaje", mensaje);
-			context.setAttribute("cursos", cursos);
+			context.setAttribute("lecciones", lecciones);
 		}
-		
+			
 			this.getServletContext().getRequestDispatcher(pagina).forward(request, response);
 			
 		
 	}
 
-	private Curso crearCurso(String titulo, String descripcion, int dificultad, int horas, int precio, int profesor) {
-		Curso c = new Curso();
+	private Leccion crearLeccion(String titulo, String descripcion, String formato, int id_seccion) {
+		Leccion c = new Leccion();
 		
-		c.setCOD_profesor(profesor);
-		c.setDES_descripcion(descripcion);
-		c.setDES_titulo(titulo);
-		c.setHoras(horas);
-		c.setID_curso(new_IDCurso);
-		c.setPrecio_final(precio);
-		c.setPrecio_inicial(precio);
-		c.setTIPO_destacado(0);
-		c.setTIPO_dificultad(dificultad);
-		c.setTIPO_estado(0);
+	c.setTitulo(titulo);
+	c.setDes(descripcion);
+	c.setFormato(formato);
+	c.setId_seccion(id_seccion);
+	c.setId_leccion(new_IDLeccion);
+	
 		/* AÑADIR CURSO A LA TABLA DE CURSOS */
-		cursos.add(c);
-		new_IDCurso++;
+		lecciones.add(c);
+		new_IDLeccion++;
 		
 		return c;
 	}
 
 
 
-	private String comprobarCurso(String titulo, String descripcion, String dificultad, String horas, String precio) {
+	private String comprobarLeccion(String titulo, String descripcion, String formato) {
 		String m = "";
 		
-		if (titulo.equals("") || titulo.equals(null) || descripcion.equals("") || descripcion.equals(null) || dificultad.equals("-1") || horas.equals("") || horas.equals(null) || precio.equals("") || precio.equals(null) ) {
+		if (titulo.equals("") || titulo.equals(null) || descripcion.equals("") || descripcion.equals(null)) {
 			m ="Fallo al crear nuevo curso. ";
 		}
 		
