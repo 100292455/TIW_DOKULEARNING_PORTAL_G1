@@ -45,8 +45,8 @@ public class SesionServlet extends HttpServlet {
 	private ArrayList<Matricula> matriculas;//BBDD matriculas
 	@Override
 	public void init() throws ServletException {
-		usuario = new Usuario(1,"Alejandro", "Ruiz", 1, "alex@uc3m.es","636780470","VISA",0, "1234");
-		Usuario usuario_2 = new Usuario(1,"Miguel", "Solera", 1, "miguel@uc3m.es","636780470","VISA",1, "1234");
+		usuario = new Usuario(0,"Alejandro", "Ruiz", 1, "alex@uc3m.es","636780470","VISA",0, "1234");
+		Usuario usuario_2 = new Usuario(1,"Miguel", "Solera", 1, "miguel@uc3m.es","636780470","VISA",0, "1234");
 
 		usuarios = new ArrayList<Usuario>();
 		usuarios.add(usuario);
@@ -70,7 +70,7 @@ public class SesionServlet extends HttpServlet {
 		Matricula matricula2 = new Matricula(3, 3, 20);
 		matriculas = new ArrayList<Matricula>();
 		matriculas.add(matricula);
-		
+	
 		
 		//Crear BBDD Secciones
 		Seccion seccion1 = new Seccion(50, 1, "Seccion 1");

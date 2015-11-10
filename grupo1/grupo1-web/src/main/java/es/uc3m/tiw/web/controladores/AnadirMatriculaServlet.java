@@ -20,8 +20,8 @@ import es.uc3m.tiw.web.dominio.Usuario;
 /**
  * Servlet implementation class AñadirCurso
  */
-@WebServlet("/AñadirMatricula")
-public class AñadirMatriculaServlet extends HttpServlet {
+@WebServlet("/AnadirMatricula")
+public class AnadirMatriculaServlet extends HttpServlet {
 	private static final String MISCURSOS_JSP = "/misCursos.jsp";
 	private ArrayList<Matricula> matriculas;//tabla matriculas
 	private ArrayList<Curso> cursos;//tabña cursos
@@ -32,7 +32,7 @@ public class AñadirMatriculaServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AñadirMatriculaServlet() {
+    public AnadirMatriculaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -21,9 +21,9 @@
 	});
 				
 				
-//metodo para cambiar la imagen
+/*metodo para cambiar la imagen
 
-	document.getElementById('picField').onchange = function (evt) {
+	document.getElementById('picField').onclick = function (evt) {
 	    var tgt = evt.target || window.event.srcElement,
 	        files = tgt.files;
 
@@ -42,8 +42,8 @@
 	        // them on the server until the user's session ends.
 	    }
 	}
-	
-//vista previa
+	*/
+/*vista previa
 
 	$(function() {
 	    $( "#dialog" ).dialog({
@@ -90,6 +90,6 @@
 	  });
 	
 
-	
+	*/
 
 			

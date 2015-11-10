@@ -8,7 +8,6 @@
 	<!-- Información sobre el documento -->
 	
 		<title>Perfil Alumno</title>
-		<meta charset="UTF-8">
 		<meta name="keywords" content="buscar, trabajo, empleo, salario">
 		<meta name="description" content="Web para la busqueda de empleo">
 		<meta name="author" content="Mingda Liu Zhang, Alejando Ruiz de la Cuadra, Carlos Herrero Lozano">
@@ -20,7 +19,6 @@
 		<!--CSS de la pagina-->
 		
 		<link rel="stylesheet" type="text/css" href="./style/mi-empresa.css">
-		<link rel="stylesheet" type="text/css" href="style/busqueda.css">
 				
 		<!--<script type = "text/javascript" src ="script/myscript.js"></script>-->
 		<link href="./script/jquery-ui-1.11.2.custom/jquery-ui.css" rel="stylesheet">
@@ -39,30 +37,30 @@
 <body>
 	<header>
                 
-                <a href="index.jsp">    
-                    
-                    <img class = "cabecera" src="images/logo.png" alt="Error en la imagen">    
-                
-                    <h1 class = "cabecera">DOKU</h1>
-                
-                </a>
-                
-                    <a href = "misCursos.jsp"><p class = "cabecera1" id = "cabecera-empresa">MIS CURSOS</p></a>
-                    
-                    <p class = "cabecera">|</p>
-                        
-                    <a href = "miPerfilAlumno.jsp"><p class = "cabecera1" id = "cabecera-usuario">MI PERFIL</p></a>
-                    
-                    <p class = "cabecera">|</p>
-                        
-                    <a href = "listadoCursos.jsp"><p class = "cabecera1" id = "cabecera-usuario">CURSOS</p></a>
-                
-              	  <p class = "cabecera">|</p>
-                        
-                    <a href = "sesion?accion=salir"><p class = "cabecera1" id = "cabecera-usuario">SALIR</p></a>
-                    
+	    <a href="index.jsp">    
+	        
+	        <img class = "cabecera" src="images/logo.png" alt="Error en la imagen">    
+	    
+	        <h1 class = "cabecera">DOKU</h1>
+	    
+	    </a>
+	    
+	        <a href = "misCursos.jsp"><p class = "cabecera1" id = "cabecera-empresa">MIS CURSOS</p></a>
+	        
+	        <p class = "cabecera">|</p>
+	            
+	        <a href = "miPerfilAlumno.jsp"><p class = "cabecera1" id = "cabecera-usuario">MI PERFIL</p></a>
+	        
+	        <p class = "cabecera">|</p>
+	            
+	        <a href = "listadoCursos.jsp"><p class = "cabecera1" id = "cabecera-usuario">CURSOS</p></a>
+	    
+	  	  	<p class = "cabecera">|</p>
+	            
+	        <a href = "sesion?accion=salir"><p class = "cabecera1" id = "cabecera-usuario">SALIR</p></a>
+	        
             
-            </header>
+	</header>
 
 				<!--MENU-->
 			
@@ -76,7 +74,7 @@
 				
 				<div id = "mi-empresa">
 				
-					<h4>PERFIL ALUMNO</h4>
+					<h4>MI PERFIL</h4>
 				
 					<div id = "informacion-empresa">
 						
@@ -84,10 +82,11 @@
 										
 							<img id = "imagen-empresa" src = "./images/uploadFiles/Alejandro.jpg" alt = "Error en la imagen">
 							<form method="post" action="UploadServlet" enctype="multipart/form-data">
-       							<input type="file" name="picField" id="picField"  onchange="preview_2(this);" />
-        						<input type="submit" value="Upload" />
+								<p>Para cambiar imagen seleccione un archivo</p>
+       							<input type="file" name="picField" id="picField1"  onchange="preview_2(this);" />
+        						<input type="submit" id="picField2"  value="Upload" />
    							 </form>
-							<p>Para cambiar imagen seleccione un archivo</p>
+							
 							
 						</div>
 					
@@ -127,27 +126,9 @@
 					</div>
 					
 					
-					<div id = "dialog-button"><input type = "button" name = "vista-previa" value = "Vista Previa" id = "opener"></div >
+					<div id = "dialog-button"><input type = "button" name = "vista-previa" value = "Guardar cambios" id = "opener"></div >
 					
-					<div id="dialog" title="Vista Previa">
-						
-						<img id = "imagen-vista-previa" src = "default" alt = "Error en la imagen">
-						
-						<div id = "vista-previa-datos">
-							
-					  		<p id = "vista-previa-nombre"></p>
-							<p id = "vista-previa-empresa"></p>
-							<p id = "vista-previa-direccion"></p>
-							<p id = "vista-previa-ciudad"></p>
-							<p id = "vista-previa-telefono"></p>
-							<p id = "vista-previa-email"></p>
-							<p id = "vista-previa-representante"></p>	
-							
-						</div>
-						
-						<div id = "vista-previa-descripcion"></div>					
 					
-					</div>
 				</div>
 				
 				

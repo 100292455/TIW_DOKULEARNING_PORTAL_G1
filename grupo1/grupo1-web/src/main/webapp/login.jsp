@@ -52,7 +52,7 @@
 					
 			</header>
 			
-			</header>
+			
 			
 		<!-- MENU -->
 		<section>

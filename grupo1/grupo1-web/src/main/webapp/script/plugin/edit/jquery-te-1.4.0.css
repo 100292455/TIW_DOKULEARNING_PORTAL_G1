@@ -12,9 +12,7 @@
 	margin:30px 10px;
 	border:rgb(51,141,222) 1px solid;
 	border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px;
-	box-shadow:0 0 3px #999; -webkit-box-shadow:0 0 3px #999; -moz-box-shadow:0 0 3px #999;
 	overflow:hidden;
-	transition:box-shadow 0.4s, border 0.4s; -webkit-transition:-webkit-box-shadow 0.4s, border 0.4s; -moz-transition:-moz-box-shadow 0.4s, border 0.4s; -o-transition:-o-box-shadow 0.4s, border 0.4s;
 }
 .jqte * {
 	color:#333;
@@ -22,7 +20,6 @@
 }
 .jqte_focused {
 	border-color:rgb(29,102,168);
-	box-shadow:0 0 10px #00BDFF; -webkit-box-shadow:0 0 10px #00BDFF; -moz-box-shadow:0 0 10px #00BDFF;
 }
 /* toolbar */
 .jqte_toolbar {

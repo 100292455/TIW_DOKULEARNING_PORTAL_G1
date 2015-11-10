@@ -16,7 +16,7 @@
 	
 	
 	html{
-		background-color:rgb(29,102,168);
+		background:rgb(246,246,246);
 	}
 	
 	body{
@@ -42,7 +42,7 @@
 		background-image: -ms-linear-gradient(top, rgb(161,194,107), rgb(140,168,93));
 		background-image: -o-linear-gradient(top, rgb(161,194,107), rgb(140,168,93));
 		background-image: linear-gradient(to bottom, rgb(161,194,107), rgb(140,168,93));
-
+		padding:20px 40px 10px 40px;
 		
 	}
 		
@@ -193,6 +193,30 @@
 				color:rgb(227,197,25);
 			}
 			
+			header .cabecera, header .cabecera1 {
+				display:inline;
+			}
+			
+			header h1 {
+				position:relative;
+				color:white;
+				padding:10px;
+				top:-14px;
+				font-size:50px;
+			}
+
+			header p {
+				color:white;
+				padding-left:25px;
+				position:relative;
+				top:-25px;
+				left:350px;
+			}
+			
+			header .cabecera1:hover {
+				color:rgb(29,102,168) ;
+				cursor:pointer;
+			}
 			
 		
 		/*----------------------------------------------------------------------------------------------*/
@@ -249,8 +273,9 @@
 	
 	#mi-empresa {
 		width:1200px;
+				min-height:700px;
+		
 		border-rigth: solid white 1px;
-		background: rgba(110,110,110,0.2);
 
 	}
 	
@@ -265,8 +290,7 @@
 		/*INFORMACION PRINCIPAL DE MI EMPRESA*/
 		
 		#informacion-empresa {
-			margin: 25% 0;
-			background-color:white;
+			background: rgb(220,220,220);
 			padding:0 10px 10px 10px ;
 
 		}
@@ -275,13 +299,13 @@
 			font-size:20px;
 			padding:20px;
 			color: rgb(81,81,81);
+			
 		}
 		
 		#informacion-empresa-imagen  {
-			position:relative;
-			width:263px;
+			width:300px;
 			text-align:center;
-			top:-100px;
+			margin:auto;
 		}
 		
 		#informacion-empresa-imagen img {
@@ -303,8 +327,10 @@
 		
 		#informacion-empresa-basica {
 			margin-left:30px;
-			width:600px;
+			width:700px;
 			font-size:12px;
+			float:right;
+			
 		}
 		
 		#informacion-empresa-basica input {
@@ -442,10 +468,10 @@
 		text-align:center;
 	}
 	
-	#opener {
+	
+	#opener, #picField2 {
 		width:120px;
 		margin:20px;
-		position:relative;
 		background: rgb(29,102,168);
 		border-radius: 10px;
 		color: #ffffff;
@@ -456,10 +482,15 @@
 		
 	}
 	
+	#picField2:hover {
+		background: white;
+		color: rgb(29,102,168);
+		border:solid 1px rgb(29,102,168);
+	}
+	
 	#opener:hover {
 		width:120px;
 		margin:20px;
-		position:relative;
 		background: white;
 		border-radius: 10px;
 		color: rgb(29,102,168);
