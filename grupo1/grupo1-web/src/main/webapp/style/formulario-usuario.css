@@ -15,7 +15,7 @@
 	
 	
 	html{
-		background-color:rgb(29,102,168);
+		background-color:rgb(246,246,246);
 	}
 	
 	body{
@@ -136,22 +136,7 @@
 		/*--------------------------------------------------*/
 		/*ESTILO DEL POP UP*/
 			
-			#dialog-form form{
-				font-family: 'Ubuntu', sans-serif;
-				
-				padding:10px 0;
-			}
-			
-			.popup {
-				border:none;
-				padding:10px;
-			}
-			
-			.popup a {
-				font-size:12px;
-				padding-left:10px;
-			
-			}
+		
 			
 			input[name=email], input[name=password] {
 				border-radius: 4px;
@@ -188,10 +173,12 @@
 	}
 	
 	#condiciones-texto {
+		color: rgb(81,81,81);
+		font-size: 14px;
 		height:150px;
-		padding:5px;
+		padding:10px;
 		overflow: auto;
-		border:solid 1px;
+				box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset, 0 -1px 0 rgba(0,0,0,0.05) inset;
 		border-radius: 3px;
 	}
 	
@@ -231,9 +218,8 @@
 		width:720px;
 		margin: 20px auto;
 		padding:20px;
-		border:solid 2px rgb(81,81,81);
-		background:rgba(29,102,168,0.1);
-		border-radius:5px;
+				box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset, 0 -1px 0 rgba(0,0,0,0.05) inset;
+		border-radius: 10px;
 	}
 	
 	#cuestionario > div {
@@ -247,7 +233,7 @@
 		width:340px;
 		min-height:95px;
 		display:inline-block;
-		border-bottom:solid 2px rgb(81,81,81);
+		border-bottom:solid 1px rgb(220,220,220);
 
 	}
 	
@@ -262,7 +248,7 @@
 	/*ALERTAS*/
 	
 	.mens{
-		border:solid 2px rgb(251,75,77);
+		border:solid 1px rgb(251,75,77);
 		border-radius: 25px;
 		padding:5px;
 		text-align:center;

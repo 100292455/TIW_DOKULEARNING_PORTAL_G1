@@ -31,9 +31,7 @@
 		<script src="script/jquery-ui-1.11.2.custom/jquery-ui.js"></script>
 		
 		
-		<!--CSS del menu en forma de carousel-->
-		
-		<link rel="stylesheet" type="text/css" href="script/plugin/slick/slick.css"/>
+
 		
 		<!--CSS redes sociales-->
 		
@@ -47,124 +45,6 @@
 	        <link rel="stylesheet" type="text/css" href="style/formacion/style10.css" />
 	        <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css' />
 			
-            <script>
-            
-
-        	function validar(){
-        		
-          		var nombre = document.getElementById("nombre");
-          		var apellidos = document.getElementById("apellidos");
-        		var sexo = document.getElementById("sex");
-        		var correo = document.getElementById("correo");
-        		var telefono = document.getElementById("telefono");
-        		var cobro = document.getElementById("cobro");
-        		var rol = document.getElementById("rol");
-        		var contraseña1 = document.getElementById("password1");
-        		var contraseña2 = document.getElementById("password2");
-        		
-        		var validacion = true; /*variable para crear la oferta*/
-        	    
-        	    
-        		
-        		if (nombre.value == "" || nombre.value == null || nombre.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
-        			  $("#mens1").show();
-        	         validacion=false;
-        	     }
-        			
-
-        		if (apellidos.value == "" || apellidos.value == null || apellidos.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
-        	         $("#mens2").show();
-        	         validacion=false;
-
-        	     }else{
-        	         $("#mens2").hide();      /* Si si lo introduce, esconde el mensaje */
-        	         }
-        		
-        		if (sexo.value == "" || sexo.value == null || sexo.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
-        	         $("#mens3").show();
-        	         validacion=false;
-
-        	     }else{
-        	         $("#mens3").hide();      /* Si si lo introduce, esconde el mensaje */
-        	         }
-        		if(sexo.value !="M" && sexo.value !="H"){
-        			alert("Tienes que introducir M o H en el campo de sexo");
-        			validacion=false;
-        		}
-              
-        		if (correo.value == "" || correo.value == null || correo.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
-        	         $("#mens4").show();
-        	         validacion=false;
-
-        	     }else{
-        	         $("#mens4").hide();      /* Si si lo introduce, esconde el mensaje */
-        	         }
-        		
-        		if (telefono.value == "" || telefono.value == null || telefono.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
-        	         $("#mens5").show();
-        	         validacion=false;
-
-        	     }else{
-        	         $("#mens5").hide();      /* Si si lo introduce, esconde el mensaje */
-        	         }
-
-        		
-        		if (cobro.value == "" || cobro.value == null || cobro.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
-        	         $("#mens6").show();
-        	         validacion=false;
-
-        	     }else{
-        	         $("#mens6").hide();      /* Si si lo introduce, esconde el mensaje */
-        	         }
-
-        		if (rol.value == "" || rol.value == null || rol.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
-        	         $("#mens7").show();
-        	         validacion=false;
-
-        	     }else{
-        	         $("#mens7").hide();      /* Si si lo introduce, esconde el mensaje */
-        	         }
-        			 
-        		if(rol.value !="Profesor" && rol.value !="Alumno"){
-        			alert("Tienes que introducir Profesor o Alumno en el campo de rol");
-        			validacion=false;
-        		}
-        			 
-        		if (contraseña2.value == "" || contraseña2.value == null || contraseña2.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
-        	         $("#mens10").show();
-        	         validacion=false;
-
-        	     }else{
-        	         $("#mens10").hide();      /* Si si lo introduce, esconde el mensaje */
-        	         }
-
-        		if (contraseña1.value == "" || contraseña1.value == null || contraseña1.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
-        	         $("#mens9").show();
-        	         validacion=false;
-
-        	     }else{
-        	         $("#mens9").hide();      /* Si si lo introduce, esconde el mensaje */
-        	         }
-        	
-        			if(document.getElementById("acepto").checked){
-        			}else{
-        				alert("Debe aceptar los términos y condiciones");
-        				validacion=false;
-        				}
-        	if(contraseña2.value != contraseña1.value){
-        		alert("Contraseñas diferentes");
-        		validacion=false;
-        	}
-        	
-        	if(validacion==true){
-        		alert("Usuario creado correctamente");
-        	}	
-
-				return validacion;
-        	}
-            
-            
-            </script>
 	</head>
 	
 	
@@ -183,55 +63,10 @@
 
 					</a>
 
-						
-
+					<p class = "cabecera1" id = "cabecera-empresa" onclick = "window.location.href='./login.jsp'">INICAR SESION</p>
+				
+					<input class = "cabecera" name='registrar' type="button" value="REGISTRAR" onclick = "window.location.href='./formulario-usuario.jsp'">
 					
-
-
-						  <form >
-
-						 	<fieldset class = "popup" id = "popup-empresa">
-
-								<p>Correo:</p>
-						    	<input type="text" name="email" id="email-1" placeholder="jane@smith.com" class="text ui-widget-content ui-corner-all">
-								<p>Contraseña: <a href= "#">recuperar contraseña</a></p>
-						      	<input type="password" name="password" id="password-1" placeholder="Contraseña" class="text ui-widget-content ui-corner-all">
-
-								<a href = "#">¿Necesitas crear una cuenta?</a>
-
-						      <!-- Allow form submission with keyboard without duplicating the dialog button -->
-						      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-						    </fieldset>
-						  </form>
-						</div>
-
-						<div id="dialog-form-2" title="Inicia sesión con tu correo">
-						  <p class="validateTips">¡Bienvenido usuario!</p>
-
-						  <form >
-
-						 	<fieldset class = "popup" id = "popup-usuario">
-
-								<p>Correo:</p>
-						    	<input type="text" name="email" id="email-2" placeholder="jane@smith.com" class="text ui-widget-content ui-corner-all">
-								<p>Contraseña: <a href= "#">recuperar contraseña</a></p>
-						      	<input type="password" name="password" id="password-2" placeholder="Contraseña" class="text ui-widget-content ui-corner-all">
-
-								<a href = "#">¿Necesitas crear una cuenta?</a>
-
-						      <!-- Allow form submission with keyboard without duplicating the dialog button -->
-						      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-						    </fieldset>
-						  </form>
-						</div>
-
-						<div id= "dialog-form-3" title="Crea una cuenta">
-							<p class="validateTips">¡Bienvenido a Lavoro!</p>
-
-							<p>Elige particular para registrar una cuenta nueva como trabajador, o elige empresa para registrar una cuenta como empresa</p>
-
-						</div>
-
 
 				</header>			
 
@@ -266,12 +101,12 @@
 
 							
 					</div></div>
-							<!--sexo-->
-					<div><div>
-							<p><span class=obligatorio>Sexo (H/M)</span><span class=aster>*</span><span class=obligatorio>:</span></p>	
-							<p id="mens3" class = "mens">No has rellenado el sexo</p>
-							<input type="text" name="sex" id="sex" placeholder="H" />
-							
+							<!--Rol-->
+					<div><div>		
+							<p><span class=obligatorio>Rol(Profesor/Alumno)</span><span class=aster>*</span><span class=obligatorio>:</span></p>
+							<p id="mens7" class = "mens">Te falta rellanar la casilla tu rol: Profesor/Alumno*</p>							
+							<input  type="text" name="rol" id="rol" placeholder="Profesor" />
+
 					</div>		
 							<!--Email-->
 					<div>		
@@ -293,12 +128,12 @@
 							<input  type="text" name="cobro" id="cobro" placeholder="Contrato indefinido" />
 
 					</div></div>		
-							<!--Rol -->
-					<div><div>		
-							<p><span class=obligatorio>Rol(Profesor/Alumno)</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens7" class = "mens">Te falta rellanar la casilla tu rol: Profesor/Alumno*</p>							
-							<input  type="text" name="rol" id="rol" placeholder="Profesor" />
-
+							<!--Sexo -->
+					<div><div>
+							<p><span class=obligatorio>Sexo (H/M)</span><span class=aster></span><span class=obligatorio>:</span></p>	
+							 	<input type="radio" name="sex" value="hombre" checked> Hombre
+ 								<input type="radio" name="sex" value="mujer"> Mujer
+							
 					</div>		
 							<!--Intereses-->
 					<div>		
@@ -422,9 +257,6 @@
 		
 		<script type = "text/javascript" src ="script/formulario-usuario.js"></script>
 		<script type="text/javascript" src="script/plugin/slick/slick.min.js"></script>
-		<script type ="text/javascript" src ="script/popup-usuario.js"></script>
-		<script type ="text/javascript" src ="script/popup-empresa.js"></script>
-		<script type ="text/javascript" src ="script/popup-registro.js"></script>
 		
 		
 	</body>

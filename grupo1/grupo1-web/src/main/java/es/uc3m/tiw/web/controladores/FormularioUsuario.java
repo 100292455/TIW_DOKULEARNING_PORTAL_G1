@@ -139,13 +139,11 @@ public class FormularioUsuario extends HttpServlet {
 		ServletContext context = sesion.getServletContext();
 		
 	    context.setAttribute("usuarios", usuarios);
-		if (usuario.getTipo_usuario()==1) {
-			this.getServletContext().getRequestDispatcher("/miPerfilProfesor.jsp").forward(request, response);
-		}
-		else{
+		
+		
 			this.getServletContext().getRequestDispatcher("/miPerfilAlumno.jsp").forward(request, response);
 			
-		}
+		
 	
 		
 	}
