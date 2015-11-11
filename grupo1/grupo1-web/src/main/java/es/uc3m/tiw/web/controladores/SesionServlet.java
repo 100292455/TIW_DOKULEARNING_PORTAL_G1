@@ -44,7 +44,7 @@ public class SesionServlet extends HttpServlet {
 	private ArrayList<Matricula> matriculas;//BBDD matriculas
 	@Override
 	public void init() throws ServletException {
-		usuario = new Usuario(1,"Alejandro", "Ruiz", 1, "alex@uc3m.es","636780470","VISA",0, "1234");
+		usuario = new Usuario(1,"Alejandro", "Ruiz", 1, "alex@uc3m.es","636780470","VISA",1, "1234");
 		Usuario usuario_2 = new Usuario(2,"Miguel", "Solera", 1, "miguel@uc3m.es","636780470","VISA",0, "1234");
 
 		usuarios = new ArrayList<Usuario>();
@@ -136,7 +136,7 @@ public class SesionServlet extends HttpServlet {
 			sesion.setAttribute("usuario", u);
 			sesion.setAttribute("acceso", "ok");
 			context.setAttribute("cursos", cursos);
-			context.setAttribute("matriculas", matriculas);
+			sesion.setAttribute("matriculas", matriculas);
 			context.setAttribute("secciones", secciones);
 			context.setAttribute("lecciones", lecciones);
 

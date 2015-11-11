@@ -77,8 +77,22 @@
 				
 					<h4>MIS CURSOS</h4>
 					
-					<input type = "button" name = "actualizar" value = "Añadir curso" id = "añadir-oferta1" class = "añadir-oferta añadir-curso">
-					<input type = "button"  onclick = "window.location.href='./GestionCupones.jsp'"  name = anadir_cupon" value = "Añadir cupon" id = "añadir-oferta2">
+					<!-- Usuario con metodo de pago, puede crear curso -->
+					<c:if test="${usuario.tipo_usuario == 1 }">
+					
+						<input type = "button" name = "actualizar" value = "Añadir curso" id = "añadir-oferta1" class = "añadir-oferta añadir-curso">
+						<input type = "button"  onclick = "window.location.href='./GestionCupones.jsp'"  name = anadir_cupon" value = "Añadir cupon" id = "añadir-oferta2">
+					
+					</c:if>
+					
+					<!-- Usuario con metodo de pago, puede crear curso -->
+					
+					<c:if test="${usuario.tipo_usuario == 0 }">
+					
+						<input type = "button" onclick = "window.location.href='./formularioPago.jsp'"  name = anadir_metodo_pago" value = "Crea tu curso" id = "añadir-oferta2">
+						<p class = "ofertas-titulo">Empieza a crear cursos, solo tienes que enlazar una cuenta bancaria. </p>
+
+					</c:if>
 					
 					<div id = "ofertas">
 					
@@ -152,6 +166,8 @@
 							</c:forEach>
 							
 									<!-- El usuario ha creado el curso -->
+					<c:if test="${usuario.tipo_usuario == 1}">
+									
 									<c:forEach items="${cursos }" var="curso"> 				
 										<c:if test="${curso.COD_profesor.equals(usuario.ID_usuario) }">
 											<li id = "oferta-ejemplo${curso.ID_curso}">
@@ -210,6 +226,7 @@
 											</li>
 										</c:if>
 									</c:forEach>	
+								</c:if>
 						</ul>
 						<c:if test="${ mensaje != null }">
 							<p class="error">${mensaje }</p>
