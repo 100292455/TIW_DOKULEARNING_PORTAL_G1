@@ -8,7 +8,6 @@
 	
 		<title>Practica final: Inicio</title>
 		
-		<meta charset="UTF-8">
 		<meta name="keywords" content="buscar, trabajo, empleo, salario">
 		<meta name="description" content="Web para la busqueda de empleo">
 		<meta name="author" content="Mingda Liu Zhang, Alejando Ruiz de la Cuadra, Carlos Herrero Lozano">
@@ -46,7 +45,7 @@
 				
 				</a>
 				
-					<p class = "cabecera1" id = "cabecera-empresa" onclick = "window.location.href='./SesionProfesor.jsp'">INICAR SESION</p>
+					<p class = "cabecera1" id = "cabecera-empresa" onclick = "window.location.href='./login.jsp'">INICAR SESION</p>
 				
 					<input class = "cabecera" name='registrar' type="button" value="REGISTRAR" onclick = "window.location.href='./formulario-usuario.jsp'">
 					

@@ -40,6 +40,7 @@
 		background-image: -ms-linear-gradient(top, rgb(161,194,107), rgb(140,168,93));
 		background-image: -o-linear-gradient(top, rgb(161,194,107), rgb(140,168,93));
 		background-image: linear-gradient(to bottom, rgb(161,194,107), rgb(140,168,93));
+		padding:20px 40px 10px 40px;
 
 		
 	}	
@@ -48,13 +49,13 @@
 		background:white;
 	}
 		
-	footer{    /* Estilo del pie de página */
+		footer{    /* Estilo del pie de página */
 		background: rgb(29,102,168);
 		background-image: -webkit-linear-gradient(top, rgb(29,102,168), rgb(91,112,165));
 		background-image: -moz-linear-gradient(top, rgb(29,102,168), rgb(91,112,165));
 		background-image: -ms-linear-gradient(top, rgb(29,102,168), rgb(91,112,165));
 		background-image: -o-linear-gradient(top, rgb(29,102,168), rgb(91,112,165));
-		background-image: linear-gradient(to bottom, rgb(29,102,168), rgb(91,112,165));	
+		background-image: linear-gradient(to bottom, rgb(29,102,168), rgb(91,112,165));
 		color:white;
 		text-align: center;
 		font-size:12px;		
@@ -147,62 +148,83 @@
 				}
 
 
-				/*----------------------------------------------------------------------------------------------*/
-				/*ESTILO DEL INICIO DE SESION DE LA CABECERA*/
-
-					#cabecera-sesion { /*div que engloba todo*/
-						padding:16px 10px 16px 10px;
-						background: rgb(161,194,107);
-						background-image: -webkit-linear-gradient(top, rgb(140,168,93), #71874C);
-						background-image: -moz-linear-gradient(top, rgb(140,168,93), #71874C);
-						background-image: -ms-linear-gradient(top, rgb(140,168,93), #71874C);
-						background-image: -o-linear-gradient(top, rgb(140,168,93), #71874C);
-						background-image: linear-gradient(to bottom, rgb(140,168,93), #71874C);
-						border-left:white solid 2px;
-						width:220px;		
-						position:relative;
-						float:right;		
-					}
-
-					#cabecera-sesion img:first-child { /*imagen de la empresa*/
-						width:65px;
-						height:65px;
-						border-radius:50px;
-						border:white solid 2px;
-						z-index:1;
-					}
-
-					img.cabecera-sesion,  #cabecera-sesion-men{ /*Imagen y nombre de la empresa*/
-						display:inline-block;
-					}
-
-					p.cabecera-sesion { /*Nombre de la empresa*/
-						color:white;
-						font-size:18px;
-					}
-
-					#cabecera-sesion-men{
-						float:right;
-						position:absolute;	
-						margin:30px 0 0px 15px ;
-						color:white;
-						top:0;
-					}
-
-					#cabecera-sesion-men a {
-						font-size:14px;
-						color:white;
-					 	text-decoration: underline;
-
-					}
-
-					#cabecera-sesion-men a:hover {
-						color:rgb(227,197,25);
-					}
+					/*----------------------------------------------------------------------------------------------*/
+		/*ESTILO DEL INICIO DE SESION DE LA CABECERA*/
+			
+			#cabecera-sesion { /*div que engloba todo*/
+				padding:16px 10px 16px 10px;
+				background: rgb(161,194,107);
+				background-image: -webkit-linear-gradient(top, rgb(140,168,93), #71874C);
+				background-image: -moz-linear-gradient(top, rgb(140,168,93), #71874C);
+				background-image: -ms-linear-gradient(top, rgb(140,168,93), #71874C);
+				background-image: -o-linear-gradient(top, rgb(140,168,93), #71874C);
+				background-image: linear-gradient(to bottom, rgb(140,168,93), #71874C);
+				border-left:white solid 2px;
+				width:220px;		
+				position:relative;
+				float:right;		
+			}
 		
-		/*----------------------------------------------------------------------------------------------*/
-		
-		
+			#cabecera-sesion img:first-child { /*imagen de la empresa*/
+				width:65px;
+				height:65px;
+				border-radius:50px;
+				border:white solid 2px;
+				z-index:1;
+			}
+			
+			img.cabecera-sesion,  #cabecera-sesion-men{ /*Imagen y nombre de la empresa*/
+				display:inline-block;
+			}
+			
+			p.cabecera-sesion { /*Nombre de la empresa*/
+				color:white;
+				font-size:18px;
+			}
+			
+			#cabecera-sesion-men{
+				float:right;
+				position:absolute;	
+				margin:30px 0 0px 15px ;
+				color:white;
+				top:0;
+			}
+			
+			#cabecera-sesion-men a {
+				font-size:14px;
+				color:white;
+			 	text-decoration: underline;
+			
+			}
+			
+			#cabecera-sesion-men a:hover {
+				color:rgb(227,197,25);
+			}
+			
+			header .cabecera, header .cabecera1 {
+				display:inline;
+			}
+			
+			header h1 {
+				position:relative;
+				color:white;
+				padding:10px;
+				top:-14px;
+				font-size:50px;
+			}
+
+			header p {
+				color:white;
+				padding-left:25px;
+				position:relative;
+				top:-25px;
+				left:350px;
+			}
+			
+			header .cabecera1:hover {
+				color:rgb(29,102,168) ;
+				cursor:pointer;
+			}
 		
 
 		
@@ -258,7 +280,7 @@
 		min-height:700px;
 		width:958px;
 		border-rigth: solid white 1px;
-		background-color:rgba(126,162,243,0.1);
+		background:rgb(246,246,246);
 				width:1200px;
 		
 
@@ -282,7 +304,9 @@
 		padding-top:12px;
 		margin: 10px 0;
 		list-style: none;
-		height:117px;
+		min-height:117px;
+		max-height:220px;
+		
 	}
 	
 	.ofertas-descripcion, .ofertas-seguidores, .ofertas-edicion {
@@ -293,7 +317,7 @@
 		/*DESCRIPCION DE LA OFERTA*/
 		
 		.ofertas-descripcion {
-			width:60%;
+			width:70%;
 			font-size:12px;
 			margin:0;
 			padding-left:10px;
@@ -319,8 +343,9 @@
 		}
 		
 		.ofertas-resumen {
-			height:52px;
-			max-width:550px;
+			min-height:52px;
+			max-height:150px;
+			max-width:850px;
 			margin:10px 0;
 			overflow:auto;
 		}
@@ -362,10 +387,18 @@
 		
 		.numero-seguidores {
 			color: white;
-			font-size: 12px;
+			font-size: 14px;
 			width:100%;
 			text-align:center;
 			position:relative;
+		}
+		
+		.numero-seguidores > a{
+			color:white;
+		}
+		
+		.numero-seguidores > a:hover {
+			color: rgb(227,197,25);
 		}
 		
 		.numero-seguidores, .ofertas-seguidores > img {
@@ -389,7 +422,8 @@
 		/*REDES SOCIALES DE LA OFERTA*/
 		
 		.ofertas-edicion {
-			width:18%;
+			height:68px;
+			width:120px;
 			background-color:rgba(81,81,81,0.5);
 			background-image: -webkit-linear-gradient(top, rgba(81,81,81,0.5), rgba(81,81,81,0.01));
 			background-image: -moz-linear-gradient(top, rgba(81,81,81,0.5), rgba(81,81,81,0.01));
@@ -567,28 +601,24 @@
 		
 	/*AÑADIR NUEVA OFERTA*/
 		
-	input.añadir-oferta {
+	input.añadir-oferta , #añadir-oferta2{
 		width:120px;
 		display:block;
 		margin:30px;
 		background: rgb(29,102,168);
 		border-radius: 10px;
 		color: #ffffff;
-		font-size: 12px;
+		font-size: 14px;
 		border:solid 1px white;
 		border-radius:2px;
 		padding: 8px 15px 8px 15px;
+		display:inline;
 	}
 	
-	input#añadir-oferta1 {
-		float:right;
-	}
-	input#añadir-oferta2{
-		position:relative;
-		left:80%;
-	}
 	
-	input.añadir-oferta:hover {
+
+	
+	input.añadir-oferta:hover  , #añadir-oferta2:hover{
 		background: white;
 		color: rgb(29,102,168);
 		border:solid 1px rgb(29,102,168);

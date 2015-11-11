@@ -13,7 +13,11 @@
 		<meta name="keywords" content="e-learning, cursos">
 		<meta name="description" content="Web de cursos matriculados">
 		<meta name="author" content="Jorge Garcia de la Rosa">
-		<link href="<c:url value="/style/empresa-mis-ofertas.css" />" rel="stylesheet" type="text/css" >
+		
+		<!--CSS de la pagina-->
+		
+		<link rel="stylesheet" type="text/css" href="./style/empresa-mis-ofertas.css">
+		
 		<link href="<c:url value="http://fonts.googleapis.com/css?family=Ubuntu" />" rel='stylesheet' type='text/css'>
 		<link href="<c:url value="/script/jquery-ui-1.11.2.custom/jquery-ui.css" />" rel="stylesheet">
 		<script src="<c:url value="/script/jquery-ui-1.11.2.custom/external/jquery/jquery.js" />"></script>
@@ -21,7 +25,9 @@
 		<style type="text/css">
 			.error {color: red;}
 		</style>
-		<link rel="stylesheet" type="text/css" href="style/busqueda.css">
+		
+		<script src ="<c:url value="script/empresa-mis-ofertas2.js" />" type = "text/javascript" ></script>
+		
 	</head>
 	
 			<!-- ******************** TO-DO ******************** -->
@@ -71,12 +77,27 @@
 				
 					<h4>MIS CURSOS</h4>
 					
+					<input type = "button" name = "actualizar" value = "Añadir curso" id = "añadir-oferta1" class = "añadir-oferta añadir-curso">
+					<input type = "button"  onclick = "window.location.href='./GestionCupones.jsp'"  name = anadir_cupon" value = "Añadir cupon" id = "añadir-oferta2">
+					
 					<div id = "ofertas">
+					
+					<c:if test="${empty matriculas }">
+							<!-- cursos es un atributo metido en el request por eso no es necesario 
+							ponerle el prefijo param -->
+							<p class="error">No estas registrado en ningun curso.</p>
+						</c:if>
+						
+						<!-- Cursos en los que el usuario se ha matriculado -->
+					
 						<ul>
 							<c:forEach items="${matriculas }" var="matricula">
-								<c:if test="${matricula.cod_alumno == usuario.ID_usuario }">
+								<c:if test="${matricula.cod_alumno.equals(usuario.ID_usuario) }">
 										<c:forEach items="${cursos }" var="curso"> 
-											<c:if test="${curso.ID_curso == matricula.cod_curso }">
+										
+										<!-- El usuario esta inscrito en el curso -->
+										
+											<c:if test="${curso.ID_curso.equals(matricula.cod_curso) }">
 												<li id = "oferta-ejemplo${curso.ID_curso}">
 													<div class = "ofertas-descripcion">
 														<!-- TO-DO
@@ -116,20 +137,160 @@
 														</c:choose>
 												</div>
 												<div class = "ofertas-seguidores">
-									<img src = "images/edicion/seguidores-icon.png" alt = "Error en la imagen">
-									<p class = "numero-seguidores"><a  href="contenidoCursos?nombreCurso=${curso.DES_titulo }">Ver Contenidos</a></p>
-								</div>
+													<img src = "images/edicion/seguidores-icon.png" alt = "Error en la imagen">
+													<p class = "numero-seguidores"><a  href="contenidoCurso?nombreCurso=${curso.DES_titulo }">Ver Contenidos</a></p>
+												</div>
 								
 
 											</li>
 										</c:if>
+										
+										
 									</c:forEach>
+									
 								</c:if>
 							</c:forEach>
+							
+									<!-- El usuario ha creado el curso -->
+									<c:forEach items="${cursos }" var="curso"> 				
+										<c:if test="${curso.COD_profesor.equals(usuario.ID_usuario) }">
+											<li id = "oferta-ejemplo${curso.ID_curso}">
+													<div class = "ofertas-descripcion">
+														<!-- TO-DO
+														Esto se deja para pruebas, 
+														Hay que mostrar solo aquellos cursos cuyo TIPO_estado == 2 -->
+														<c:choose>
+															<c:when test="${curso.TIPO_estado == 2 }">
+																<p class = "ofertas-titulo">${curso.DES_titulo }</p>
+															</c:when>
+															<c:otherwise>
+																<p class = "ofertas-titulo">${curso.DES_titulo }. </p>
+															</c:otherwise>
+														</c:choose>
+														<p class = "ofertas-empresa">Impartido por: <!-- TO-DO cambiar COD_prof por nombre -->${curso.COD_profesor }</p>
+														<p class = "ofertas-resumen">${curso.DES_descripcion }</p>
+														<p class = "ofertas-tipo-contrato">${curso.horas } hrs.</p>
+														<p class = "ofertas-jornada">Precio inicial: ${curso.precio_inicial } euros.</p>
+														<p class = "ofertas-jornada">Precio final: ${curso.precio_final } euros.</p>
+														<c:choose>
+															<c:when test="${empty curso.fechaFinDescuento }">
+															</c:when>
+															<c:otherwise>
+																<p class = "ofertas-jornada">fin descuento: ${curso.fechaFinDescuento }</p>
+															</c:otherwise>
+															</c:choose>
+									
+														<c:choose>
+															<c:when test="${curso.TIPO_dificultad == 0 }">
+															<p class = "ofertas-salario">Basico.</p>
+														</c:when>
+														<c:when test="${curso.TIPO_dificultad == 1 }">
+															<p class = "ofertas-salario">Intermedio.</p>
+														</c:when>
+														<c:otherwise>
+															<p class = "ofertas-salario">Avanzado.</p>
+														</c:otherwise>
+														</c:choose>
+												</div>
+												<div class = "ofertas-seguidores">
+													<img src = "images/edicion/seguidores-icon.png" alt = "Error en la imagen">
+													<p class = "numero-seguidores"><a  href="contenidoCurso?nombreCurso=${curso.DES_titulo }">Ver Contenidos</a></p>
+												</div>
+												
+												<div class = "ofertas-edicion">
+													<form action="BajaCursos" method="post">
+														<input type="hidden" name="IdCurso" value="${curso.ID_curso }">
+														<button type="submit">	
+															<img class="eliminar-icon" src="images/edicion/trash.png" alt="Error en la imagen">
+														</button>
+													</form>
+												</div>
+								
+
+											</li>
+										</c:if>
+									</c:forEach>	
 						</ul>
 						<c:if test="${ mensaje != null }">
 							<p class="error">${mensaje }</p>
 						</c:if>
+						
+						<div id="añadir">
+
+					        <h2> Añade un nuevo curso </h2>  
+							<!-- 				
+							<div id="formul">  
+					        	<p class="nombre">Seleccione una imagen para el curso<span class=aster>*</span>.</p>  
+					        </div>
+							<form action="UploadCursoImagesServlet" method="post" enctype="multipart/form-data">
+								<input type="hidden" name="Curso" size="60" />
+								<input type="file" name="file" size="60" /> <br />
+								<input type="submit" value="Cargar Imagen" />
+							</form>
+							<!-- ***************************************************************** -->
+			
+							<form action="AltaCursos" method="post" enctype="multipart/form-data">
+							
+							<div id="formul">  
+					        	<p class="nombre">Seleccione una imagen para el curso<span class=aster>*</span>.</p>  
+					        </div>
+							
+							<input type="hidden" name="Curso" size="60" />
+							<input type="file" name="file" size="60" /> <br />
+							
+					        <!-- Titulo del curso -->
+
+					       	<div id="formul1">  
+					        	<p class="nombre">Titulo del curso<span class=aster>*</span>:</p>
+						        <p  id="mens1">No ha especificado el titulo del curso*</p>
+						        <input type="text" name="titulo" id="añadir-titulo"  placeholder = "TÃ­tulo del curso"/>
+					      	</div>
+
+					        <!-- Horas del curso -->
+
+					        <div id="formul2">  
+					        	<p class="nombre">Horas de dedicacion del curso<span class=aster>*</span>:</p>  
+						        <p  id="mens2">No ha especificado el numero de horas de dedicacion del curso*</p>
+						        <input  type="text" name="horas" id="añadir-horas" placeholder = "Horas de dedicacion del curso"/>
+					        </div>
+
+					        <!-- Dificultad del curso -->
+
+					        <div id="formul3">  
+						        <p class="nombre">Dificultad del curso<span class=aster>*</span>:</p> 
+						        <select name="dificultad">
+						        	<option value="-1" selected>Especifique dificultad del curso</option>
+  									<option value="0">Basico</option>
+  									<option value="1">Intermedio</option>
+  									<option value="2">Avanzado</option>
+								</select> 
+					        </div>
+
+					        <!-- DescripciÃ³n del curso -->
+
+					        <div id="formul4">  
+					        	<p class="nombre">DescripciÃ³n del curso<span class=aster>*</span>:</p>  
+						        <p  id="mens4">No ha especificado la descripciÃ³n del curso*</p>
+								<textarea id="añadir-descripcion" name="descripcion" placeholder = "Descripcion del curso"></textarea>
+					        </div>
+					
+							<!-- Precio de matricula -->
+
+					        <div id="formul5">  
+					        	<p class="nombre">Precio de matricula<span class=aster>*</span>:</p>  
+						        <p  id="mens5">No ha especificado precio de matricula*</p>
+						        <input  type="text" name="precio" id="añadir-precio" placeholder = "Precio de matricula"/>
+					        </div>
+
+							<div id="formul6">  
+					        	<p class="nombre">Recuerde que usted sera el encargado de impartir este curso<span class=aster>*</span>.</p>  
+					        </div>
+
+					        <!-- Boton añadir -->
+
+							<input type="submit" id="añadirboton" value="Añadir" />
+							</form>
+					   	</div>
 						
 						
 					</div>

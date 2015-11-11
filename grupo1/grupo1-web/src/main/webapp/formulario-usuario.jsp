@@ -9,7 +9,6 @@
 	
 		<title>Practica final: Formulario usuario</title>
 		
-		<meta charset="UTF-8">
 		<meta name="keywords" content="buscar, trabajo, empleo, salario">
 		<meta name="description" content="Web para la busqueda de empleo">
 		<meta name="author" content="Mingda Liu Zhang, Alejando Ruiz de la Cuadra, Carlos Herrero Lozano">
@@ -176,7 +175,7 @@
 	
 				<header>
 
-					<a href="src/main/webapp/index.jsp">	
+					<a href="./index.jsp">	
 
 						<img class = "cabecera" src="images/logo.png" alt="Error en la imagen">    
 

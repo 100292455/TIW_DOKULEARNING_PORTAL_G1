@@ -30,7 +30,6 @@ import es.uc3m.tiw.web.dominio.Usuario;
  */
 @WebServlet("/sesion")
 public class SesionServlet extends HttpServlet {
-	private static final String ENTRADA_JSP = "/miPerfilProfesor.jsp";
 	private static final String ENTRADA_ALUMNO_JSP = "/miPerfilAlumno.jsp";
 	private static final String LOGIN_JSP = "/login.jsp";
 	private static final String INDEX_JSP = "/index.jsp";
@@ -45,8 +44,8 @@ public class SesionServlet extends HttpServlet {
 	private ArrayList<Matricula> matriculas;//BBDD matriculas
 	@Override
 	public void init() throws ServletException {
-		usuario = new Usuario(0,"Alejandro", "Ruiz", 1, "alex@uc3m.es","636780470","VISA",0, "1234");
-		Usuario usuario_2 = new Usuario(1,"Miguel", "Solera", 1, "miguel@uc3m.es","636780470","VISA",0, "1234");
+		usuario = new Usuario(1,"Alejandro", "Ruiz", 1, "alex@uc3m.es","636780470","VISA",0, "1234");
+		Usuario usuario_2 = new Usuario(2,"Miguel", "Solera", 1, "miguel@uc3m.es","636780470","VISA",0, "1234");
 
 		usuarios = new ArrayList<Usuario>();
 		usuarios.add(usuario);
@@ -54,22 +53,29 @@ public class SesionServlet extends HttpServlet {
 
 		
 		/*CURSOS*/
-		Curso curso = new Curso(1, "tituloCurso1", "descripcionCurso1", 2, 2, 30, 30, 1, 3, 3);
-		Curso curso1 = new Curso(2, "tituloCurso2", "descripcionCurso2", 2, 2, 30, 30, 1, 3, 3);
-		Curso curso2 = new Curso(3, "tituloCurso3", "descripcionCurso3", 2, 2, 30, 30, 1, 3, 3);
-		Curso curso3 = new Curso(4, "tituloCurso4", "descripcionCurso4", 2, 2, 30, 30, 0, 3, 3);
+		Curso curso = new Curso(1, "Matematicas", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 1, 3, 3);
+		Curso curso1 = new Curso(2, "Ingles", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 1, 3, 3);
+		Curso curso2 = new Curso(3, "Lengua", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 1, 3, 3);
+		Curso curso3 = new Curso(4, "Arrte", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 3, 3);
+		Curso curso4 = new Curso(4, "Programacion", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 3, 3);
+		Curso curso5 = new Curso(4, "Geografia", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 1, 3);
+
 		cursos = new ArrayList<Curso>();
 		cursos.add(curso);
 		cursos.add(curso1);
 		cursos.add(curso2);
 		cursos.add(curso3);
+		cursos.add(curso4);
+		cursos.add(curso5);
 		
 		//Crear BBDD matriculas
 		Matricula matricula = new Matricula(1, 1, 20);
-		Matricula matricula1 = new Matricula(2, 2, 20);
-		Matricula matricula2 = new Matricula(3, 3, 20);
+		Matricula matricula1 = new Matricula(1, 2, 20);
+		Matricula matricula2 = new Matricula(1, 3, 20);
 		matriculas = new ArrayList<Matricula>();
 		matriculas.add(matricula);
+		matriculas.add(matricula1);
+		matriculas.add(matricula2);
 	
 		
 		//Crear BBDD Secciones
@@ -121,17 +127,14 @@ public class SesionServlet extends HttpServlet {
 		ServletContext context = sesion.getServletContext();
 		Usuario u = comprobarUsuario(user, password);
 		if (u != null){
-			if (u.getTipo_usuario() == 1){
-				pagina = ENTRADA_JSP;
-			}
-			else if(u.getTipo_usuario()==0){
+		
 				pagina = ENTRADA_ALUMNO_JSP;
-			}
+			
 			
 				
-			context.setAttribute("usuarios", usuarios);
-			context.setAttribute("usuario", u);
-			context.setAttribute("acceso", "ok");
+			request.setAttribute("usuarios", usuarios);
+			sesion.setAttribute("usuario", u);
+			sesion.setAttribute("acceso", "ok");
 			context.setAttribute("cursos", cursos);
 			context.setAttribute("matriculas", matriculas);
 			context.setAttribute("secciones", secciones);
