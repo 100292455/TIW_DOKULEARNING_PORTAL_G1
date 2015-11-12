@@ -101,13 +101,12 @@
 
 							
 					</div></div>
-							<!--Rol-->
+							<!--Telefono-->
 					<div><div>		
-							<p><span class=obligatorio>Rol(Profesor/Alumno)</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens7" class = "mens">Te falta rellanar la casilla tu rol: Profesor/Alumno*</p>							
-							<input  type="text" name="rol" id="rol" placeholder="Profesor" />
-
-					</div>		
+							<p><span class=obligatorio>Telefono</span><span class=aster>*</span><span class=obligatorio>:</span></p>	
+							<p id="mens5" class = "mens">Has rellenado mal el teléfono</p>
+							<input  type="text" name="telefono" id="telefono" placeholder="666666666, sin prefijo" />
+					</div>	
 							<!--Email-->
 					<div>		
 							<p><span class=obligatorio>Email</span><span class=aster>*</span><span class=obligatorio>:</span></p>	
@@ -115,28 +114,35 @@
 							<input type="email" name="correo" id="correo"placeholder="carlos_ruiz@gmail.com" />
 
 					</div></div>		
-							<!--Telefono-->
-					<div><div>		
-							<p><span class=obligatorio>Telefono</span><span class=aster>*</span><span class=obligatorio>:</span></p>	
-							<p id="mens5" class = "mens">Has rellenado mal el teléfono</p>
-							<input  type="text" name="telefono" id="telefono" placeholder="666666666" />
-					</div>		
-							<!--Modo de cobro-->
-					<div>		
-							<p><span class=obligatorio>Modo de cobro</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens6" class = "mens">Te falta rellenar la casilla de modo de cobro*</p>
-							<input  type="text" name="cobro" id="cobro" placeholder="Contrato indefinido" />
+							<!--Descripcion-->
+					<div><div class = "div-largo">		
+							<p><span class=obligatorio>Descripcion</span><span class=aster></span><span class=obligatorio>:</span></p>
+							<textarea name="descripcion" id= "rol" placeholder="Escribe una pequeña descripcion"></textarea>
 
+					</div></div>
+					
+							<!--Modo de cobro-->
+					<div><div class = "div-largo">		
+							<p><span class=obligatorio>Medio de cobro</span><span class=aster>*</span><span class=obligatorio>:</span></p>
+							<p id="mens6" class = "mens">Selecciona un medio de cobro*</p>
+							<select  id="medio_cobro">
+								<option value="otros"> Sin especificar</option>
+								<option value="transferencia">Transferencia bancaria</option>
+								<option value="paypal">PayPal</option>
+								<option value="alertpay">AlertPay</option>
+								<option value="tarjeta">Pago con tarjeta de credito</option>
+							</select>
 					</div></div>		
 							<!--Sexo -->
-					<div><div>
-							<p><span class=obligatorio>Sexo (H/M)</span><span class=aster></span><span class=obligatorio>:</span></p>	
-							 	<input type="radio" name="sex" value="hombre" checked> Hombre
- 								<input type="radio" name="sex" value="mujer"> Mujer
+					<div><div id = "sexo-radio-button">
+							<p><span class=obligatorio>Sexo</span><span class=aster></span><span class=obligatorio>:</span></p>	
+							 	<input type="radio" name="sex" value="hombre" > <p class = "sexo-radio-button">Hombre</p>
+ 								<br>
+ 								<input type="radio" name="sex" value="mujer"> <p class = "sexo-radio-button">Mujer</p>
 							
 					</div>		
 							<!--Intereses-->
-					<div>		
+					<div id = intereses-div>		
 							<p><span class=obligatorio>Intereses</span><span class=aster></span><span class=obligatorio>:</span></p>
 							<input  type="text" name="int" id="int" placeholder="Ciencias Sociales" />
 

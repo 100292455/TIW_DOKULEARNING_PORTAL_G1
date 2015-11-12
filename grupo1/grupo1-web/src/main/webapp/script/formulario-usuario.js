@@ -4,7 +4,23 @@ $(document).ready(function(){
 	//crear usuario
 	var añadiroferta = true;
 	
-	
+	$(':radio').mousedown(function(e){
+		  var $self = $(this);
+		  if( $self.is(':checked') ){
+		    var uncheck = function(){
+		      setTimeout(function(){$self.removeAttr('checked');},0);
+		    };
+		    var unbind = function(){
+		      $self.unbind('mouseup',up);
+		    };
+		    var up = function(){
+		      uncheck();
+		      unbind();
+		    };
+		    $self.bind('mouseup',up);
+		    $self.one('mouseout', unbind);
+		  }
+		});
 	
 	$(".mens").hide();
 	
@@ -43,7 +59,9 @@ $(document).ready(function(){
 			if (nombre.value == "" || nombre.value == null || nombre.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
 				  $("#mens1").show();
 		         validacion=false;
-		     }
+		     }else{
+		         $("#mens1").hide();      /* Si si lo introduce, esconde el mensaje */
+	         }
 				
 		
 			if (apellidos.value == "" || apellidos.value == null || apellidos.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
@@ -71,27 +89,7 @@ $(document).ready(function(){
 		         $("#mens5").hide();      /* Si si lo introduce, esconde el mensaje */
 		         }
 		
-			
-			if (cobro.value == "" || cobro.value == null || cobro.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
-		         $("#mens6").show();
-		         validacion=false;
-		
-		     }else{
-		         $("#mens6").hide();      /* Si si lo introduce, esconde el mensaje */
-		         }
-		
-			if (rol.value == "" || rol.value == null || rol.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
-		         $("#mens7").show();
-		         validacion=false;
-		
-		     }else{
-		         $("#mens7").hide();      /* Si si lo introduce, esconde el mensaje */
-		         }
-				 
-			if(rol.value !="Profesor" && rol.value !="Alumno"){
-				validacion=false;
-			}
-				 
+
 			if (contraseña2.value == "" || contraseña2.value == null || contraseña2.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
 		         $("#mens10").show();
 		         validacion=false;
