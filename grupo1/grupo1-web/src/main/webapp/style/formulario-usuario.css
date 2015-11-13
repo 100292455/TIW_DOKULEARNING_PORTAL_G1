@@ -125,7 +125,7 @@
 			
 		}
 		
-		header input:hover {
+		header input:hover{
 			color:rgb(29,102,168);
 			background-color:white;
 			border:solid 1px rgb(29,102,168);			
@@ -212,7 +212,24 @@
 
 	/*---------------------------------------------------------------------------------------------------*/
 	/*ESTILO DEL FORMULARIO */
-	
+	.registrar1 {
+			background: rgb(29,102,168);
+			border-radius: 10px;
+			color: #ffffff;
+			font-size: 12px;
+			border:solid 1px white;
+			border-radius:2px;
+			padding: 8px 15px 8px 15px;
+
+			
+		}
+		
+		.registrar1:hover {
+			color:rgb(29,102,168);
+			background-color:white;
+			border:solid 1px rgb(29,102,168);			
+			
+		}
 	
 	#cuestionario {
 		width:720px;

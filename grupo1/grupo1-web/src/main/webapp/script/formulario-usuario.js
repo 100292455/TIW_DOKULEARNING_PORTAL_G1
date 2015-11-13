@@ -44,19 +44,14 @@ $(document).ready(function(){
 			
 			var nombre = document.getElementById("nombre");
 			var apellidos = document.getElementById("apellidos");
-			var sexo = document.getElementById("sex");
 			var correo = document.getElementById("correo");
 			var telefono = document.getElementById("telefono");
-			var cobro = document.getElementById("cobro");
-			var rol = document.getElementById("rol");
 			var contraseña1 = document.getElementById("password1");
 			var contraseña2 = document.getElementById("password2");
 			
 			var validacion = true; /*variable para crear la oferta*/
-		    
-		    
 			
-			if (nombre.value == "" || nombre.value == null || nombre.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+			if (nombre.value == "" || nombre.value == null || nombre.value == '' || (/^([a-z ñáéíóú]{2,60})$/i.test(nombre))){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
 				  $("#mens1").show();
 		         validacion=false;
 		     }else{
@@ -71,9 +66,9 @@ $(document).ready(function(){
 		     }else{
 		         $("#mens2").hide();      /* Si si lo introduce, esconde el mensaje */
 		         }
-			
+				
 
-			if (correo.value == "" || correo.value == null || correo.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+			if (correo.value == "" || correo.value == null || correo.value == ''|| !(/\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)/.test(correo))){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
 		         $("#mens4").show();
 		         validacion=false;
 		
@@ -88,6 +83,8 @@ $(document).ready(function(){
 		     }else{
 		         $("#mens5").hide();      /* Si si lo introduce, esconde el mensaje */
 		         }
+			
+			
 		
 
 			if (contraseña2.value == "" || contraseña2.value == null || contraseña2.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
@@ -111,9 +108,12 @@ $(document).ready(function(){
 					validacion=false;
 					}
 		if(contraseña2.value != contraseña1.value){
+			
 			validacion=false;
 		}
-		
+		$('body, html').animate({
+			scrollTop: '200px'
+		}, 300);
 		
 			return validacion;
 	}

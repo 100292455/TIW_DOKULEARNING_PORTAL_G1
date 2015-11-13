@@ -89,7 +89,7 @@
 					<div><div>
 							<!--Nombre-->
 							<p><span class=obligatorio>Nombre</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens1" class = "mens">Te falta rellenar la casilla nombre*</p>							
+							<p id="mens1" class = "mens">Has rellenado mal el nombre*</p>							
 							<input  type="text" id="nombre" name="nombre" placeholder="Carlos" />							
 
 					</div>		
@@ -125,7 +125,7 @@
 					<div><div class = "div-largo">		
 							<p><span class=obligatorio>Medio de cobro</span><span class=aster>*</span><span class=obligatorio>:</span></p>
 							<p id="mens6" class = "mens">Selecciona un medio de cobro*</p>
-							<select  id="medio_cobro">
+							<select  id="medio_cobro" name = "cobro">
 								<option value="otros"> Sin especificar</option>
 								<option value="transferencia">Transferencia bancaria</option>
 								<option value="paypal">PayPal</option>
@@ -136,9 +136,9 @@
 							<!--Sexo -->
 					<div><div id = "sexo-radio-button">
 							<p><span class=obligatorio>Sexo</span><span class=aster></span><span class=obligatorio>:</span></p>	
-							 	<input type="radio" name="sex" value="hombre" > <p class = "sexo-radio-button">Hombre</p>
+							 	<input type="radio" id = "sex1" name="sex" value="hombre" > <p class = "sexo-radio-button">Hombre</p>
  								<br>
- 								<input type="radio" name="sex" value="mujer"> <p class = "sexo-radio-button">Mujer</p>
+ 								<input type="radio" id = "sex2" name="sex" value="mujer"> <p class = "sexo-radio-button">Mujer</p>
 							
 					</div>		
 							<!--Intereses-->
@@ -151,14 +151,14 @@
 					<div><div>
 							
 							<p><span class=obligatorio>Contraseña</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens9" class = "mens">Tienes que rellenar el campo de la contraseña*</p>							
+							<p id="mens9" class = "mens">Introduce una contraseña*</p>							
 							<input type="password" name="contraseña1" id="password1" placeholder="max. 8 caracteres a-z, 0-9" />
 
 					</div>
 							<!--Contraseña 2-->
 					<div>
 							<p><span class=obligatorio>Confirmar contraseña</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens10" class = "mens">Tienes que rellenar el campo de confirmar contraseña*</p>
+							<p id="mens10" class = "mens">Tienes que confirmar contraseña*</p>
 							<input type="password" name="contraseña2" id="password2"  placeholder="max. 8 caracteres a-z, 0-9" />
 					</div></div>
 							<!--Código Postal-->

@@ -29,6 +29,10 @@ public class FormularioUsuario extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    
+    /**Validate email **/
+   
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -45,10 +49,10 @@ public class FormularioUsuario extends HttpServlet {
 		String nombre=request.getParameter("nombre");
 		String apellido=request.getParameter("apellidos");
 		String sexo=request.getParameter("sex");
-		String email=request.getParameter("email");
+		String email=request.getParameter("correo");
 		String tel=request.getParameter("telefono");
 		String cobro=request.getParameter("cobro");	
-		String rol=request.getParameter("rol");
+		String descripcion=request.getParameter("descripcion");
 		String password=request.getParameter("password");
 		
 		if (nombre == "" || nombre == null){
@@ -58,11 +62,6 @@ public class FormularioUsuario extends HttpServlet {
 		
 		if (apellido == "" || apellido == null){
 			System.out.println("No ha llegado la variable apellido correctamente al servlet");
-			request.getRequestDispatcher("formulario-usuario.jsp");
-		}
-		
-		if (sexo == "" || sexo == null || sexo != "M" || sexo !="H"){
-			System.out.println("No ha llegado la variable correctamente al servlet");
 			request.getRequestDispatcher("formulario-usuario.jsp");
 		}
 		
@@ -76,16 +75,7 @@ public class FormularioUsuario extends HttpServlet {
 			request.getRequestDispatcher("formulario-usuario.jsp");
 		}
 		
-		if (cobro == "" || cobro == null){
-			System.out.println("No ha llegado la variable poblacion email correctamente al servlet");
-			request.getRequestDispatcher("formulario-usuario.jsp");
-		}
-		
-		if (rol == "" || rol == null || rol != "Profesor" || rol !="Alumno"){
-			System.out.println("No ha llegado la variable provin correctamente al servlet");
-			request.getRequestDispatcher("formulario-usuario.jsp");
-		}
-		
+	
 		
 		if (password == "" || password == null){
 			System.out.println("No ha llegado la variable password codigo postal correctamente al servlet");
@@ -102,30 +92,31 @@ public class FormularioUsuario extends HttpServlet {
 		usuario.nombre=nombre;
 		usuario.apellido=apellido;
 		PrintWriter out = response.getWriter();
-		out.println("rol antes" + rol);
+		out.println("rol antes" + descripcion);
 		out.println("sexoantes" + sexo);
 		
 		
 		
-		if(sexo.equals("M")){
+		if(sexo.equals("hombre")){
 			
 			usuario.sexo=1;
-		}else{
+		}
+		if(sexo.equals("mujer")){
 			
 			usuario.sexo=0;
 		}
 	
 		usuario.email=email;
 		usuario.telefono=tel;
-		usuario.medio_cobro=rol;
+		usuario.medio_cobro=cobro;
 	
 		
-		if(rol.equals("Profesor")){
-			
-			usuario.tipo_usuario=1;
-		}else{
+		if(cobro.equals("otros")){
 			
 			usuario.tipo_usuario=0;
+		}else{
+			
+			usuario.tipo_usuario=1;
 		}
 		
 	
