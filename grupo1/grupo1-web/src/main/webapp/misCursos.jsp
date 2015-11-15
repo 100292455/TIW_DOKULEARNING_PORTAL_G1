@@ -146,68 +146,7 @@
 								</c:if>
 							</c:forEach>
 							
-									<!-- El usuario ha creado el curso -->
-					<c:if test="${usuario.tipo_usuario == 1}">
-									
-									<c:forEach items="${cursos }" var="curso"> 				
-										<c:if test="${curso.COD_profesor.equals(usuario.ID_usuario) }">
-											<li id = "oferta-ejemplo${curso.ID_curso}">
-													<div class = "ofertas-descripcion">
-														<!-- TO-DO
-														Esto se deja para pruebas, 
-														Hay que mostrar solo aquellos cursos cuyo TIPO_estado == 2 -->
-														<c:choose>
-															<c:when test="${curso.TIPO_estado == 2 }">
-																<p class = "ofertas-titulo">${curso.DES_titulo }</p>
-															</c:when>
-															<c:otherwise>
-																<p class = "ofertas-titulo">${curso.DES_titulo }. </p>
-															</c:otherwise>
-														</c:choose>
-														<p class = "ofertas-empresa">Impartido por: <!-- TO-DO cambiar COD_prof por nombre -->${curso.COD_profesor }</p>
-														<p class = "ofertas-resumen">${curso.DES_descripcion }</p>
-														<p class = "ofertas-tipo-contrato">${curso.horas } hrs.</p>
-														<p class = "ofertas-jornada">Precio inicial: ${curso.precio_inicial } euros.</p>
-														<p class = "ofertas-jornada">Precio final: ${curso.precio_final } euros.</p>
-														<c:choose>
-															<c:when test="${empty curso.fechaFinDescuento }">
-															</c:when>
-															<c:otherwise>
-																<p class = "ofertas-jornada">fin descuento: ${curso.fechaFinDescuento }</p>
-															</c:otherwise>
-															</c:choose>
-									
-														<c:choose>
-															<c:when test="${curso.TIPO_dificultad == 0 }">
-															<p class = "ofertas-salario">Basico.</p>
-														</c:when>
-														<c:when test="${curso.TIPO_dificultad == 1 }">
-															<p class = "ofertas-salario">Intermedio.</p>
-														</c:when>
-														<c:otherwise>
-															<p class = "ofertas-salario">Avanzado.</p>
-														</c:otherwise>
-														</c:choose>
-												</div>
-												<div class = "ofertas-seguidores">
-													<img src = "images/edicion/seguidores-icon.png" alt = "Error en la imagen">
-													<p class = "numero-seguidores"><a  href="contenidoCurso?nombreCurso=${curso.DES_titulo }">Ver Contenidos</a></p>
-												</div>
-												
-												<div class = "ofertas-edicion">
-													<form action="BajaCursos" method="post">
-														<input type="hidden" name="IdCurso" value="${curso.ID_curso }">
-														<button type="submit">	
-															<img class="eliminar-icon" src="images/edicion/trash.png" alt="Error en la imagen">
-														</button>
-													</form>
-												</div>
-								
 
-											</li>
-										</c:if>
-									</c:forEach>	
-								</c:if>
 						</ul>			  </div> </div>
 			  <div id="tabs-2">
 						<ul>
@@ -354,7 +293,7 @@
 					       	<div id="formul1">  
 					        	<p class="nombre">Titulo del curso<span class=aster>*</span>:</p>
 						        <p  id="mens1">No ha especificado el titulo del curso*</p>
-						        <input type="text" name="titulo" id="añadir-titulo"  placeholder = "TÃ­tulo del curso"/>
+						        <input type="text" name="titulo" id="añadir-titulo"  placeholder = "Titulo del curso"/>
 					      	</div>
 
 					        <!-- Horas del curso -->
@@ -362,6 +301,7 @@
 					        <div id="formul2">  
 					        	<p class="nombre">Horas de dedicacion del curso<span class=aster>*</span>:</p>  
 						        <p  id="mens2">No ha especificado el numero de horas de dedicacion del curso*</p>
+						        <input id="spinner" name="horas" placeholder = "Horas de dedicacion del curso">
 						        <input  type="text" name="horas" id="añadir-horas" placeholder = "Horas de dedicacion del curso"/>
 					        </div>
 

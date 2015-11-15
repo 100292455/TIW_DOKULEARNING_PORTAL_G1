@@ -11,6 +11,10 @@ $(document).ready(function(){
 	if (seguidores>600){
 		$("#seguidores > ul").height(largo);
 		
+		
+			    var spinner = $( "#spinner" ).spinner();
+			 		   
+			 
 	}
 
 
@@ -130,6 +134,7 @@ $(document).ready(function(){
 			
 		}
 	  });
+	
 	
 	
 	$("#mens1").hide();
