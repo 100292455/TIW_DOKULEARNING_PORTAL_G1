@@ -63,6 +63,13 @@ $(document).ready(function(){
 	});
 
 */
+	
+  //tab para los distintos cursos (mis cursos, cursos matriculados, lista de deseo)
+    
+    $(function() {
+        $( "#tabs" ).tabs();
+      });
+    
 	//abre el editor de ofertas y guarda los valores de esa oferta
 
 	$(function() {

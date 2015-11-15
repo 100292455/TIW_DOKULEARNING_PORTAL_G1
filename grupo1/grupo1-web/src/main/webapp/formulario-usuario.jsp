@@ -124,7 +124,6 @@
 							<!--Modo de cobro-->
 					<div><div class = "div-largo">		
 							<p><span class=obligatorio>Medio de cobro</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens6" class = "mens">Selecciona un medio de cobro*</p>
 							<select  id="medio_cobro" name = "cobro">
 								<option value="otros"> Sin especificar</option>
 								<option value="transferencia">Transferencia bancaria</option>

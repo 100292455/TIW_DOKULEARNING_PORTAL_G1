@@ -1,10 +1,7 @@
 package es.uc3m.tiw.web.controladores;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,49 +49,47 @@ public class FormularioUsuario extends HttpServlet {
 		String email=request.getParameter("correo");
 		String tel=request.getParameter("telefono");
 		String cobro=request.getParameter("cobro");	
-		String descripcion=request.getParameter("descripcion");
-		String password=request.getParameter("password");
+	//	String descripcion=request.getParameter("descripcion");
+		String password1=request.getParameter("contraseña1");
+		String password2=request.getParameter("contraseña2");
+
 		
 		if (nombre == "" || nombre == null){
-			System.out.println("No ha llegado la variable nombre correctamente al servlet");
 			request.getRequestDispatcher("formulario-usuario.jsp");
 		}
 		
 		if (apellido == "" || apellido == null){
-			System.out.println("No ha llegado la variable apellido correctamente al servlet");
 			request.getRequestDispatcher("formulario-usuario.jsp");
 		}
 		
 		if (email == "" || email == null){
-			System.out.println("No ha llegado la variable email correctamente al servlet");
 			request.getRequestDispatcher("formulario-usuario.jsp");
 		}
 		
 		if (tel == "" || tel == null){
-			System.out.println("No ha llegado la variable telefono correctamente al servlet");
 			request.getRequestDispatcher("formulario-usuario.jsp");
 		}
 		
 	
 		
-		if (password == "" || password == null){
-			System.out.println("No ha llegado la variable password codigo postal correctamente al servlet");
+		if (password1 == "" || password1 == null){
 			request.getRequestDispatcher("formulario-usuario.jsp");
 		}
 		
-	
+		if (password2 == "" || password2 == null){
+			request.getRequestDispatcher("formulario-usuario.jsp");
+		}
 		
 		
+		HttpSession sesion = request.getSession();	
 		
-		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+		
 		Usuario usuario = new Usuario();
-		
-		usuario.nombre=nombre;
-		usuario.apellido=apellido;
-		PrintWriter out = response.getWriter();
-		out.println("rol antes" + descripcion);
-		out.println("sexoantes" + sexo);
-		
+		usuario.setNombre(nombre);
+		usuario.setApellido(apellido);
+		usuario.setEmail(email);
+		usuario.setTelefono(tel);
+		usuario.setClave(password1);
 		
 		
 		if(sexo.equals("hombre")){
@@ -104,32 +99,20 @@ public class FormularioUsuario extends HttpServlet {
 		if(sexo.equals("mujer")){
 			
 			usuario.sexo=0;
-		}
-	
-		usuario.email=email;
-		usuario.telefono=tel;
-		usuario.medio_cobro=cobro;
-	
+		}	
 		
 		if(cobro.equals("otros")){
-			
-			usuario.tipo_usuario=0;
+			usuario.setTipo_usuario(0);
 		}else{
-			
-			usuario.tipo_usuario=1;
+			usuario.setTipo_usuario(1);
 		}
 		
-	
-		usuario.clave=password;
-
+		sesion.setAttribute("usuario", usuario);
 
 		
-		usuarios.add(usuario);
+
 		
-		HttpSession sesion = request.getSession();	
-		ServletContext context = sesion.getServletContext();
-		
-	    context.setAttribute("usuarios", usuarios);
+
 		
 		
 			this.getServletContext().getRequestDispatcher("/miPerfilAlumno.jsp").forward(request, response);

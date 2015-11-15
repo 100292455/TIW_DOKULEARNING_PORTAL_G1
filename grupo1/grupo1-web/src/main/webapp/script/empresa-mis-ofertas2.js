@@ -63,6 +63,7 @@ $(document).ready(function(){
     });
 
 */
+  
     //abre el editor de ofertas y guarda los valores de esa oferta
 
     $(function() {

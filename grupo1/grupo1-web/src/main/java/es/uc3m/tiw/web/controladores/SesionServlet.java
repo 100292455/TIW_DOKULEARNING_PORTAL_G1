@@ -132,7 +132,7 @@ public class SesionServlet extends HttpServlet {
 			
 			
 				
-			request.setAttribute("usuarios", usuarios);
+			context.setAttribute("usuarios", usuarios);
 			sesion.setAttribute("usuario", u);
 			sesion.setAttribute("acceso", "ok");
 			context.setAttribute("cursos", cursos);

@@ -37,7 +37,7 @@
 <body>
 	<header>
                 
-	    <a href="index.jsp">    
+	    <a href="miPerfilAlumno.jsp">    
 	        
 	        <img class = "cabecera" src="images/logo.png" alt="Error en la imagen">    
 	    
@@ -53,7 +53,7 @@
 	        
 	        <p class = "cabecera">|</p>
 	            
-	        <a href = "listadoCursos.jsp"><p class = "cabecera1" id = "cabecera-usuario">CURSOS</p></a>
+	        <a href = "listadoCursos.jsp"><p class = "cabecera1" id = "cabecera-usuario">BUSCAR CURSOS</p></a>
 	    
 	  	  	<p class = "cabecera">|</p>
 	            
@@ -71,6 +71,7 @@
 			<!--CUERPO DE LA PAGINA-->
 	
 			<section> 
+			
 				
 				<div id = "mi-empresa">
 				

@@ -24,19 +24,17 @@ $(document).ready(function(){
 	
 	$(".mens").hide();
 	
-	$(function() {
-    $("input[name=fecha]").datepicker();
-  });
+	
 
 
 
-	/* Al pulsar el boton anadir */
+	/* Al pulsar el boton anadir 	*/
   
   	$("input[type=submit]").click(function(){
-	   comprobarTexto();
+	   validar();
 	  });
 
-	
+  
 
 });		
 
@@ -68,7 +66,7 @@ $(document).ready(function(){
 		         }
 				
 
-			if (correo.value == "" || correo.value == null || correo.value == ''|| !(/\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)/.test(correo))){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+			if (correo.value == "" || correo.value == null || correo.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
 		         $("#mens4").show();
 		         validacion=false;
 		
