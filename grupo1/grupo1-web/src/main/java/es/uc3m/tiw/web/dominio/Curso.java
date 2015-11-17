@@ -1,6 +1,5 @@
 package es.uc3m.tiw.web.dominio;
 
-import java.util.Date;
 
 public class Curso {
 

@@ -14,9 +14,10 @@ import es.uc3m.tiw.web.dominio.Curso;
 
 @WebServlet("/BajaCursos")
 public class BajaCursosServlet extends HttpServlet {
-	private static final String ENTRADA_JSP = "/GestionCursos.jsp";
-	private static final String GESTION_CURSOS_JSP = "/GestionCursos.jsp";
+	private static final String ENTRADA_JSP = "/misCursos.jsp";
+	private static final String MIS_CURSOS_JSP = "/misCursos.jsp";
 	private static final long serialVersionUID = 1L;
+
 	@Override
 	public void init() throws ServletException {
 		
@@ -28,7 +29,7 @@ public class BajaCursosServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher(GESTION_CURSOS_JSP).forward(request, response);
+		this.getServletContext().getRequestDispatcher(MIS_CURSOS_JSP).forward(request, response);
 	}
 
 	/**
@@ -38,23 +39,23 @@ public class BajaCursosServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String pagina = "";
-		pagina = GESTION_CURSOS_JSP;
-		
+		pagina = MIS_CURSOS_JSP;
+		request.setAttribute("selectedTab", "1");
+		ArrayList<Curso> cursoscreados;//BBDD cursos
 		HttpSession sesion = request.getSession();	
 		ServletContext context = sesion.getServletContext();
 		String idCursoStr = request.getParameter("IdCurso");
 		int idCurso = Integer.parseInt(idCursoStr);
-		ArrayList<Curso> cursos = (ArrayList<Curso>) context.getAttribute("cursos");
-		sesion.removeAttribute("cursos");
-		for (Curso curso : cursos) {
+		cursoscreados = (ArrayList<Curso>) sesion.getAttribute("cursoscreados");
+		for (Curso curso : cursoscreados) {
 			if (curso.getID_curso() == idCurso) {
-				cursos.remove(curso);
+				cursoscreados.remove(curso);
 				break;
 			}
 		}
 		
 		pagina = ENTRADA_JSP;
-		sesion.setAttribute("cursos", cursos);
+		sesion.setAttribute("cursoscreados", cursoscreados);
 		
 		this.getServletContext().getRequestDispatcher(pagina).forward(request, response);
 		

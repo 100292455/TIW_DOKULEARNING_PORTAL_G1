@@ -41,6 +41,9 @@ public class SesionServlet extends HttpServlet {
 	private ArrayList<Leccion> lecciones;//BBDD lecciones
 
 	private ArrayList<Curso> cursos;//BBDD cursos
+	private ArrayList<Curso> cursoscreados;//BBDD cursos
+	private ArrayList<Curso> cursosmatriculados;//BBDD cursos
+	private ArrayList<Curso> listadeseos;//BBDD cursos
 	private ArrayList<Matricula> matriculas;//BBDD matriculas
 	@Override
 	public void init() throws ServletException {
@@ -57,8 +60,12 @@ public class SesionServlet extends HttpServlet {
 		Curso curso1 = new Curso(2, "Ingles", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 1, 3, 3);
 		Curso curso2 = new Curso(3, "Lengua", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 1, 3, 3);
 		Curso curso3 = new Curso(4, "Arrte", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 3, 3);
-		Curso curso4 = new Curso(4, "Programacion", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 3, 3);
-		Curso curso5 = new Curso(4, "Geografia", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 1, 3);
+		Curso curso4 = new Curso(5, "Programacion", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 3, 3);
+		Curso curso5 = new Curso(6, "Geografia", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 1, 3);
+		Curso curso6 = new Curso(7, "Matematicas II", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 1, 3);
+		Curso curso7 = new Curso(8, "Introduccion a la contabilidad", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 1, 3);
+		Curso curso8 = new Curso(9, "Dibujo I", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 1, 3);
+		Curso curso9 = new Curso(10, "Historia del arte", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 1, 3);
 
 		cursos = new ArrayList<Curso>();
 		cursos.add(curso);
@@ -67,6 +74,35 @@ public class SesionServlet extends HttpServlet {
 		cursos.add(curso3);
 		cursos.add(curso4);
 		cursos.add(curso5);
+		cursos.add(curso6);
+		cursos.add(curso7);
+		cursos.add(curso8);
+		cursos.add(curso9);
+		
+		/*SIMULACION DE CURSOS CREADOS*/
+		/*CUANDO INCORPOREMOS LA BASE DE DATOS NOS DEVOLVERA UN ARRAY*/
+		
+		cursoscreados = new ArrayList<Curso>();
+		cursoscreados.add(curso);
+		cursoscreados.add(curso1);
+		cursoscreados.add(curso2);
+
+		/*SIMULACION DE CURSOS MATRICULADOS*/
+		/*CUANDO INCORPOREMOS LA BASE DE DATOS NOS DEVOLVERA UN ARRAY*/
+		
+		cursosmatriculados = new ArrayList<Curso>();
+		cursosmatriculados.add(curso3);
+		cursosmatriculados.add(curso4);
+		cursosmatriculados.add(curso5);
+		
+		/*SIMULACION DE LA LISTA DE DESEOS*/
+		/*CUANDO INCORPOREMOS LA BASE DE DATOS NOS DEVOLVERA UN ARRAY*/
+		
+		listadeseos = new ArrayList<Curso>();
+		listadeseos.add(curso6);
+		listadeseos.add(curso7);
+		listadeseos.add(curso8);
+		listadeseos.add(curso9);
 		
 		//Crear BBDD matriculas
 		Matricula matricula = new Matricula(1, 1, 20);
@@ -95,6 +131,7 @@ public class SesionServlet extends HttpServlet {
 		lecciones.add(leccion2);
 		lecciones.add(leccion3);
 		lecciones.add(leccion4);
+
 
 		
 	}
@@ -136,6 +173,9 @@ public class SesionServlet extends HttpServlet {
 			sesion.setAttribute("usuario", u);
 			sesion.setAttribute("acceso", "ok");
 			context.setAttribute("cursos", cursos);
+			sesion.setAttribute("cursosmatriculados", cursosmatriculados);
+			sesion.setAttribute("listadeseos", listadeseos);
+			sesion.setAttribute("cursoscreados", cursoscreados);
 			sesion.setAttribute("matriculas", matriculas);
 			context.setAttribute("secciones", secciones);
 			context.setAttribute("lecciones", lecciones);

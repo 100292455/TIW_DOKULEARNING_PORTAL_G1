@@ -192,7 +192,6 @@
 			
 			#cabecera-sesion-men a {
 				font-size:14px;
-				color:white;
 			 	text-decoration: underline;
 			
 			}
@@ -268,41 +267,48 @@
 
 
 	/*---------------------------------------------------------------------------------------------------*/
-	/*ESTILO DE MI EMPRESA */
+	/*ESTILO DE LOS CURSOS */
 	
-	
-		
-	#mi-empresa, #seguidores {
-		display:inline-table;
+	.mi-empresa {
+		min-height:700px;
+		font-family: 'Ubuntu', sans-serif;
 	}
 	
+	.mi-empresa > h4 {
+		margin:30px 0;
+		color:rgb(29,102,168);
+		text-align:center;
+		font-size:40px;
+	}
 	#mi-empresa {
 		min-height:700px;
-		width:958px;
-		border-rigth: solid white 1px;
-		background:rgb(246,246,246);
-				width:1200px;
-		
-
+		font-family: 'Ubuntu', sans-serif;
 	}
 	
 	#mi-empresa > h4 {
-		margin-top:30px;
-		color:rgb(91,112,165);
+		margin:30px 0;
+		color:rgb(29,102,168);
 		text-align:center;
 		font-size:40px;
 	}
 	
-	#ofertas {
-		width:100%;
-		margin:20px 0;
+
 	
-	}
-	
-	#ofertas ul li {
+	.mi-empresa ul li {
 		border-top: solid 2px rgba(81,81,81,0.2);
 		padding-top:12px;
-		margin: 10px 0;
+		width: 950px;
+		margin: auto;
+		list-style: none;
+		min-height:117px;
+		max-height:220px;
+		
+	}
+		#mi-empresa ul li {
+		border-top: solid 2px rgba(81,81,81,0.2);
+		padding-top:12px;
+		width: 1075px;
+		margin: auto;
 		list-style: none;
 		min-height:117px;
 		max-height:220px;
@@ -314,12 +320,11 @@
 	}
 	
 		/*----------------------------------------------------------------------------------------*/
-		/*DESCRIPCION DE LA OFERTA*/
+		/*DESCRIPCION DEL CURSO*/
 		
 		.ofertas-descripcion {
-			width:70%;
+			width: 750px;
 			font-size:12px;
-			margin:0;
 			padding-left:10px;
 		}
 		
@@ -332,20 +337,11 @@
 			font-size:14px;
 			color:rgb(91,112,165);
 		}
-		
-		.ofertas-empresa, .ofertas-lugar {
-			margin-top:5px;
-			display:inline;
-		}
-		
-		.ofertas-lugar {
-			margin-left:15px;
-		}
+
 		
 		.ofertas-resumen {
-			min-height:52px;
-			max-height:150px;
-			max-width:850px;
+			height:75px;
+			max-width:680px;
 			margin:10px 0;
 			overflow:auto;
 		}
@@ -370,19 +366,14 @@
 		
 	
 		/*----------------------------------------------------------------------------------------*/
-		/*SEGUIDORES DE LA OFERTA*/
+		/*VER CONTENIDO CURSO*/
 		
 		.ofertas-seguidores {
 			width:150px;
-			padding:14px 14px 13px 14px;
+			padding:24px 14px 24px 14px;
 			position:relative;
-			top:-13px;
+			top:-25px;
 			background: rgb(29,102,168);
-			background-image: -webkit-linear-gradient(top, rgb(29,102,168), rgb(51,141,222));
-			background-image: -moz-linear-gradient(top, rgb(29,102,168), rgb(51,141,222));
-			background-image: -ms-linear-gradient(top, rgb(29,102,168), rgb(51,141,222));
-			background-image: -o-linear-gradient(top, rgb(29,102,168), rgb(51,141,222));
-			background-image: linear-gradient(to bottom, rgb(29,102,168), rgb(51,141,222));
 		}
 		
 		.numero-seguidores {
@@ -393,7 +384,12 @@
 			position:relative;
 		}
 		
+		
 		.numero-seguidores > a{
+			color:white;
+		}
+		
+		.numero-seguidores > a:visited{
 			color:white;
 		}
 		
@@ -419,22 +415,23 @@
 	
 	
 		/*----------------------------------------------------------------------------------------*/
-		/*REDES SOCIALES DE LA OFERTA*/
+		/*EDICION DE CURSOS*/
 		
 		.ofertas-edicion {
 			height:68px;
 			width:120px;
-			background-color:rgba(81,81,81,0.5);
-			background-image: -webkit-linear-gradient(top, rgba(81,81,81,0.5), rgba(81,81,81,0.01));
-			background-image: -moz-linear-gradient(top, rgba(81,81,81,0.5), rgba(81,81,81,0.01));
-			background-image: -ms-linear-gradient(top, rgba(81,81,81,0.5), rgba(81,81,81,0.01));
-			background-image: -o-linear-gradient(top, rgba(81,81,81,0.5), rgba(81,81,81,0.01));
-			background-image: linear-gradient(to bottom, rgba(81,81,81,0.5), rgba(81,81,81,0.01));
+			background-color: rgb(207,207,207);
 			text-align:center;
-			padding: 29px 0;
+			padding:40px 5px 38px 5px;
 			margin:0;
 			position:relative;
-			top:-30px;
+			top:-40px;
+		}
+		button[name = "editar-curso"]{
+			border:none;
+			cursor:pointer;
+			border-radius: 50px;
+		
 		}
 		
 		.edicion-icon, .eliminar-icon {
@@ -467,56 +464,25 @@
 	
 	/*-------------------------------------------------------------------------------------------------------*/
 	
-	/*ESTILO DE LOS SEGUIDORES	*/
+	/*ESTILO CONTENIDO CURSOS	*/
 	
-	#seguidores {
-		min-height:600px;
-		
-		max-width:238px;
-		position:relative;
-		left:-2px;
-		padding:10px;
-		margin-left:15px;
-		
-		
+	#descripcion-curso{
+		width: 900px;
+		max-height:200px;
+		margin:auto;
+		background:rgb(246,246,246);
+		border:solid 1px rgb(29,102,168);
+		border-radius:2px;
+		padding: 0 15px 18px 15px;
+	}
+	#descripcion-curso > p:first-child{
+		color:rgb(29,102,168);
 	}
 	
-	#seguidores h5 {
-		font-size:20px;
-		text-align:center;
-		padding:22px 0;
-		text-transform: uppercase;
-		color: rgb(81,81,81);
-	}
-	
-	#seguidores ul {
-		position:relative;
-		height:100%;
-		overflow:auto;
-	}
-	
-	#seguidores li{
-		border-top: solid 2px rgba(81,81,81,0.4);
-		padding-top:5px;
-		margin-bottom:5px;
-		list-style:none;
-	}
-	
-	img.seguidores-foto {
-		width:50px;
-		height:50px;
-		border-radius:50px;
-		border:inset 3px rgb(161,194,107) ;
-	}
-	
-	.seguidores-foto, .seguidores-info {
-		display:inline;
-	}
-	
-	p.seguidores-info {
-		font-size:14px;
-		position:relative;
-		top:-20px;
+	#descripcion-curso > p{
+		color:rgb(150,155,164);
+		font-size: 14px;
+		margin-top:10px;
 	}
 	
 	/*-------------------------------------------------------------------------------------------------------*/
@@ -529,65 +495,7 @@
 	/*-------------------------------------------------------------------------------------------------------*/
 	
 	/*VISTA PREVIA*/
-	#dialog {
-		position:relative;
-	}
 	
-	#dialog input.editar-oferta{
-		width:75%;
-		display:block;
-		margin: 10px auto;
-		font-size:14px;
-		border-radius: 4px;
-		border: none;
-		box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset, 0 -1px 0 rgba(0,0,0,0.05) inset;
-		font-family: 'Ubuntu', sans-serif;	
-		font-size: 12px;
-		color: #222222;
-		height: 28px;
-		padding-left: 30px;
-	}
-	
-	textarea.editar-oferta {
-		width:75%;
-		max-width:75%;
-		min-width:75%;
-		min-height:100px;
-		display:block;
-		margin: 10px auto;
-		font-size:14px;
-		border-radius: 4px;
-		border: none;
-		box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset, 0 -1px 0 rgba(0,0,0,0.05) inset;
-		font-family: 'Ubuntu', sans-serif;	
-		font-size: 12px;
-		color: #222222;
-		height: 28px;
-		padding:10px 0;
-		padding-left: 30px;
-	}
-	
-	
-	#actualizar {
-		width:120px;
-		display:block;
-		margin:20px auto;
-		background: rgb(29,102,168);
-		border-radius: 10px;
-		color: #ffffff;
-		font-size: 12px;
-		border:solid 1px white;
-		border-radius:2px;
-		padding: 8px 15px 8px 15px;
-		
-	}
-	
-	#actualizar:hover {
-		background: white;
-		color: rgb(29,102,168);
-		border:solid 1px rgb(29,102,168);
-		
-	}
 
 	
 	
@@ -627,24 +535,24 @@
 	
 	#añadir{ /* Diseño del div que engloba la opcion de añadir nuevas ofertas de trabajo */
 	    padding:6px;
-		margin:10px;
+	    width:750px;
+		margin:auto;
 		background-color:white;
 		border-radius:4px;
-		border:solid 1px rgb(29,102,168);
-		box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset, 0 -1px 0 rgba(0,0,0,0.05) inset;
 		
 	}
 	
 	#añadir h2{ /*Titulo del registro para añadir*/
 	    margin-top:20px;
-	    font-size: 18px;
+	    font-size: 25px;
 	    text-transform: uppercase;
-	    color: rgb(35,81,133);
+		color:rgb(29,102,168);
 	    margin-bottom: 20px;
 		text-align:center;
 	}
 	
 	.nombre{ /*Poner en negrita todos los apartador del registro*/
+		margin-bottom: 10px;
 	    font-weight: bold;
 		font-size:14px;
 	}
@@ -654,47 +562,61 @@
 		color:red;
 	}
 	
-	#añadir > div {
-		margin:10px;
+	#añadir-form > div {
+		margin-top:15px;
+		margin-right:10px;
+		margin-left:10px;
 	}
 	
-	#formul2, #formul3{
+	#añadir-form > div > div {
+		width:340px;
+		height:120px;
 		display:inline-block;
+		border-bottom:solid 1px rgb(220,220,220);
+
 	}
 	
-	#formul5, #formul6, #formul7{
-		display:inline-block;
+	#formul6 {
+	text-align:center;
 	}
 	
+	#formul4{
+		border-top:solid 1px rgb(220,220,220);
+		width:680px;
+		padding-top:10px
+	}
+
 	p[id=mens1], p[id=mens2], p[id=mens3], p[id=mens4], p[id=mens5], p[id=mens6], p[id=mens7]{/* Mensajes de alerta */
-		border:solid 2px rgb(251,75,77);
-		border-radius: 10px;
+		border:solid 1px rgb(251,75,77);
+		border-radius: 25px;
 		padding:5px;
+		position:absolute;		
 		text-align:center;
-		width:200px;
+		width:300px;
 		background-color:white;
 		font-size:12px;
 		color:rgb(251,75,77);
-		position:relative;
-		margin:10px;
 	}
-	input[id=añadir-titulo],input[id=añadir-empresa],input[id=añadir-lugar],input[id=añadir-contrato],
-	input[id=añadir-jornada],input[id=añadir-salario]{
-		font-size:12px;
-		border-radius: 4px;
-		margin:10px 0;
-		border: none;
-		box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset, 0 -1px 0 rgba(0,0,0,0.05) inset;
-		font-family: 'Ubuntu', sans-serif;	
-		color: #222222;
-		height: 28px;
-		padding-left: 30px;
-		width:200px;
+	
+	input[id=añadir-titulo],select[id=dificultad-curso],input[id=spinner],input[id=añadir-precio]{
+			border-radius: 4px;
+			border: none;
+			box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset, 0 -1px 0 rgba(0,0,0,0.05) inset;
+			font-family: 'Ubuntu', sans-serif;	
+			font-size: 12px;
+			color: #222222;
+			height: 28px;
+			width: 250px;
+			padding-left: 20px;
+			margin:10px;
+			margin-top:40px;
 	}
+	
+
 	
 	textarea#añadir-descripcion{
 		width:500px;
-		max-width:600px;
+		width:580px;
 		max-height:200px;
 		font-size:12px;
 		margin:10px 0;
@@ -706,6 +628,7 @@
 		color: #222222;
 		height: 28px;
 		padding:10px 0;
+		margin-top:40px;
 		padding-left: 30px;
 	}
 	

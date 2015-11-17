@@ -22,21 +22,15 @@ maxFileSize=1024*1024*10,      // 10MB
 maxRequestSize=1024*1024*50,
 location = "/")   // 50MB
 public class AltaCursosServlet extends HttpServlet {
-	private static final String ENTRADA_JSP = "/GestionCursos.jsp";
-	private static final String GESTION_CURSOS_JSP = "/GestionCursos.jsp";
+	private static final String ENTRADA_JSP = "/misCursos.jsp";
+	private static final String MIS_CURSOS_JSP = "/misCursos.jsp";
 	private static final long serialVersionUID = 1L;
 	private static final String SAVE_DIR = "cursoImages";
-	private Curso curso;
-	private ArrayList<Curso> cursos;
-	private int new_IDCurso = 0;
-	ServletContext context;
+	private int new_IDCurso = 10;
 	@Override
 	public void init() throws ServletException {
 	
-		cursos = new ArrayList<Curso>();
-	    context= this.getServletConfig().getServletContext();
-		context.setAttribute("cursos", cursos);
-		
+
 	}
        
 
@@ -45,72 +39,55 @@ public class AltaCursosServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher(GESTION_CURSOS_JSP).forward(request, response);
+		
+		
+		this.getServletContext().getRequestDispatcher(MIS_CURSOS_JSP).forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		cursos=(ArrayList<Curso>) context.getAttribute("cursos");
-		
-		// gets absolute path of the web application
-        String appPath = "/home/tiw/workspace/maven.1444917813281/grupo1/grupo1-web/src/main/webapp/images";
-        // constructs path of the directory to save uploaded file
-        String savePath = appPath + File.separator + SAVE_DIR;
-		
-		String titulo = request.getParameter("titulo");
-		String descripcion = request.getParameter("descripcion");
-		String dificultadStr = request.getParameter("dificultad");
-		String horasStr = request.getParameter("horas");
-		String precioStr = request.getParameter("precio");
-		/* TO-DO Hay que rescatar el codigo del profesor que imparte el curso */
-		String codProfStr = "10";
-		/*****/
-		
-		String mensaje ="";
-		String pagina = "";
-		pagina = ENTRADA_JSP;
-		
-		
-		String m = comprobarCurso(titulo, descripcion, dificultadStr, horasStr, precioStr);
-		if (m == null || m == ""){
-			int dificultad = Integer.parseInt(dificultadStr);
-			int horas = Integer.parseInt(horasStr);
-			int precio = Integer.parseInt(precioStr);  
-			int codProf = Integer.parseInt(codProfStr);
-		
-			Curso c = crearCurso(titulo, descripcion, dificultad, horas, precio, codProf);
 			
-			// creates the save directory if it does not exists
-	        File fileSaveDir = new File(savePath);
-	        if (!fileSaveDir.exists()) {
-	            fileSaveDir.mkdir();
-	        }
-	         
-	        for (Part part : request.getParts()) {
-	            String fileName = "curso_"+c.getID_curso()+".jpg";
-	            part.write(savePath + File.separator + fileName);
-	        }
+		String pagina = MIS_CURSOS_JSP;
+			String mensaje ="";
 			
-			pagina = GESTION_CURSOS_JSP;
-			context.setAttribute("cursos", cursos);
+			//no se pierda la pestaña
+			request.setAttribute("selectedTab", "1");
+			String titulo = request.getParameter("titulo");
+			String descripcion = request.getParameter("descripcion");
+			String dificultadStr = request.getParameter("dificultad");
+			String horasStr = request.getParameter("horas");
+			String precioStr = request.getParameter("precio");		
+			String codProfStr = "10";
 			
+			String m = comprobarCurso(titulo, descripcion, dificultadStr, horasStr, precioStr);
+			if (m == null || m == ""){
+				int dificultad = Integer.parseInt(dificultadStr);
+				int horas = Integer.parseInt(horasStr);
+				int precio = Integer.parseInt(precioStr);  
+				int codProf = Integer.parseInt(codProfStr);
+				
+				HttpSession sesion = request.getSession(true);
+				ArrayList<Curso> cursoscreados = (ArrayList<Curso>) sesion.getAttribute("cursoscreados");
+				crearCurso(titulo, descripcion, dificultad, horas, precio, codProf, cursoscreados);
+				sesion.setAttribute("cursoscreados", cursoscreados);
+
+				
+				
+			}else{
+				
+				mensaje = m;
+				request.setAttribute("mensaje", mensaje);
+			}
 			
-		}else{
-			
-			mensaje = m;
-			request.setAttribute("mensaje", mensaje);
-			context.setAttribute("cursos", cursos);
-		}
-		
-			this.getServletContext().getRequestDispatcher(pagina).forward(request, response);
+				this.getServletContext().getRequestDispatcher(pagina).forward(request, response);
+
 			
 		
 	}
 
-	private Curso crearCurso(String titulo, String descripcion, int dificultad, int horas, int precio, int profesor) {
+	private Curso crearCurso(String titulo, String descripcion, int dificultad, int horas, int precio, int profesor, ArrayList<Curso> cursoscreados) {
 		Curso c = new Curso();
 		
 		c.setCOD_profesor(profesor);
@@ -123,8 +100,8 @@ public class AltaCursosServlet extends HttpServlet {
 		c.setTIPO_destacado(0);
 		c.setTIPO_dificultad(dificultad);
 		c.setTIPO_estado(0);
+		cursoscreados.add(c);
 		/* AÑADIR CURSO A LA TABLA DE CURSOS */
-		cursos.add(c);
 		new_IDCurso++;
 		
 		return c;

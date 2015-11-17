@@ -21,7 +21,6 @@
 		<style type="text/css">
 			.error {color: red;}
 		</style>
-		<link rel="stylesheet" type="text/css" href="style/busqueda.css">
 	</head>
 	
 
@@ -29,8 +28,7 @@
 	<body>
 		
 	<header>
-                
-                <a href="index.jsp">    
+         	 	<a href="miPerfilAlumno.jsp">    
                     
                     <img class = "cabecera" src="images/logo.png" alt="Error en la imagen">    
                 
@@ -52,7 +50,6 @@
                <p class = "cabecera">|</p>
                         
                     <a href = "sesion?accion=salir"><p class = "cabecera1" id = "cabecera-usuario">SALIR</p></a>
-                     
                     
             
             </header>
@@ -63,49 +60,29 @@
 				
 				<div id = "mi-empresa">
 					
-					<div id = "ofertas">
-						<ul>
-							<c:forEach items="${cursos }" var="curso">
-								<c:if test="${curso.ID_curso == idCurso }">
-										<h4>${curso.DES_titulo }</h4>
-										<c:forEach items="${secciones }" var="seccion"> 
-											<c:if test="${seccion.id_curso == idCurso }">
-												<p class = "ofertas-titulo">${seccion.nombre }</p>
-												<c:forEach items="${lecciones }" var="leccion">
-												<c:if test="${seccion.id_seccion == leccion.id_seccion }"> 
-												<li id = "oferta-ejemplo">
-													<div class = "ofertas-descripcion">
-														<p class = "ofertas-jornada">Leccion: ${leccion.titulo }.</p>
-														<p class = "ofertas-jornada">Descripcion leccion: ${leccion.des }</p>
-													</div>
-												</li>
-												</c:if>
-												</c:forEach>
-											</c:if>
-									</c:forEach>
-								</c:if>
-							</c:forEach>
-						</ul>
-
-						
-						
+					<h4>MIS CURSOS - MATEMATICAS</h4>
+					
+					<div id = "descripcion-curso">
+						<p>Profesor: Javier</p>
+						<p>4 alumnos</p>
+						<p>Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.</p>
 					</div>
 					
-				</div>
-				
-				<div id = "seguidores">
-				
-					<h5> seguidores </h5>
-					
 					<ul>
-					
+						<p>Seccion 1</p>
 						<li>
-							<img class = "seguidores-foto" src = "images/famosos/gates.jpg" alt = "Error en la imagen">
-							<p class = "seguidores-info">Bill Gates</p></li>
-					
+							<p>Formato</p>
+							<p>Leccion 1</p>
+							<p>Descripcion</p>
+						</li>
+						<li>Leccion 2</li>
+						<li>Leccion 3</li>
+						<li>Leccion 4</li>						
 					</ul>
-				
+					
 				</div>
+				
+				
 					
 
 			</section>
