@@ -25,9 +25,8 @@ maxRequestSize=1024*1024*50,
 location = "/")   // 50MB
 public class AltaLeccionServlet extends HttpServlet {
 	private static final String ENTRADA_JSP = "/gestionlecciones.jsp";
-	private static final String GESTION_CURSOS_JSP = "/gestionlecciones.jsp";
+	private static final String GESTION_CURSOS_JSP = "/contenidoCurso.jsp";
 	private static final long serialVersionUID = 1L;
-	private static final String SAVE_DIR = "lecciones";
 	private Leccion leccion;
 	ServletContext context;
 	private ArrayList<Leccion> lecciones;
@@ -57,11 +56,6 @@ public class AltaLeccionServlet extends HttpServlet {
 		
 		context= this.getServletConfig().getServletContext();
 		
-		// gets absolute path of the web application
-        String appPath = "/home/tiw/workspace/maven.1444917813281/grupo1/grupo1-web/src/main/webapp/images";
-        // constructs path of the directory to save uploaded file
-        String savePath = appPath + File.separator + SAVE_DIR;
-		
 		String titulo = request.getParameter("titulo");
 		String formato = request.getParameter("formato");
 		String descripcion= request.getParameter("descripcion");
@@ -88,16 +82,7 @@ public class AltaLeccionServlet extends HttpServlet {
 		
 			Leccion c = crearLeccion(titulo, descripcion,formato,id_seccion);
 			
-			// creates the save directory if it does not exists
-	        File fileSaveDir = new File(savePath);
-	        if (!fileSaveDir.exists()) {
-	            fileSaveDir.mkdir();
-	        }
-	         
-	        for (Part part : request.getParts()) {
-	            String fileName = "leccion_"+c.getId_leccion()+".jpg";
-	            part.write(savePath + File.separator + fileName);
-	        }
+			
 			
 			pagina = GESTION_CURSOS_JSP;
 			context.setAttribute("lecciones", lecciones);

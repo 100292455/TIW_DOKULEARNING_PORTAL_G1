@@ -22,11 +22,17 @@ maxFileSize=1024*1024*10,      // 10MB
 maxRequestSize=1024*1024*50,
 location = "/")   // 50MB
 public class AltaCursosServlet extends HttpServlet {
-	private static final String ENTRADA_JSP = "/misCursos.jsp";
 	private static final String MIS_CURSOS_JSP = "/misCursos.jsp";
 	private static final long serialVersionUID = 1L;
-	private static final String SAVE_DIR = "cursoImages";
 	private int new_IDCurso = 10;
+	 /**
+     * Name of the directory where uploaded files will be saved, relative to
+     * the web application directory.
+     */
+    private static final String SAVE_DIR = "cursoImages";
+     
+    /**
+     * hand
 	@Override
 	public void init() throws ServletException {
 	
@@ -51,7 +57,11 @@ public class AltaCursosServlet extends HttpServlet {
 			
 		String pagina = MIS_CURSOS_JSP;
 			String mensaje ="";
-			
+			 // gets absolute path of the web application
+	        String appPath = request.getServletContext().getRealPath("");
+	        // constructs path of the directory to save uploaded file
+	        String savePath = appPath + File.separator + SAVE_DIR;
+	         
 			//no se pierda la pestaña
 			request.setAttribute("selectedTab", "1");
 			String titulo = request.getParameter("titulo");
@@ -67,6 +77,17 @@ public class AltaCursosServlet extends HttpServlet {
 				int horas = Integer.parseInt(horasStr);
 				int precio = Integer.parseInt(precioStr);  
 				int codProf = Integer.parseInt(codProfStr);
+				// creates the save directory if it does not exists
+				// creates the save directory if it does not exists
+		        File fileSaveDir = new File(savePath);
+		        if (!fileSaveDir.exists()) {
+		            fileSaveDir.mkdir();
+		        }
+		         
+		        for (Part part : request.getParts()) {
+		            String fileName = "Alejandro.jpg";
+		            part.write(savePath + File.separator + fileName);
+		        }
 				
 				HttpSession sesion = request.getSession(true);
 				ArrayList<Curso> cursoscreados = (ArrayList<Curso>) sesion.getAttribute("cursoscreados");
@@ -108,7 +129,16 @@ public class AltaCursosServlet extends HttpServlet {
 	}
 
 
-
+	   private String extractFileName(Part part) {
+	        String contentDisp = part.getHeader("content-disposition");
+	        String[] items = contentDisp.split(";");
+	        for (String s : items) {
+	            if (s.trim().startsWith("filename")) {
+	                return s.substring(s.indexOf("=") + 2, s.length()-1);
+	            }
+	        }
+	        return "";
+	    }
 	private String comprobarCurso(String titulo, String descripcion, String dificultad, String horas, String precio) {
 		String m = "";
 		

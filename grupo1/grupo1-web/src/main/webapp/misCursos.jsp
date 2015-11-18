@@ -112,7 +112,7 @@
 									</div>
 									<div class = "ofertas-seguidores">
 										<img src = "images/edicion/seguidores-icon.png" alt = "Error en la imagen">
-										<p class = "numero-seguidores"><a href="contenidoCurso?nombreCurso=${curso.DES_titulo }">Ver Contenidos</a></p>
+										<p class = "numero-seguidores"><a href="contenidoCursos?nombreCurso=${curso.ID_curso}">Ver Contenidos</a></p>
 									</div>
 								</li>															
 							</c:forEach>
@@ -176,7 +176,7 @@
 									</div>
 									<div class = "ofertas-seguidores">
 										<img src = "images/edicion/seguidores-icon.png" alt = "Error en la imagen">
-										<p class = "numero-seguidores"><a  href="contenidoCurso?nombreCurso=${curso.DES_titulo }">Ver Contenidos</a></p>
+										<p class = "numero-seguidores"><a  href="contenidoCurso?nombreCurso=${curso }">Ver Contenidos</a></p>
 									</div>
 									<div class = "ofertas-edicion">
 										<form action="BajaCursos" method="post" onsubmit="false">
@@ -195,16 +195,7 @@
 						<div id="añadir">
 
 					        <h2> Añade un nuevo curso </h2>  
-							<!-- 				
-							<div id="formul">  
-					        	<p class="nombre">Seleccione una imagen para el curso<span class=aster>*</span>.</p>  
-					        </div>
-							<form action="UploadCursoImagesServlet" method="post" enctype="multipart/form-data">
-								<input type="hidden" name="Curso" size="60" />
-								<input type="file" name="file" size="60" /> <br />
-								<input type="submit" value="Cargar Imagen" />
-							</form>
-							<!-- ***************************************************************** -->
+							
 			
 							<form action="AltaCursos" method="post" enctype="multipart/form-data" id ="añadir-form" onsubmit="return validarcrearcurso();">
 								
@@ -253,9 +244,9 @@
 								
 								
 								<div id="formul">  
-						        	<p class="nombre">Seleccione una imagen para el curso<span class=aster>*</span>.</p>  
-									<input type="hidden" name="Curso" size="60" />
-									<input type="file" name="file" size="60" /> <br />
+						    	    <p  id="mens6">Solo se admiten imagenes con formato jpg*</p>
+						        	<p class="nombre">Seleccione una imagen <span class=aster>jpg</span> para el curso<span class=aster>*</span>.</p>  
+									<input type="file" name="file" id="imagen-curso" size="60" />
 								 </div>
 								 
 

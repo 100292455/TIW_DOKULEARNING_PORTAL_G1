@@ -38,32 +38,11 @@ public class ContenidoCursosServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 /*--------- RECUPERAR LAS TABLAS DE LA BBDD ---------*/
-		HttpSession sesion = request.getSession();
-		ServletContext context = sesion.getServletContext();
-		usuarios = (ArrayList<Usuario>) context.getAttribute("usuarios");
-		cursos = (ArrayList<Curso>) context.getAttribute("cursos");
-		matriculas = (ArrayList<Matricula>) context.getAttribute("matriculas");
-		Usuario user = (Usuario) context.getAttribute("usuario");
-		int id_usuario = user.getID_usuario();//Coger id del usuario
-		String nombreCurso = request.getParameter("nombreCurso");//Coger nombre del curso a matricular
-		int id_cursoMatricular = cogerIdCurso(nombreCurso).getID_curso();//Rescatar el id del curso a matricular
-		boolean usuarioMatriculado = comprobarUsuarioMatriculado(id_usuario,id_cursoMatricular, matriculas);//Comprobar si el usuario ya esta matriculado en el curso
-		
-		//Si el usuario esta matriculado en este curso, el servlet le manda a ver el contenido del curso
-		if (usuarioMatriculado == true){
-			context.setAttribute("idCurso", id_cursoMatricular);
-			this.getServletContext().getRequestDispatcher(ENTRADACONTENIDOCURSO_JSP).forward(request, response);
-		}
-		//Si el usuario no matriculado en este curso le manda a matricularse
-		else{
-			
-			//Meto el titulo del curso en el contexto para que el servlet AñadirMatriculaServlet pueda leerlo
-			context.setAttribute("nombreCurso", nombreCurso);
-			this.getServletContext().getRequestDispatcher(AVISOMATRICULA_JSP).forward(request, response);
+		String nombreCurso = (String) request.getAttribute("nombreCurso");
+		HttpSession sesion = request.getSession(true);
+		sesion.setAttribute("nombreCurso", nombreCurso);
+		this.getServletContext().getRequestDispatcher(ENTRADACONTENIDOCURSO_JSP).forward(request, response);
 
-		}		
-		
-	
 	}
 
 	/**

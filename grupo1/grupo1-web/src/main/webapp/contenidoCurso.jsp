@@ -13,7 +13,7 @@
 		<meta name="keywords" content="e-learning, cursos">
 		<meta name="description" content="Web de cursos en linea">
 		<meta name="author" content="Jorge Garcia de la Rosa">
-		<link href="<c:url value="/style/empresa-mis-ofertas.css" />" rel="stylesheet" type="text/css" >
+		<link href="<c:url value="/style/usuario-contenido-curso.css" />" rel="stylesheet" type="text/css" >
 		<link href="<c:url value="http://fonts.googleapis.com/css?family=Ubuntu" />" rel='stylesheet' type='text/css'>
 		<link href="<c:url value="/script/jquery-ui-1.11.2.custom/jquery-ui.css" />" rel="stylesheet">
 		<script src="<c:url value="/script/jquery-ui-1.11.2.custom/external/jquery/jquery.js" />"></script>
@@ -60,27 +60,109 @@
 				
 				<div id = "mi-empresa">
 					
-					<h4>MIS CURSOS - MATEMATICAS</h4>
+					<h4>MIS CURSOS - ${nombreCurso}</h4>
 					
 					<div id = "descripcion-curso">
 						<p>Profesor: Javier</p>
 						<p>4 alumnos</p>
 						<p>Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.</p>
 					</div>
-					
-					<ul>
-						<p>Seccion 1</p>
-						<li>
-							<p>Formato</p>
-							<p>Leccion 1</p>
-							<p>Descripcion</p>
-						</li>
-						<li>Leccion 2</li>
-						<li>Leccion 3</li>
-						<li>Leccion 4</li>						
-					</ul>
-					
+					<c:forEach items="${secciones }" var="seccion">
+						<ul class ="lista-seccion">
+							<p>${seccion.nombre }</p>
+							<input type = "button"  value = "Añadir leccion"  class = "añadir-leccion">
+							<c:forEach items="${lecciones }" var="leccion">
+								<c:if test="${leccion.id_seccion.equals(seccion.id_seccion)}">
+									<li>
+										<img class = "leccion" src="images/formatos/${leccion.formato}.png" alt="Error en la imagen"> 
+										<p class = "leccion"">${leccion.titulo }</p>
+										<input type = "button"  value = "Borrar"  class = "modificar-leccion">
+										<input type = "button"  value = "Modificar"  class = "modificar-leccion">
+									</li>	
+								</c:if>			
+							</c:forEach>
+						</ul>
+					</c:forEach>
 				</div>
+				
+				<!-- Crear un leccion nuevo -->
+									 
+						<div id="añadir-leccion">
+
+					        <h2> Añade una nueva leccion </h2>  
+							<!-- 				
+							<div id="formul">  
+					        	<p class="nombre">Seleccione una imagen para el curso<span class=aster>*</span>.</p>  
+					        </div>
+							<form action="UploadCursoImagesServlet" method="post" enctype="multipart/form-data">
+								<input type="hidden" name="Curso" size="60" />
+								<input type="file" name="file" size="60" /> <br />
+								<input type="submit" value="Cargar Imagen" />
+							</form>
+							<!-- ***************************************************************** -->
+			
+							<form action="AltaLeccion" method="post" enctype="multipart/form-data" id ="añadir-leccion-form" onsubmit="return validarcrearleccion();">
+								
+								<div> 
+								<!-- Titulo del curso -->
+	
+							       	<div id="formul1">  
+							        	<p class="nombre">Titulo de la leccion<span class=aster>*</span>:</p>
+								        <p  id="mens1">No ha especificado el titulo de la leccion*</p>
+								        <input type="text" name="titulo" id="titulo-leccion"  placeholder = "Titulo de la leccion"/>
+							      	</div>		
+							      	
+								 <!-- Formato de la leccion -->
+
+							        <div id="formul3">  
+								        <p class="nombre">Formato de la leccion<span class=aster>*</span>:</p> 
+								        <p  id="mens2">No ha especificado el formato de la leccion*</p>
+								        <select name="formato" id="formato-leccion">
+								        	<option value="otro" selected>Especifique el formato de la leccion</option>
+		  									<option value="txt">Archivo txt</option>
+		  									<option value="doc">Archivo doc</option>
+		  									<option value="docx">Archivo docx</option>
+		  									<option value="xls">Archivo excel</option>
+		  									<option value="ppt">Archivo pdf</option>
+		  									<option value="mp4">Video en mp4</option>
+		  									<option value="m4v">Video en m4v</option>
+											<option value="mp3">Audio en mp3</option>
+										</select> 
+							        </div>
+					        	</div>
+					        	
+								
+								
+								<!-- Importar imagen -->
+								
+								
+								<div id="formul">  
+						        	<p class="nombre">Seleccione una imagen para el curso<span class=aster>*</span>.</p>  
+									<input type="hidden" name="Curso" size="60" />
+									<input type="file" name="file" size="60" /> <br />
+								 </div>
+								 
+
+					        <!-- Descripcion del curso -->
+
+					        <div id="formul4">  
+					        	<p class="nombre">Descipcion del curso<span class=aster>*</span>:</p>  
+						        <p  id="mens4">No ha especificado la descripcion del curso*</p>
+								<textarea id="añadir-descripcion" name="descripcion" placeholder = "Descripcion del curso"></textarea>
+					        </div>
+					
+							
+
+							<div id="formul6">  
+					        	<p class="nombre">Recuerde que usted sera el encargado de impartir este curso<span class=aster></span>.</p>  
+					        </div>
+
+					        <!-- Boton añadir -->
+
+							<input type="submit" id="añadir-leccion-button" value="Añadir" />
+							</form>
+					   	</div>
+					</div> 
 				
 				
 					
@@ -102,7 +184,7 @@
 				</ul>
 			</footer>
 		
-		<script src ="<c:url value="script/empresa-mis-ofertas.js" />" type = "text/javascript" ></script>
+		<script src ="<c:url value="script/empresa-mis-ofertas2.js" />" type = "text/javascript" ></script>
 		
 		
 	</body>

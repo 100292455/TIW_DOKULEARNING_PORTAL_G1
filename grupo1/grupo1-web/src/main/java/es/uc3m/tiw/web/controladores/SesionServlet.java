@@ -39,7 +39,7 @@ public class SesionServlet extends HttpServlet {
 
 	private ArrayList<Seccion> secciones;//BBDD promociones
 	private ArrayList<Leccion> lecciones;//BBDD lecciones
-
+	private Curso curso;
 	private ArrayList<Curso> cursos;//BBDD cursos
 	private ArrayList<Curso> cursoscreados;//BBDD cursos
 	private ArrayList<Curso> cursosmatriculados;//BBDD cursos
@@ -122,10 +122,10 @@ public class SesionServlet extends HttpServlet {
 		secciones.add(seccion2);
 		
 		//Crear BBDD Lecciones
-		Leccion leccion1 = new Leccion("Leccion 1 de la Seccion 1", "Descripcion de la Leccion", "formato", 50);
-		Leccion leccion2 = new Leccion("Leccion 2 de la Seccion 1", "Descripcion de la Leccion", "formato", 50);;
-		Leccion leccion3 = new Leccion("Leccion 1 de la Seccion 2", "Descripcion de la Leccion", "formato", 30);;
-		Leccion leccion4 = new Leccion("Leccion 2 de la Seccion 2", "Descripcion de la Leccion", "formato", 30);
+		Leccion leccion1 = new Leccion("Leccion 1 de la Seccion 1", "Descripcion de la Leccion", "txt", 50);
+		Leccion leccion2 = new Leccion("Leccion 2 de la Seccion 1", "Descripcion de la Leccion", "doc", 50);;
+		Leccion leccion3 = new Leccion("Leccion 1 de la Seccion 2", "Descripcion de la Leccion", "xls", 30);;
+		Leccion leccion4 = new Leccion("Leccion 2 de la Seccion 2", "Descripcion de la Leccion", "mp3", 30);
 		lecciones = new ArrayList<Leccion>();
 		lecciones.add(leccion1);
 		lecciones.add(leccion2);
@@ -175,10 +175,11 @@ public class SesionServlet extends HttpServlet {
 			context.setAttribute("cursos", cursos);
 			sesion.setAttribute("cursosmatriculados", cursosmatriculados);
 			sesion.setAttribute("listadeseos", listadeseos);
+			sesion.setAttribute("curso",curso);
 			sesion.setAttribute("cursoscreados", cursoscreados);
 			sesion.setAttribute("matriculas", matriculas);
-			context.setAttribute("secciones", secciones);
-			context.setAttribute("lecciones", lecciones);
+			sesion.setAttribute("secciones", secciones);
+			sesion.setAttribute("lecciones", lecciones);
 
 			
 		}else{

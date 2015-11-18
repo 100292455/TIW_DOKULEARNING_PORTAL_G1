@@ -3,22 +3,22 @@
 $(document).ready(function(){
 	var añadiroferta = true;
 	var value = 0;
-	var ventana = document.getElementById("selectedTabInput").value;
-	if (ventana != 0) {
+	//var ventana = document.getElementById("selectedTabInput").value;
+	/*if (ventana != 0) {
         $('#tabs').tabs({
             active : ventana
         });
-    } else {
+    } else {*/
         $('#tabs').tabs();
-    }
+    
 	      
     $("#spinner").val(value);
     $("#añadir-precio").val(value);
     
-   
+    $( document ).tooltip();
 
   //Añadir una oferta nueva 
-	$("#añadir").hide();
+   // $("#añadir").hide();
 	$(".añadir-oferta").click(function(){
 	   if (añadiroferta){
 		$("#añadir").show();
@@ -44,7 +44,7 @@ $(document).ready(function(){
     $("#mens3").hide();
     $("#mens4").hide();
     $("#mens5").hide();
-    
+    $("#mens6").hide();
     
     /* Al pulsar el boton anadir 	*/
     
@@ -64,14 +64,22 @@ function validarcrearcurso(){
 	var comprobardes = $("#añadir-descripcion").val();
 	var comprobarpre=$("#añadir-precio").val();
 	var comprobarhor=$("#spinner").val();
+	var comprobarimg=$("#imagen-curso").val();
+
 	var value = 0;
 	var validacion = true; /*variable para crear la oferta*/
+	var archivoimg =false;
+	var extensiones_permitida = ".jpg";
+	var  extension;
 	
 	
 	//metodo para especificar las horas de un curso
 
-
-
+//compruebo si hay una imagen
+	if(comprobarimg!="" && comprobarimg != null){
+		archivoimg=true;
+		extension = (comprobarimg.substring(comprobarimg.lastIndexOf("."))).toLowerCase(); 
+	}
 
 if (comprobartit == "" || comprobartit == null){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
      $("#mens1").show();
@@ -108,6 +116,15 @@ if (comprobardes == "" || comprobardes == null){   /* Si no introduce el titulo 
      $("#mens4").hide();      /* Si si lo introduce, esconde el mensaje */
      }
 
+if (archivoimg && extension != extensiones_permitida){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+    $("#mens6").show();
+    validacion=false;
+
+}else{
+    $("#mens6").hide();      /* Si si lo introduce, esconde el mensaje */
+    }
+
+
 if (isNaN(comprobarpre) || comprobarpre<1){   /* Si no introduce las horas como numero mayor que 0 enseña el mensaje de error y pone la variable validacion a false*/
     $("#mens5").show();
     $("#añadir-precio").val(value);
@@ -116,6 +133,7 @@ if (isNaN(comprobarpre) || comprobarpre<1){   /* Si no introduce las horas como 
 }else{
     $("#mens5").hide();      /* Si si lo introduce, esconde el mensaje */
     }
+
 
 	$( "#tabs" ).tabs({ active: 1 });
 	return validacion;
