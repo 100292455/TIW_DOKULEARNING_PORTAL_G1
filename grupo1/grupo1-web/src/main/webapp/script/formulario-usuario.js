@@ -31,7 +31,7 @@ $(document).ready(function(){
 	/* Al pulsar el boton anadir 	*/
   
   	$("input[type=submit]").click(function(){
-	  $(document)validar();
+  			validar();
 	  });
 
   
