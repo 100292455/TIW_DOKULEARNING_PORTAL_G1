@@ -3,14 +3,14 @@
 $(document).ready(function(){
 	var añadiroferta = true;
 	var value = 0;
-	//var ventana = document.getElementById("selectedTabInput").value;
-	/*if (ventana != 0) {
+	var ventana = document.getElementById("selectedTabInput").value;
+	if (ventana != 0) {
         $('#tabs').tabs({
             active : ventana
         });
-    } else {*/
+    } else {
         $('#tabs').tabs();
-    
+    }
 	      
     $("#spinner").val(value);
     $("#añadir-precio").val(value);
@@ -18,7 +18,7 @@ $(document).ready(function(){
     $( document ).tooltip();
 
   //Añadir una oferta nueva 
-   // $("#añadir").hide();
+    $("#añadir").hide();
 	$(".añadir-oferta").click(function(){
 	   if (añadiroferta){
 		$("#añadir").show();

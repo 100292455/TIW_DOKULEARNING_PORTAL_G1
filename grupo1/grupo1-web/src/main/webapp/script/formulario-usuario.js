@@ -39,17 +39,17 @@ $(document).ready(function(){
 });		
 
 	function validar(){
-			
-			var nombre = document.getElementById("nombre");
-			var apellidos = document.getElementById("apellidos");
-			var correo = document.getElementById("correo");
-			var telefono = document.getElementById("telefono");
-			var contraseña1 = document.getElementById("password1");
-			var contraseña2 = document.getElementById("password2");
+		
+			var nombre = $("#nombre").val();
+			var apellidos =  $("#apellidos").val();
+			var correo = $("#correo").val();
+			var telefono = $("#telefono").val();
+			var contraseña1 = $("#password1").val();
+			var contraseña2 = $("#password2").val();
 			
 			var validacion = true; /*variable para crear la oferta*/
 			
-			if (nombre.value == "" || nombre.value == null || nombre.value == '' || (/^([a-z ñáéíóú]{2,60})$/i.test(nombre))){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+			if (nombre = "" || nombre == null || nombre == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
 				  $("#mens1").show();
 		         validacion=false;
 		     }else{
@@ -57,7 +57,7 @@ $(document).ready(function(){
 	         }
 				
 		
-			if (apellidos.value == "" || apellidos.value == null || apellidos.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+			if (apellidos == "" || apellidos == null || apellidos == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
 		         $("#mens2").show();
 		         validacion=false;
 		
@@ -66,7 +66,7 @@ $(document).ready(function(){
 		         }
 				
 
-			if (correo.value == "" || correo.value == null || correo.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+			if (correo == "" || correo == null || correo == '' || !(/\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)/.test(correo))){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
 		         $("#mens4").show();
 		         validacion=false;
 		
@@ -74,7 +74,7 @@ $(document).ready(function(){
 		         $("#mens4").hide();      /* Si si lo introduce, esconde el mensaje */
 		         }
 			
-			if (telefono.value == "" || telefono.value == null || telefono.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+			if ( !(/^\d{9}$/.test(telefono)) || telefono == "" || telefono == null || telefono == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
 		         $("#mens5").show();
 		         validacion=false;
 		
@@ -85,7 +85,7 @@ $(document).ready(function(){
 			
 		
 
-			if (contraseña2.value == "" || contraseña2.value == null || contraseña2.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+			if (contraseña2 == "" || contraseña2 == null || contraseña2 == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
 		         $("#mens10").show();
 		         validacion=false;
 		
@@ -93,7 +93,7 @@ $(document).ready(function(){
 		         $("#mens10").hide();      /* Si si lo introduce, esconde el mensaje */
 		         }
 		
-			if (contraseña1.value == "" || contraseña1.value == null || contraseña1.value == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+			if (contraseña1 == "" || contraseña1 == null || contraseña1 == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
 		         $("#mens9").show();
 		         validacion=false;
 		
@@ -101,11 +101,11 @@ $(document).ready(function(){
 		         $("#mens9").hide();      /* Si si lo introduce, esconde el mensaje */
 		         }
 		
-				if(document.getElementById("acepto").checked){
+				if($("#acepto").checked){
 				}else{
 					validacion=false;
 					}
-		if(contraseña2.value != contraseña1.value){
+		if(contraseña2 != contraseña1){
 			
 			validacion=false;
 		}
