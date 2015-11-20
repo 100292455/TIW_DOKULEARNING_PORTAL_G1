@@ -1,95 +1,111 @@
 						
-//metodo para ajustar la longitud de los seguidores
-			
-	var largo = $("#mi-empresa").height();
-	largo=largo-200;
+
+$(document).ready(function(){
 	
-	$("#seguidores > ul").height(largo);
-			
-			
-//metodo para ejecutar el editor de texto para la descripcion de empresa
-			
+	/*Guardo los datos anteriores por si hay error*/
+	
+	var nombre = $("#edit-nombre").val();
+	var apellido = $("#edit-empresa").val();
+	var telefono = $("#edit-telefono").val();
+	var email=$("#edit-email").val();
+	var intereses=$("#edit-intereses").val();
+	var descripcion=$("#edit-descripcion").val();
+	
+	
+    /*Ocultar mensajes*/
+    
+	$("#mens1").hide();
+    $("#mens2").hide();
+    $("#mens3").hide();
+    $("#mens4").hide();
+    $("#mens5").hide();
+    $("#mens6").hide();
+    
+    /* Al pulsar el boton anadir 	*/
+    
+    $("input[type=submit]").click(function(){
+    	actualizarUsuario();
+ 	  });
 
-	$('#informacion-empresa-descripcion').jqte();
 
-	// settings of status
-	var jqteStatus = true;
-	$(".status").click(function()
-	{
-		jqteStatus = jqteStatus ? false : true;
-		$('.jqte-test').jqte({"status" : jqteStatus})
-	});
-				
-				
-/*metodo para cambiar la imagen
 
-	document.getElementById('picField').onclick = function (evt) {
-	    var tgt = evt.target || window.event.srcElement,
-	        files = tgt.files;
+});	
 
-	    // FileReader support
-	    if (FileReader && files && files.length) {
-	        var fr = new FileReader();
-	        fr.onload = function () {
-	            document.getElementById("imagen-empresa").src = fr.result;
-	        }
-	        fr.readAsDataURL(files[0]);
-	    }
 
-	    // Not supported
-	    else {
-	        // fallback -- perhaps submit the input to an iframe and temporarily store
-	        // them on the server until the user's session ends.
-	    }
+function actualizarUsuario(){
+	
+	var comprobarnombre = $("#edit-nombre").val();
+	var comprobarapellido = $("#edit-empresa").val();
+	var comprobartelefono = $("#edit-telefono").val();
+	var comprobaremail=$("#edit-email").val();
+	var comprobarimg=$("#edit-imagen").val();
+	var comprobarintereses=$("#edit-intereses").val();
+	var comprobardescripcion=$("#edit-descripcion").val();
+
+	var validacion = true; /*variable para crear la oferta*/
+	var archivoimg =false;
+	var extensiones_permitida = ".jpg";
+	var  extension;
+	
+	
+	//metodo para especificar las horas de un curso
+
+//compruebo si hay una imagen
+	if(comprobarimg!="" && comprobarimg != null){
+		archivoimg=true;
+		extension = (comprobarimg.substring(comprobarimg.lastIndexOf("."))).toLowerCase(); 
 	}
-	*/
-/*vista previa
 
-	$(function() {
-	    $( "#dialog" ).dialog({
-				width: 1000,
-				height: 500,
-		      autoOpen: false,
-		      show: {
-		        effect: "blind",
-		        duration: 1000
-		      },
-		      hide: {
-		        effect: "clip",
-		        duration: 1000,
-		      }
-		
-		    });
+if (comprobarnombre == "" || comprobarnombre == null){   /*Comprobar nombre*/
+     $("#mens1").show();
+     validacion=false;
 
-		    $( "#opener" ).click(function() {
-				$(".eleminar-vista-previa").remove();
-		      $( "#dialog" ).dialog( "open" );
-			$(function() {
-				var nombre = $("#edit-nombre").val();
-				var empresa= $("#edit-empresa").val();
-				var direccion = $("#edit-direccion").val();
-				var ciudad = $("#edit-ciudad").val();
-				var telefono = $("#edit-telefono").val();
-				var email = $("#edit-email").val();
-				var representante = $("#edit-representante").val();
-				var descripcion = $(".jqte_editor").clone().addClass("eleminar-vista-previa");
-				var img = $("#imagen-empresa").attr("src");
-
-				$("#vista-previa-nombre").text(nombre);
-				$("#vista-previa-empresa").text(empresa);
-				$("#vista-previa-direccion").text(direccion);
-				$("#vista-previa-ciudad").text(ciudad);
-				$("#vista-previa-telefono").text(telefono);
-				$("#vista-previa-email").text(email);
-				$("#vista-previa-representante").text(representante);
-				$("#dialog").append(descripcion);
-				$("#imagen-vista-previa").attr("src", img);
-
-			});
-		    });
-	  });
+ }else{
+     $("#mens1").hide();      /* Si si lo introduce, esconde el mensaje */
+     }
 	
+if (comprobarapellido == "" || comprobarapellido == null){   /*Comprobar apellido*/
+     $("#mens4").show();
+     validacion=false;
 
-	*/
+ }else{
+     $("#mens4").hide();      /* Si si lo introduce, esconde el mensaje */
+     }
 
-			
+if (comprobardescripcion == null){   /*Comprobar descipcion*/
+	comprobardescripcion="";
+}
+
+if (comprobarintereses == null){   /*Comprobar intereses*/
+	comprobarintereses="";
+}
+
+if (archivoimg && extension != extensiones_permitida){   /*Comprobar imagen*/
+    $("#mens6").show();
+    validacion=false;
+
+}else{
+    $("#mens6").hide();      /* Si si lo introduce, esconde el mensaje */
+    }
+
+
+if (comprobaremail == "" || comprobaremail == null || comprobaremail == ''){   /*Comprobar correo*/
+    $("#mens4").show();
+    validacion=false;
+
+}else{
+    $("#mens4").hide();      /* Si si lo introduce, esconde el mensaje */
+    }
+
+if ( !(/^\d{9}$/.test(comprobartelefono)) || comprobartelefono == "" || comprobartelefono == null || comprobartelefono == ''){   /*Comprobar telefono*/
+    $("#mens5").show();
+    validacion=false;
+
+}else{
+    $("#mens5").hide();      /* Si si lo introduce, esconde el mensaje */
+    }
+
+	return validacion;
+}
+
+

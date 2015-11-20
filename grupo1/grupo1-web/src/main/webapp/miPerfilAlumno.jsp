@@ -25,13 +25,6 @@
 
 		<script src="./script/jquery-ui-1.11.2.custom/external/jquery/jquery.js"></script>
 		<script src="./script/jquery-ui-1.11.2.custom/jquery-ui.js"></script>
-		
-		<!--Text edit-->
-		
-		<link type="text/css" rel="stylesheet" href="./script/plugin/edit/jquery-te-1.4.0.css">
-
-		<script type="text/javascript" src="./script/plugin/edit/jquery-te-1.4.0.min.js" charset="utf-8"></script>
-		
 
 </head>
 <body>
@@ -76,59 +69,50 @@
 				<div id = "mi-empresa">
 				
 					<h4>MI PERFIL</h4>
-				
+					
+					<form method="post" action="UploadServlet" enctype="multipart/form-data" onsubmit="return actualizarUsuario();">
+					
 					<div id = "informacion-empresa">
-						
-						<div id= "informacion-empresa-imagen">
-										
-							<img id = "imagen-empresa" src = "./images/uploadFiles/Alejandro.jpg" alt = "Error en la imagen">
-							<form method="post" action="UploadServlet" enctype="multipart/form-data">
+							<div id= "informacion-empresa-imagen">
+											
+								<img id = "imagen-empresa" src = "./images/famosos/bernard.jpg" alt = "Error en la imagen">
 								<p>Para cambiar imagen seleccione un archivo</p>
-       							<input type="file" name="picField" id="picField1"  onchange="preview_2(this);" />
-        						<input type="submit" id="picField2"  value="Upload" />
-   							 </form>
-							
-							
-						</div>
-					
-						<div id = "informacion-empresa-basica">
-							
+	       						<input type="file" name="imagen" id="edit-imagen" value="Upload" size ="60"/>
+								
+								
+							</div>
 						
-							<h5>Información básica empresa</h5>
-						
-							<ul>
-								<li>Nombre: <br><input id = "edit-nombre" type="text" name="nombre" value="${sessionScope.usuario.nombre}" tabindex="1"></li>
+							<div id = "informacion-empresa-basica">
+								
 							
-								<li>Apellido: <br><input id = "edit-empresa" type="text" name="empresa" value="${sessionScope.usuario.apellido}" tabindex="2"></li>
+								<h5>Información básica empresa</h5>
 							
-								<li>Teléfono: <br><input id = "edit-telefono" type="text" name="telefono" value="${sessionScope.usuario.telefono}" tabindex="5"></li>
-							
-								<li>E-Mail: <br><input id = "edit-email" type="text" name="correo" value="${sessionScope.usuario.email}" tabindex="6"></li>
+								<ul>
+									<li>Nombre: <br><input id = "edit-nombre" type="text" name="nombre" value="${sessionScope.usuario.nombre}" tabindex="1"></li>
+								
+									<li>Apellido: <br><input id = "edit-empresa" type="text" name="empresa" value="${sessionScope.usuario.apellido}" tabindex="2"></li>
+								
+									<li>Teléfono: <br><input id = "edit-telefono" type="text" name="telefono" value="${sessionScope.usuario.telefono}" tabindex="5"></li>
+								
+									<li>E-Mail: <br><input id = "edit-email" type="text" name="correo" value="${sessionScope.usuario.email}" tabindex="6"></li>
+
+									<li>Intereses: <br><input id = "edit-intereses" type="text" name="intereses" value="${sessionScope.usuario.intereses}" tabindex="7"></li>
+														
+									<li>Descripcion: <br><textarea name="descripcion" id= "edit-descripcion" >${sessionScope.usuario.descripcion}</textarea></li>
+									
+								</ul>							
+								
+							</div>
 													
-							
-							</ul>							
-							
-						</div>
+						
 				
 					</div>
 					
-					<div id = "informacion-empresa-descripcion">
-						
-						<h5>Descripción general</h5>
-						
-						Microsoft trabaja para que su modelo de negocio sea cada vez más un motor de crecimiento de la economía española, creando innovaciones y promoviendo iniciativas capaces de crear empleos y mejorar la competitividad de nuestras empresas y el país en su globalidad.
-						<br>
-						<br>
-						Las soluciones de Microsoft permiten la reducción de los costes relacionados con operaciones del día a día y liberar presupuesto para innovaciones que otorguen un mayor valor de negocio. Detrás de cada mejora en nuestra oferta tecnológica está un objetivo y un compromiso: ayudar, con nuestras soluciones y el valor aportado por nuestros socios de negocio, a transformar España hacia una economía y sociedad netamente innovadoras, con la misión de crear empleo como clara prioridad.
-						<br>
-						<br>
-						Creemos firmemente que la innovación bien entendida y bien aplicada es un generador de empleo sostenible y de calidad. Y basándonos en esta premisa, desarrollamos en España diversos programas dirigidos a multiplicar los beneficios de la transferencia de conocimiento y tecnología sobre las empresas locales y a apoyar a las empresas y jóvenes estudiantes emprendedores a sentar las bases de una nueva generación de negocios innovadores, que son ahora y serán más aún en el futuro auténticos dinamizadores del mercado de trabajo.
-						
-					</div>
+					<div id = "dialog-button">
+							<input type="submit" id="añadirboton" value="Guardar cambios" />
+					</div >	
 					
-					
-					<div id = "dialog-button"><input type = "button" name = "vista-previa" value = "Guardar cambios" id = "opener"></div >
-					
+					 </form>
 					
 				</div>
 				

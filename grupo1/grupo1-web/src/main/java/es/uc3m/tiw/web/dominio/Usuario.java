@@ -10,7 +10,17 @@ public class Usuario {
 	public String medio_cobro;
 	public int tipo_usuario;
 	public String clave;
+	public String descripcion;
+	public String intereses;
 	
+	public String getIntereses() {
+		return intereses;
+	}
+
+	public void setIntereses(String intereses) {
+		this.intereses = intereses;
+	}
+
 	public int getID_usuario() {
 		return ID_usuario;
 	}
@@ -100,6 +110,14 @@ public class Usuario {
 
 	public Usuario() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 	
 }
