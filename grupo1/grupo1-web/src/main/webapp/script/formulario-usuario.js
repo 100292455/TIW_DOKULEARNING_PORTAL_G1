@@ -46,6 +46,7 @@ $(document).ready(function(){
 			var telefono = $("#telefono").val();
 			var contraseña1 = $("#password1").val();
 			var contraseña2 = $("#password2").val();
+			expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 			
 			var validacion = true; /*variable para crear la oferta*/
 			
@@ -66,7 +67,7 @@ $(document).ready(function(){
 		         }
 				
 
-			if (correo == "" || correo == null || correo == '' || !(/\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)/.test(correo))){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+			if (correo == "" || correo == null || correo == '' ||  !expr.test(correo)){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
 		         $("#mens4").show();
 		         validacion=false;
 		
