@@ -126,27 +126,12 @@
 			 	<div id = "mi-empresa">
 				<h4>CURSOS CREADOS</h4>
 					<!-- Usuario con metodo de pago, puede crear curso -->
+						<input type="hidden" id="selectedTabInput" value="${requestScope.selectedTab}">
 
 					<c:if test="${usuario.tipo_usuario == 1 }">
 					
 						<input type = "button" name = "actualizar" value = "Añadir curso" id = "añadir-oferta1" class = "añadir-oferta añadir-curso">
 						<input type = "button"  onclick = "window.location.href='./GestionCupones.jsp'"  name = anadir_cupon" value = "Añadir cupon" id = "añadir-oferta2">
-						<input type="hidden" id="selectedTabInput" value="${requestScope.selectedTab}">
-					</c:if>
-					
-					<!-- Usuario con metodo de pago, puede crear curso -->
-					
-					<c:if test="${usuario.tipo_usuario == 0 }">
-					
-						<input type = "button" onclick = "window.location.href='./formularioPago.jsp'"  name = anadir_metodo_pago" value = "Crea tu curso" id = "añadir-oferta2">
-						<p class = "ofertas-titulo">Empieza a crear cursos, solo tienes que enlazar una cuenta bancaria. </p>
-
-					</c:if>
-					
-					<c:if test="${ mensaje != null }">
-							<p class="error">${mensaje }</p>
-					</c:if>
-					
 					<!-- Lista de cursos creados -->
 						<ul>
 							<c:forEach items="${cursoscreados }" var="curso">
@@ -286,6 +271,22 @@
 							<input type="submit" id="añadirboton" value="Añadir" />
 							</form>
 					   	</div>
+  						</c:if>
+					
+					<!-- Usuario con metodo de pago, puede crear curso -->
+					
+					<c:if test="${usuario.tipo_usuario == 0 }">
+					
+						<input type = "button" onclick = "window.location.href='./formularioPago.jsp'"  name = anadir_metodo_pago" value = "Crea tu curso" id = "añadir-oferta2">
+						<p class = "ofertas-titulo">Empieza a crear cursos, solo tienes que enlazar tu perfil con una cuenta bancaria. </p>
+
+					</c:if>
+					
+					<c:if test="${ mensaje != null }">
+							<p class="error">${mensaje }</p>
+					</c:if>
+					
+
 					</div> 
 				</div>				
 				
