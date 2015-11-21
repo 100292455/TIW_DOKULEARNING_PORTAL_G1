@@ -102,10 +102,11 @@ $(document).ready(function(){
 		         $("#mens9").hide();      /* Si si lo introduce, esconde el mensaje */
 		         }
 		
-				if($("#acepto").checked){
-				}else{
-					validacion=false;
-					}
+			if($("#acepto").is(':checked')) {  
+	           
+	        } else {  
+	           validacion = false;
+	        } 
 		if(contraseña2 != contraseña1){
 			
 			validacion=false;

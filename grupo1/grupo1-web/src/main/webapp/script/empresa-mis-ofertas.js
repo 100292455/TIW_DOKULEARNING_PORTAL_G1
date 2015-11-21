@@ -15,7 +15,6 @@ $(document).ready(function(){
     $("#spinner").val(value);
     $("#añadir-precio").val(value);
     
-    $( document ).tooltip();
 
   //Añadir una oferta nueva 
     $("#añadir").hide();
@@ -45,6 +44,7 @@ $(document).ready(function(){
     $("#mens4").hide();
     $("#mens5").hide();
     $("#mens6").hide();
+    $("#mens7").hide();
     
     /* Al pulsar el boton anadir 	*/
     
@@ -61,6 +61,7 @@ function validarcrearcurso(){
 	
 	var comprobartit = $("#añadir-titulo").val();
 	var comprobaremp = $("#dificultad-curso").val();
+	var comprobartem = $("#tematica-curso").val();
 	var comprobardes = $("#añadir-descripcion").val();
 	var comprobarpre=$("#añadir-precio").val();
 	var comprobarhor=$("#spinner").val();
@@ -97,6 +98,14 @@ if (comprobaremp == "-1"){   /* Si no introduce el titulo enseña el mensaje de 
  }else{
      $("#mens2").hide();      /* Si si lo introduce, esconde el mensaje */
      }
+
+if (comprobartem == "-1"){   /* Si no introduce el tema enseña el mensaje de error y pone la variable validacion a false*/
+    $("#mens7").show();
+    validacion=false;
+
+}else{
+    $("#mens7").hide();      /* Si si lo introduce, esconde el mensaje */
+    }
 
 if (isNaN(comprobarhor) || comprobarhor<1){   /* Si no introduce las horas como numero mayor que 0 enseña el mensaje de error y pone la variable validacion a false*/
     $("#mens3").show();

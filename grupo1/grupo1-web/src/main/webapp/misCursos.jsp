@@ -239,15 +239,32 @@
 								        <input  type="text" name="precio" id="añadir-precio" placeholder = "Precio de matricula"/>
 							        </div>
 					        	</div>
-								
+					        	
+					        		<div> 
 								<!-- Importar imagen -->
 								
 								
-								<div id="formul">  
-						    	    <p  id="mens6">Solo se admiten imagenes con formato jpg*</p>
-						        	<p class="nombre">Seleccione una imagen <span class=aster>jpg</span> para el curso<span class=aster>*</span>.</p>  
-									<input type="file" name="file" id="imagen-curso" size="60" />
-								 </div>
+									<div id="formul">  
+							    	    <p  id="mens6">Solo se admiten imagenes con formato jpg*</p>
+							        	<p class="nombre">Seleccione una imagen <span class=aster>jpg</span> para el curso<span class=aster>*</span>.</p>  
+										<input type="file" name="file" id="imagen-curso" size="60" />
+									 </div>	
+							      	
+								 <!-- Dificultad del curso -->
+
+							        <div id="formul7">  
+								        <p class="nombre">Tematica del curso<span class=aster>*</span>:</p> 
+								        <p  id="mens7">No ha especificado la tematica del curso*</p>
+								        <select name="tematica" id="tematica-curso">
+								        	<option value="-1" selected>Especifique la tematica del curso</option>
+		  									<option value="0">Artes y Humanidades</option>
+		  									<option value="1">Ciencias sociales y Juridicas</option>
+		  									<option value="2">Ingenieria y Arquitectura</option>
+		  									<option value="3">Ciencias de la Salud</option>
+		  									<option value="4">Ciencias</option>
+										</select> 
+							        </div>
+					        	</div>
 								 
 
 					        <!-- Descripcion del curso -->
