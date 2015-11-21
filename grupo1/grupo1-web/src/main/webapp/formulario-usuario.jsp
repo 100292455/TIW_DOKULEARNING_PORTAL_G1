@@ -169,6 +169,7 @@
 					<div id = "condiciones"> 
 						<p> He leído  y acepto los términos y condiciones de uso<span class=aster>*</span>
 						<input  id="acepto"  type="checkbox" name="condiciones" value="condiciones_uso"></p>
+						<p id="mens3" class = "mens">Tienes que aceptar las condiciones de uso*</p>
 						
 						<p id= "condiciones-texto">Condiciones generales:<br>1. Su relación con Lavoro TV<br>
 					1.1 Su utilización del sitio web de Lavoro TV (el "Sitio Web") y de todos los productos, canales, software, alimentación de datos y servicios de Lavoro TV, incluyendo el reproductor de video de Lavoro TV incorporado

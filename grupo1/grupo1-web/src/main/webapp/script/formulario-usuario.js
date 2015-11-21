@@ -103,9 +103,10 @@ $(document).ready(function(){
 		         }
 		
 			if($("#acepto").is(':checked')) {  
-	           
+		         $("#mens3").hide();      /* Si si lo introduce, esconde el mensaje */
 	        } else {  
-	           validacion = false;
+		         $("#mens3").show();
+		         validacion = false;
 	        } 
 		if(contraseña2 != contraseña1){
 			
