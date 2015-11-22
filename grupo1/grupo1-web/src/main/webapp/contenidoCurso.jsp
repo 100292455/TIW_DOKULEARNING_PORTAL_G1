@@ -74,7 +74,8 @@
 						<ul class ="lista-seccion">
 							<p>${seccion.nombre }</p>
 							<input type = "button"  value = "Añadir leccion"  class = "añadir-leccion">
-							<c:forEach items="${lecciones }" var="leccion">
+							<input type = "button"  value = "Borrar seccion"  class = "anadir-cupon">
+							<c:forEach items="${lecciones }" var="leccion">							
 								<c:if test="${leccion.id_seccion.equals(seccion.id_seccion)}">
 									<li>
 										<img class = "leccion" src="images/formatos/${leccion.formato}.png" alt="Error en la imagen"> 
