@@ -1,5 +1,12 @@
 $(document).ready(function(){
 	var añadiroferta = true;
+	var anadircupon = true;
+	var anadirseccion = true;
+	//Fecha fin de cupon
+	
+	  $(function() {
+		    $( "#datepicker" ).datepicker();
+		  });
 
   //Añadir una oferta nueva 
 	$("#añadir-leccion").hide();
@@ -7,15 +14,68 @@ $(document).ready(function(){
 	   if (añadiroferta){
 		$("#añadir-leccion").show();
 		añadiroferta=false;
-		$(".añadir-leccion").val("Ocultar añadir")
+		$(".añadir-leccion").val("Ocultar añadir");
 		window.scrollTo(0, 1500);
-		
+		anadirseccion=true;
+		$("#anadir-seccion").hide();
+		$("#boton-anadir-seccion").val("Anadir seccion");
+		anadircupon=true;
+		$("#anadir-cupon").hide();
+		$("#boton-anadir-cupon").val("Anadir cupon");
 		
 	}
 		else{
 			añadiroferta=true;
-			$("#añadir").hide();
-			$(".añadir-leccion").val("Añadir leccion")
+			$("#añadir-leccion").hide();
+			$(".añadir-leccion").val("Añadir leccion");
+			
+		}
+	  });
+	
+	  //Añadir una cupon nueva 
+	$("#anadir-cupon").hide();
+	$("#boton-anadir-cupon").click(function(){
+	   if (anadircupon){
+		$("#anadir-cupon").show();
+		anadircupon=false;
+		$("#boton-anadir-cupon").val("Ocultar anadir")
+		window.scrollTo(0, 1500);
+		añadiroferta=true;
+		$("#añadir-leccion").hide();
+		$(".añadir-leccion").val("Añadir leccion");
+		anadirseccion=true;
+		$("#anadir-seccion").hide();
+		$("#boton-anadir-seccion").val("Anadir seccion");
+		
+	}
+		else{
+			anadircupon=true;
+			$("#anadir-cupon").hide();
+			$("#boton-anadir-cupon").val("Anadir cupon");
+			
+		}
+	  });
+	
+	  //Añadir una seccion nueva 
+	$("#anadir-seccion").hide();
+	$("#boton-anadir-seccion").click(function(){
+	   if (anadirseccion){
+		$("#anadir-seccion").show();
+		anadirseccion=false;
+		$("#boton-anadir-seccion").val("Ocultar anadir")
+		window.scrollTo(0, 1500);
+		añadiroferta=true;
+		$("#añadir-leccion").hide();
+		$(".añadir-leccion").val("Añadir leccion");
+		anadircupon=true;
+		$("#anadir-cupon").hide();
+		$("#boton-anadir-cupon").val("Anadir cupon");
+		
+	}
+		else{
+			anadirseccion=true;
+			$("#anadir-seccion").hide();
+			$("#boton-anadir-seccion").val("Anadir seccion");
 			
 		}
 	  });
@@ -28,13 +88,27 @@ $(document).ready(function(){
     $("#mens4").hide();
     
     
-    /* Al pulsar el boton anadir 	*/
+	$("#mens7").hide();
+    $("#mens8").hide();
+    $("#mens9").hide();    
+ 
+    $("#mens10").hide();    
+    /* Al pulsar el boton anadir leccion*/
     
     $("#añadir-leccion-button").click(function(){
     	validarcrearleccion();
  	  });
-
-
+    /* Al pulsar el boton anadir cupon*/
+ 
+    $("#crear-cupon-boton").click(function(){
+    	validarcrearcupon();
+ 	  });
+    
+    /* Al pulsar el boton anadir seccion*/
+    
+    $("#crear-seccion-boton").click(function(){
+    	validarcrearseccion();
+ 	  });
 
 });	
 
@@ -64,6 +138,54 @@ function validarcrearleccion(){
 	 }else{
 	     $("#mens4").hide();      /* Si si lo introduce, esconde el mensaje */
 	     }
+	return validacion;
+
+}
+
+function validarcrearcupon(){
+	var comprobarpre = $("#cupon-precio-descuento").val();
+	var comprobarform = $("#formato-cupon").val();
+	var comprobardat = $("#datepicker").val();
+	var value = 0;
+	var validacion = true; /*variable para crear la oferta*/
+	if (isNaN(comprobarpre) || comprobarpre<1){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+	     $("#mens7").show();
+	     $("#cupon-precio-descuento").val(value);
+	     validacion=false;
+
+	 }else{
+	     $("#mens7").hide();      /* Si si lo introduce, esconde el mensaje */
+	     }
+	if (comprobarform=="otro"){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+	     $("#mens8").show();
+	     validacion=false;
+
+	 }else{
+	     $("#mens8").hide();      /* Si si lo introduce, esconde el mensaje */
+	     }	
+	if (comprobardat == "" || comprobardat == null){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+	     $("#mens9").show();
+	     validacion=false;
+
+	 }else{
+	     $("#mens9").hide();      /* Si si lo introduce, esconde el mensaje */
+	 }
+	
+	return validacion;
+
+}
+
+function validarcrearseccion(){
+	var comprobartit = $("#nombre-seccion").val();
+	if (comprobartit == "" || comprobartit == null){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+	     $("#mens10").show();
+	     validacion=false;
+
+	 }else{
+	     $("#mens10").hide();      /* Si si lo introduce, esconde el mensaje */
+	     alert(comprobardat);
+	 }
+	
 	return validacion;
 
 }

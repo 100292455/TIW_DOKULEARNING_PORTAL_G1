@@ -61,7 +61,10 @@
 				<div id = "mi-empresa">
 					
 					<h4>MIS CURSOS - ${nombreCurso}</h4>
-					
+					<div id = "crear-curso">
+						<input type = "button"  value = "Anadir cupon"  class = "anadir-cupon" id="boton-anadir-cupon">
+						<input type = "button"  value = "Anadir seccion"  class = "anadir-cupon" id="boton-anadir-seccion">
+					</div>
 					<div id = "descripcion-curso">
 						<p>Profesor: Javier</p>
 						<p>4 alumnos</p>
@@ -75,9 +78,8 @@
 								<c:if test="${leccion.id_seccion.equals(seccion.id_seccion)}">
 									<li>
 										<img class = "leccion" src="images/formatos/${leccion.formato}.png" alt="Error en la imagen"> 
-										<p class = "leccion"">${leccion.titulo }</p>
-										<input type = "button"  value = "Borrar"  class = "modificar-leccion">
-										<input type = "button"  value = "Modificar"  class = "modificar-leccion">
+										<p class = "leccion">${leccion.titulo }</p>
+										<input type = "button"  value = "Borrar"  class = "borrar-leccion">
 									</li>	
 								</c:if>			
 							</c:forEach>
@@ -162,7 +164,73 @@
 							<input type="submit" id="añadir-leccion-button" value="Añadir" />
 							</form>
 					   	</div>
-					</div> 
+					   	
+					   		<!-- Crear un leccion nuevo -->
+									 
+						<div id="anadir-cupon">
+
+					        <h2> Añade un nuevo cupon </h2>  
+
+							<form action="AltaCupon" method="post" enctype="multipart/form-data" id ="anadir-cupon-form" onsubmit="return validarcrearcupon();">
+								
+								<div> 
+								<!-- Precio cupon -->
+	
+							       	<div id="formul7">  
+							        	<p class="nombre">Precio de descuento<span class=aster>*</span>:</p>  
+								        <p  id="mens7">No ha especificado precio de descuento*</p>
+								        <input  type="text" name="precio-descuento" id="cupon-precio-descuento" value ="0">
+							        </div>		
+							      	
+								 <!-- Formato del cupon -->
+
+							        <div id="formul8">  
+								        <p class="nombre">Formato cupon<span class=aster>*</span>:</p> 
+								        <p  id="mens8">No ha especificado el formato del cupon*</p>
+								        <select name="formato-cupon" id="formato-cupon">
+								        	<option value="otro" selected>Sin especificar</option>
+		  									<option value="fijo">Fijo</option>
+		  									<option value="porcentaje">Porcentaje</option>
+										</select> 
+							        </div>
+					        	</div>
+					        	
+								
+								
+								<!-- Fecha fin de cupon -->
+								
+								
+								<div id="formul9">
+						        	<p class="nombre">Fecha fin de cupon<span class=aster>*</span>.</p>  
+							        <p  id="mens9">No ha especificado el formato de la leccion*</p>  
+									<input type="text" id="datepicker">
+								 </div>
+								 
+					        <!-- Boton añadir -->
+
+							<input type="submit" id="crear-cupon-boton" value="Anadir" />
+							</form>
+					   	</div>
+					   	
+					   	<div id="anadir-seccion">
+
+					        <h2> Añade una nueva seccion </h2>  
+
+							<form action="AltaCupon" method="post" enctype="multipart/form-data" id ="anadir-seccion-form" onsubmit="return validarcrearseccion();">
+								
+								<!-- Nombre seccion -->
+	
+							       	<div id="formul10">  
+							        	<p class="nombre">Nombre de la seccion<span class=aster>*</span>:</p>  
+								        <p  id="mens10">No ha especificado el nombre de la seccion*</p>
+								        <input  type="text" name="nombre-seccion" id="nombre-seccion" placeholder="Seccion 1">
+							        </div>		
+								 
+					        <!-- Boton añadir -->
+
+							<input type="submit" id="crear-seccion-boton" value="Anadir" />
+							</form>
+					   	</div>
 				
 				
 					
