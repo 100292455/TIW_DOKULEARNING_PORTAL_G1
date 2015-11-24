@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import es.uc3m.tiw.web.dominio.Cupon;
-import es.uc3m.tiw.web.dominio.Curso;
-import es.uc3m.tiw.web.dominio.Promocion;
+import es.uc3m.tiw.model.Cupon;
+import es.uc3m.tiw.model.Curso;
+import es.uc3m.tiw.model.Promocion;
 
 @WebServlet("/AltaCupones")
 public class AltaCuponesServlet extends HttpServlet {
