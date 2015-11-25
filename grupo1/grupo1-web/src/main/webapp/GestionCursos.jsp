@@ -98,7 +98,7 @@
 											<p class = "ofertas-titulo">${curso.DES_titulo }. AUN POR VALIDAR</p>
 										</c:otherwise>
 									</c:choose>
-									<p class = "ofertas-empresa">Impartido por: <!-- TO-DO cambiar COD_prof por nombre -->${curso.COD_profesor }</p>
+									<p class = "ofertas-empresa">Impartido por: <!-- TO-DO cambiar COD_prof por nombre -->${curso.profesor.ID_usuario }</p>
 									<p class = "ofertas-resumen">${curso.DES_descripcion }</p>
 									<p class = "ofertas-tipo-contrato">${curso.horas } hrs.</p>
 									<p class = "ofertas-jornada">${curso.precio_final } euros.</p>
@@ -201,7 +201,17 @@
 					        </div>
 					
 							<!-- Precio de matricula -->
-
+					        <<div id="formul7">  
+						        <p class="nombre">Tematica<span class=aster>*</span>:</p> 
+						        <select name="tematica">
+						        	<option value="-1" selected>Especifique la tematica del curso</option>
+  									<option value="0">Humanidades</option>
+  									<option value="1">Ciencias</option>
+  									<option value="2">Letras</option>
+								</select> 
+					        </div>
+					        		
+							<!-- Precio de matricula -->
 					        <div id="formul5">  
 					        	<p class="nombre">Precio de matricula<span class=aster>*</span>:</p>  
 						        <p  id="mens5">No ha especificado precio de matricula*</p>

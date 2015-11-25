@@ -1,3 +1,4 @@
+
 package es.uc3m.tiw.web.controladores;
 
 import java.io.File;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import es.uc3m.tiw.web.dominio.Usuario;
+import es.uc3m.tiw.model.Usuario;
 
 @WebServlet("/UploadServlet")
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
@@ -33,11 +34,8 @@ public class UploadServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 	
-
 	}
        
-
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */

@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -85,24 +86,24 @@
 			 	<div class = "mi-empresa">
 				<h4>CURSOS MATRICULADOS</h4>
 						<ul>
-							<c:forEach items="${cursosmatriculados }" var="curso">
-								<li id = "oferta-ejemplo${curso.ID_curso}">
+							<c:forEach items="${matriculas }" var="matricula">
+								<li id = "oferta-ejemplo${matricula.curso.ID_curso}">
 									<div class = "ofertas-descripcion">
 										<!-- Descripcion de ofertas -->
-										<p class = "ofertas-titulo">${curso.DES_titulo }</p>
-										<p class = "ofertas-empresa">Impartido por: <!-- TO-DO cambiar COD_prof por nombre -->${curso.COD_profesor }</p>
-										<p class = "ofertas-resumen">${curso.DES_descripcion }</p>
-										<p class = "ofertas-tipo-contrato">${curso.horas } hrs.</p>
-										<p class = "ofertas-jornada">Precio inicial: ${curso.precio_inicial } euros.</p>
-										<p class = "ofertas-jornada">Precio final: ${curso.precio_final } euros.</p>
-										<c:if test="${not empty curso.fechaFinDescuento }">
-												<p class = "ofertas-jornada">fin descuento: ${curso.fechaFinDescuento }</p>
+										<p class = "ofertas-titulo">${matricula.curso.DES_titulo }</p>
+										<p class = "ofertas-empresa">Impartido por: ${matricula.curso.profesor.nombre }</p>
+										<p class = "ofertas-resumen">${matricula.curso.DES_descripcion }</p>
+										<p class = "ofertas-tipo-contrato">${matricula.curso.horas } hrs.</p>
+										<p class = "ofertas-jornada">Precio inicial: ${matricula.curso.precio_inicial } euros.</p>
+										<p class = "ofertas-jornada">Precio final: ${matricula.curso.precio_final } euros.</p>
+										<c:if test="${not empty matricula.curso.fechaFinDescuento }">
+												<p class = "ofertas-jornada">fin descuento: ${matricula.curso.fechaFinDescuento }</p>
 										</c:if>
 										<c:choose>
-											<c:when test="${curso.TIPO_dificultad == 0 }">
+											<c:when test="${matricula.curso.TIPO_dificultad == 0 }">
 											<p class = "ofertas-salario">Basico.</p>
 										</c:when>
-										<c:when test="${curso.TIPO_dificultad == 1 }">
+										<c:when test="${matricula.curso.TIPO_dificultad == 1 }">
 											<p class = "ofertas-salario">Intermedio.</p>
 										</c:when>
 										<c:otherwise>
@@ -112,7 +113,7 @@
 									</div>
 									<div class = "ofertas-seguidores">
 										<img src = "images/edicion/seguidores-icon.png" alt = "Error en la imagen">
-										<p class = "numero-seguidores"><a href="contenidoCursos?nombreCurso=${curso.ID_curso}">Ver Contenidos</a></p>
+										<p class = "numero-seguidores"><a href="contenidoCursos?nombreCurso=${matricula.curso.DES_titulo}">Ver Contenidos</a></p>
 									</div>
 								</li>															
 							</c:forEach>
@@ -126,12 +127,10 @@
 			 	<div id = "mi-empresa">
 				<h4>CURSOS CREADOS</h4>
 					<!-- Usuario con metodo de pago, puede crear curso -->
-						<input type="hidden" id="selectedTabInput" value="${requestScope.selectedTab}">
-
+					<input type="hidden" id="selectedTabInput" value="${requestScope.selectedTab}">
 					<c:if test="${usuario.tipo_usuario == 1 }">
 					
 						<input type = "button" name = "actualizar" value = "Añadir curso" id = "añadir-oferta1" class = "añadir-oferta añadir-curso">
-						<input type = "button"  onclick = "window.location.href='./GestionCupones.jsp'"  name = anadir_cupon" value = "Añadir cupon" id = "añadir-oferta2">
 					<!-- Lista de cursos creados -->
 						<ul>
 							<c:forEach items="${cursoscreados }" var="curso">
@@ -139,7 +138,7 @@
 									<div class = "ofertas-descripcion">
 										<!-- Descripcion de ofertas -->
 										<p class = "ofertas-titulo">${curso.DES_titulo }</p>
-										<p class = "ofertas-empresa">Impartido por: <!-- TO-DO cambiar COD_prof por nombre -->${curso.COD_profesor }</p>
+										<p class = "ofertas-empresa">Impartido por: <!-- TO-DO cambiar COD_prof por nombre -->${curso.profesor.nombre }</p>
 										<p class = "ofertas-resumen">${curso.DES_descripcion }</p>
 										<p class = "ofertas-tipo-contrato">${curso.horas } hrs.</p>
 										<p class = "ofertas-jornada">Precio inicial: ${curso.precio_inicial } euros.</p>
@@ -161,7 +160,7 @@
 									</div>
 									<div class = "ofertas-seguidores">
 										<img src = "images/edicion/seguidores-icon.png" alt = "Error en la imagen">
-										<p class = "numero-seguidores"><a  href="contenidoCurso?nombreCurso=${curso }">Ver Contenidos</a></p>
+										<p class = "numero-seguidores"><a  href="contenidoCursos?nombreCurso=${curso.DES_titulo }">Ver Contenidos</a></p>
 									</div>
 									<div class = "ofertas-edicion">
 										<form action="BajaCursos" method="post" onsubmit="false">
@@ -242,11 +241,9 @@
 								        <p  id="mens7">No ha especificado la tematica del curso*</p>
 								        <select name="tematica" id="tematica-curso">
 								        	<option value="-1" selected>Especifique la tematica del curso</option>
-		  									<option value="0">Artes y Humanidades</option>
-		  									<option value="1">Ciencias sociales y Juridicas</option>
-		  									<option value="2">Ingenieria y Arquitectura</option>
-		  									<option value="3">Ciencias de la Salud</option>
-		  									<option value="4">Ciencias</option>
+		  									<option value="0">Artes</option>
+		  									<option value="1">Ciencias</option>
+		  									<option value="2">Ingenieria</option>
 										</select> 
 							        </div>
 					        	</div>
@@ -271,14 +268,15 @@
 							<input type="submit" id="añadirboton" value="Añadir" />
 							</form>
 					   	</div>
-  						</c:if>
+					
+					</c:if>
 					
 					<!-- Usuario con metodo de pago, puede crear curso -->
 					
 					<c:if test="${usuario.tipo_usuario == 0 }">
 					
 						<input type = "button" onclick = "window.location.href='./formularioPago.jsp'"  name = anadir_metodo_pago" value = "Crea tu curso" id = "añadir-oferta2">
-						<p class = "ofertas-titulo">Empieza a crear cursos, solo tienes que enlazar tu perfil con una cuenta bancaria. </p>
+						<p class = "ofertas-titulo">Empieza a crear cursos, solo tienes que enlazar una cuenta bancaria. </p>
 
 					</c:if>
 					
@@ -286,7 +284,6 @@
 							<p class="error">${mensaje }</p>
 					</c:if>
 					
-
 					</div> 
 				</div>				
 				
@@ -297,24 +294,24 @@
 			 	<div class = "mi-empresa">
 				<h4>LISTA DE DESEOS</h4>
 						<ul>
-							<c:forEach items="${listadeseos }" var="curso">
-								<li id = "oferta-ejemplo${curso.ID_curso}">
+							<c:forEach items="${sessionScope.listadeseos }" var="deseo">
+								<li id = "oferta-ejemplo${deseo.cursoDeseado.ID_curso}">
 									<div class = "ofertas-descripcion">
 										<!-- Descripcion de ofertas -->
-										<p class = "ofertas-titulo">${curso.DES_titulo }</p>
-										<p class = "ofertas-empresa">Impartido por: <!-- TO-DO cambiar COD_prof por nombre -->${curso.COD_profesor }</p>
-										<p class = "ofertas-resumen">${curso.DES_descripcion }</p>
-										<p class = "ofertas-tipo-contrato">${curso.horas } hrs.</p>
-										<p class = "ofertas-jornada">Precio inicial: ${curso.precio_inicial } euros.</p>
-										<p class = "ofertas-jornada">Precio final: ${curso.precio_final } euros.</p>
-										<c:if test="${not empty curso.fechaFinDescuento }">
-												<p class = "ofertas-jornada">fin descuento: ${curso.fechaFinDescuento }</p>
+										<p class = "ofertas-titulo">${deseo.cursoDeseado.DES_titulo }</p>
+										<p class = "ofertas-empresa">Impartido por: <!-- TO-DO cambiar COD_prof por nombre -->${deseo.cursoDeseado.profesor.ID_usuario }</p>
+										<p class = "ofertas-resumen">${deseo.cursoDeseado.DES_descripcion }</p>
+										<p class = "ofertas-tipo-contrato">${deseo.cursoDeseado.horas } hrs.</p>
+										<p class = "ofertas-jornada">Precio inicial: ${deseo.cursoDeseado.precio_inicial } euros.</p>
+										<p class = "ofertas-jornada">Precio final: ${deseo.cursoDeseado.precio_final } euros.</p>
+										<c:if test="${not empty deseo.cursoDeseado.fechaFinDescuento }">
+												<p class = "ofertas-jornada">fin descuento: ${deseo.cursoDeseado.fechaFinDescuento }</p>
 										</c:if>
 										<c:choose>
-											<c:when test="${curso.TIPO_dificultad == 0 }">
+											<c:when test="${deseo.cursoDeseado.TIPO_dificultad == 0 }">
 											<p class = "ofertas-salario">Basico.</p>
 										</c:when>
-										<c:when test="${curso.TIPO_dificultad == 1 }">
+										<c:when test="${deseo.cursoDeseado.TIPO_dificultad == 1 }">
 											<p class = "ofertas-salario">Intermedio.</p>
 										</c:when>
 										<c:otherwise>
@@ -324,7 +321,7 @@
 									</div>
 									<div class = "ofertas-seguidores">
 										<img src = "images/edicion/seguidores-icon.png" alt = "Error en la imagen">
-										<p class = "numero-seguidores"><a  href="contenidoCurso?nombreCurso=${curso.DES_titulo }">Ver Contenidos</a></p>
+										<p class = "numero-seguidores"><a  href="contenidoCursos?nombreCurso=${deseo.cursoDeseado.DES_titulo }">Ver Contenidos</a></p>
 									</div>
 								</li>
 							</c:forEach>

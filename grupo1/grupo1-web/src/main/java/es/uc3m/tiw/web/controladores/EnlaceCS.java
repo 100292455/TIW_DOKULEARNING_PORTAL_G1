@@ -1,35 +1,56 @@
 package es.uc3m.tiw.web.controladores;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collection;
 
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.transaction.UserTransaction;
 
-import es.uc3m.tiw.web.dominio.Curso;
-import es.uc3m.tiw.web.dominio.Seccion;
+import es.uc3m.tiw.model.Curso;
+import es.uc3m.tiw.model.Cupon;
+import es.uc3m.tiw.model.Promocion;
+import es.uc3m.tiw.model.Seccion;
+import es.uc3m.tiw.model.Usuario;
+import es.uc3m.tiw.model.dao.SeccionDAO;
+import es.uc3m.tiw.model.dao.SeccionDAOImpl;
+import es.uc3m.tiw.model.dao.CursoDAO;
+import es.uc3m.tiw.model.dao.CursoDAOImpl;
 
 @WebServlet("/EnlaceCS")
 public class EnlaceCS extends HttpServlet {
 	private static final String ENTRADA_JSP = "/gestionSecciones.jsp";
 	private static final String GESTION_CURSOS_JSP = "/gestionSecciones.jsp";
 	private static final long serialVersionUID = 1L;
+	@PersistenceContext(unitName = "demoTIW")
+	private EntityManager em;
+	@Resource
+	private UserTransaction ut;
+	private ServletConfig config2;
+	private CursoDAO curDao;
+	private SeccionDAO secDao;
 	ServletContext context;
-	private ArrayList<Curso> cursos;
-	private ArrayList<Seccion> secciones;
-	
 	@Override
-	public void init() throws ServletException {
-		secciones = new ArrayList<Seccion>();
-	    context= this.getServletConfig().getServletContext();
-		context.setAttribute("secciones", secciones);
+	public void init(ServletConfig config) throws ServletException {
+		config2 = config;
+		curDao = new CursoDAOImpl(em, ut);
+		secDao = new SeccionDAOImpl(em, ut);
+
+	}
 	
+	public void destroy() {
+		curDao = null;
+		secDao = null;
 	}
        
 
@@ -54,29 +75,15 @@ public class EnlaceCS extends HttpServlet {
 		pagina = GESTION_CURSOS_JSP;
 		context= this.getServletConfig().getServletContext();
 		
-		cursos=(ArrayList<Curso>) context.getAttribute("cursos");
-		
-		String nombreCurso;
-		Curso cursoActual = null;
-		
-		for (Curso curso : cursos) {
-			if (curso.getID_curso() == idcurso) {
-				nombreCurso=curso.getDES_titulo();
-				
-				cursoActual = cursos.get(idcurso);
-			}
-		}
-		
 		HttpSession sesion = request.getSession();
-	    context.setAttribute("curso_actual",cursoActual);
-		context.setAttribute("idcurso", idcurso);
-		secciones = (ArrayList<Seccion>) context.getAttribute("secciones");
-		
-	
+		Curso cursoActual = curDao.recuperarCursoPorPK(idcurso);
+	    sesion.setAttribute("curso_actual",cursoActual);
+		sesion.setAttribute("idcurso", idcurso);
+		Collection<Seccion> listadoSeccionesIniciales = secDao.recuperarSeccionesPorCurso(cursoActual);
 		
 		pagina = ENTRADA_JSP;
-		context.setAttribute("secciones", secciones);
-		this.getServletContext().getRequestDispatcher(pagina).forward(request, response);
+		sesion.setAttribute("secciones", listadoSeccionesIniciales);
+		config2.getServletContext().getRequestDispatcher(pagina).forward(request, response);
 		
 	    }
 		

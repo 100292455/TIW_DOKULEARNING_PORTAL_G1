@@ -16,9 +16,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class SesionFiltro
  */
-@WebFilter()
-// urlPatterns = {"/misCursos.jsp","/formulario-usuario.jsp","/listadoCursos.jsp","/GestionCupones.jsp","/formularioPago.jsp", "/contenidoCurso.jsp", "/miPerfilAlumno.jsp", "/miPerfilProfesor.jsp", "/avisoMatricula.jsp", "/GestionCursos.jsp" }
-
+@WebFilter( urlPatterns = {"/misCursos.jsp","/listadoCursos.jsp","/GestionCupones.jsp","/formularioPago.jsp", "/contenidoCurso.jsp", "/miPerfilAlumno.jsp", "/miPerfilProfesor.jsp", "/avisoMatricula.jsp", "/GestionCursos.jsp" })
 public class SesionFiltro implements Filter {
 
 
@@ -28,12 +26,11 @@ public class SesionFiltro implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
 		HttpSession sesion =  ((HttpServletRequest)request).getSession(); //accedemos a la sesion del servidor usando un casting al objeto HttpServletRequest ya que nos pasan solamente ServletRequest
-		ServletContext context = sesion.getServletContext();
-		if (context.getAttribute("acceso")!=null && context.getAttribute("acceso").equals("ok")) { //buscamos el token de autenticacion
+		if (sesion.getAttribute("acceso")!=null && sesion.getAttribute("acceso").equals("ok")) { //buscamos el token de autenticacion
 			
 			chain.doFilter(request, response); 
 		}else{
-			request.getRequestDispatcher("/SesionProfesor.jsp").forward(request, response);
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 
 	}

@@ -15,7 +15,7 @@
 	
 	
 	html{
-		background-color:rgb(246,246,246);
+		background-color:rgb(29,102,168);
 	}
 	
 	body{
@@ -125,7 +125,7 @@
 			
 		}
 		
-		header input:hover{
+		header input:hover {
 			color:rgb(29,102,168);
 			background-color:white;
 			border:solid 1px rgb(29,102,168);			
@@ -136,8 +136,35 @@
 		/*--------------------------------------------------*/
 		/*ESTILO DEL POP UP*/
 			
-		
-	
+			#dialog-form form{
+				font-family: 'Ubuntu', sans-serif;
+				
+				padding:10px 0;
+			}
+			
+			.popup {
+				border:none;
+				padding:10px;
+			}
+			
+			.popup a {
+				font-size:12px;
+				padding-left:10px;
+			
+			}
+			
+			input[name=email], input[name=password] {
+				border-radius: 4px;
+				border: none;
+				box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset, 0 -1px 0 rgba(0,0,0,0.05) inset;
+				font-family: 'Ubuntu', sans-serif;	
+				font-size: 12px;
+				color: #222222;
+				height: 28px;
+				width: 250px;
+				padding-left: 20px;
+				margin:10px;
+			}
 	
 		
 		/*-------------------------------------------------*/
@@ -151,7 +178,24 @@
 	/*---------------------------------------------------------------------------------------------------*/
 	/*ESTILO DE LAS CONDICIONES*/
 	
+	#condiciones {
+		margin:10px;
+		
+	}	
 	
+	#condiciones p{
+		margin-bottom:10px;
+	}
+	
+	#condiciones-texto {
+		height:150px;
+		padding:5px;
+		overflow: auto;
+		border:solid 1px;
+		border-radius: 3px;
+	}
+
+		
 	
 	/*---------------------------------------------------------------------------------------------------*/
 
@@ -184,127 +228,137 @@
 	/*---------------------------------------------------------------------------------------------------*/
 	/*ESTILO DEL FORMULARIO */
 	
-	#formulario-pago {
-		margin: 20% auto;
-		width:600px;	
-		box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset, 0 -1px 0 rgba(0,0,0,0.05) inset;
+	
+	#cuestionario {
+		width:720px;
+		margin: 20px auto;
+		padding:20px;
+		border:solid 2px rgb(81,81,81);
+		background:rgba(29,102,168,0.1);
+		border-radius:5px;
 	}
 	
-	#formulario-pago > h4, #registrar-boton {
-		background: rgb(29,102,168);
-		font-size:40px;
-		color:white;
+	#cuestionario > div {
+		width:700px;
+		min-height:95px;
+		display:block;
+		margin-top: 15px;
+	}
+	
+	#cuestionario > div > div {
+		width:340px;
+		max-height:105px;
+		display:inline-block;
+		border-bottom:solid 2px rgb(81,81,81);
+
+	}
+	
+	div#subir-imagen {
+		border-bottom:none;
+		display:block;
+		margin:15px auto;
+		min-height:0;
 		text-align:center;
-		padding:10px 0;
 	}
 	
-	.registrar1 {
+	/*ALERTAS*/
+	
+	.mens{
+		border:solid 2px rgb(251,75,77);
+		border-radius: 25px;
+		padding:5px;
+		text-align:center;
+		width:250px;
+		background-color:white;
+		font-size:12px;
+		color:rgb(251,75,77);
+	}
+	
+	/*inputs*/
+	
+	input[type=text], input[type=password], input[type=email] {
+				border-radius: 4px;
+				border: none;
+				box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset, 0 -1px 0 rgba(0,0,0,0.05) inset;
+				font-family: 'Ubuntu', sans-serif;	
+				font-size: 12px;
+				color: #222222;
+				height: 28px;
+				width: 250px;
+				padding-left: 20px;
+				margin:10px;
+			}
+			
+	.registrar {
 			margin:auto;
 			background: rgb(29,102,168);
 			border-radius: 10px;
 			color: #ffffff;
-			font-size: 14px;
+			font-size: 12px;
 			border:solid 1px white;
 			border-radius:2px;
 			padding: 8px 15px 8px 15px;
 	}
 	
-	.registrar1:hover {
+	.registrar:hover {
 		color:rgb(29,102,168);
 		background:white;
 		border-color:rgb(29,102,168);
 	}
 	
-	#registrar-boton {
-		background-color:rgb(246,246,246);
-		font-size:40px;
-		color:white;
+	div#registrar-boton {
+		border-bottom:none;
+		display:block;
+		margin:15px auto;
 		text-align:center;
-		padding:10px 0;
+				min-height:0;
+
 	}
+			
+	/*Titulo*/
+		.obligatorio {
+		    text-transform: uppercase;
+			font-size:14px;
+		}
+		
+		.obligatorio {
 	
-	.form-pago-class {
-		margin:10px auto;
-		width:500px;
-	}
-	.form-pago-class > p:first-child {
-		margin:auto;
-		width:400px;
-	}
-	
-	.obligatorio {
-		font-size:14px;
-	}
+	font-weight: bolder;
+	}	
 	.aster{
-		font-weight: bolder;
-		color:red;
-	}
-	
-		/*ALERTAS*/
-	
-	#mens1, #mens2{
-		border:solid 1px rgb(251,75,77);
-		border-radius: 25px;
-		padding:5px;
-		margin:auto;
-		text-align:center;
-		width:400px;
-		background-color:white;
-		font-size:12px;
-		color:rgb(251,75,77);
-	}
-		#mens3, #mens4{
-		border:solid 1px rgb(251,75,77);
-		border-radius: 25px;
-		padding:5px;
-		margin:auto;
-		text-align:center;
-		width:200px;
-		background-color:white;
-		font-size:12px;
-		color:rgb(251,75,77);
+	font-weight: bolder;
+	color:red;
 	}
 
-	
-	#form-codigo, #form-fecha {
-		display:inline-block;
-		width:290px;
-		text-align:center;
-	}
-	
 
-	/*inputs*/
-	
-	input[name=nombre], input[name=numero] {
-				border-radius: 4px;
-				border: none;
-				box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset, 0 -1px 0 rgba(0,0,0,0.05) inset;
-				font-family: 'Ubuntu', sans-serif;	
-				font-size: 12px;
-				color: #222222;
-				height: 28px;
-				width: 400px;
-				padding:5px 20px;
-				margin:10px 35px;
-			}
-	input[name=codigo], select {
-				border-radius: 4px;
-				border: none;
-				box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset, 0 -1px 0 rgba(0,0,0,0.05) inset;
-				font-family: 'Ubuntu', sans-serif;	
-				font-size: 12px;
-				color: #222222;
-				height: 28px;
-				width: 100px;
-				padding:0 20px;
-				margin:10px 0;
-			}
-	
 	/*-----------------------------------------------------------------------------------------------*/
 		
 	/*ESTILO DE LAS REDES SOCIALES*/
 		
+		#redes-sociales {
+			border-bottom:white solid 1px;
+			border-top:white solid 1px;
+			padding:20px 0;
+		}
 		
+		#redes-sociales ul {
+			text-align:center;
+			list-style:none;
+		}
+		
+		#redes-sociales ul li {
+			display:inline-block;
+			padding: 0 50px;
+		}
+		
+		h4 {
+			margin:20px 0;
+			font-size:25px;
+			text-align:center;
+			color:rgb(91,112,165);
+		}
+		
+
 		
 	
 		

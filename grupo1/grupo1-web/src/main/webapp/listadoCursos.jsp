@@ -90,7 +90,7 @@
 											<p class = "ofertas-titulo">${curso.DES_titulo }. </p>
 										</c:otherwise>
 									</c:choose>
-									<p class = "ofertas-empresa">Impartido por: <!-- TO-DO cambiar COD_prof por nombre -->${curso.COD_profesor }</p>
+									<p class = "ofertas-empresa">Impartido por: ${curso.profesor.nombre }</p>
 									<p class = "ofertas-resumen">${curso.DES_descripcion }</p>
 									<p class = "ofertas-tipo-contrato">${curso.horas } hrs.</p>
 									<p class = "ofertas-jornada">Precio inicial: ${curso.precio_inicial } €.</p>
@@ -153,6 +153,20 @@
 								<p class = "seguidores-info"><a style="color:black" href="ContenidoCurso?IdCurso=${curso.ID_curso }">${curso.DES_titulo }</a></p></li>
 								</li>
 				 			</c:if>
+					</c:forEach>
+					</ul>
+				</div>
+								<div id = "seguidores">
+				
+					<h5> Recomendados </h5>
+						<ul>
+						<c:forEach items="${cursosRecomendados }" var="curso"> 
+						<!-- recorremos todos los objetos de la coleccion cursos 
+							y cada objeto devuelto lo asignamos a la variable curso -->
+								<li>
+								<img class = "seguidores-foto" src = "images/famosos/gates.jpg" alt = "Error en la imagen">
+								<p class = "seguidores-info"><a style="color:black" href="contenidoCursos?nombreCurso=${curso.DES_titulo }">${curso.DES_titulo }</a></p></li>
+								</li>
 					</c:forEach>
 					</ul>
 				</div>

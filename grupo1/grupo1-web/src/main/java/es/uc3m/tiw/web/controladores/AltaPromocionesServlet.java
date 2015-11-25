@@ -2,7 +2,12 @@ package es.uc3m.tiw.web.controladores;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,24 +15,51 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.transaction.UserTransaction;
 
-import es.uc3m.tiw.web.dominio.Curso;
-import es.uc3m.tiw.web.dominio.Promocion;
+import es.uc3m.tiw.model.Curso;
+import es.uc3m.tiw.model.Cupon;
+import es.uc3m.tiw.model.Promocion;
+import es.uc3m.tiw.model.dao.CursoDAO;
+import es.uc3m.tiw.model.dao.CursoDAOImpl;
+import es.uc3m.tiw.model.dao.CuponDAOImpl;
+import es.uc3m.tiw.model.dao.CuponDAO;
+import es.uc3m.tiw.model.dao.MatriculaDAO;
+import es.uc3m.tiw.model.dao.MatriculaDAOImpl;
+import es.uc3m.tiw.model.dao.PromocionDAOImpl;
+import es.uc3m.tiw.model.dao.PromocionDAO;
 
 @WebServlet("/AltaPromociones")
 public class AltaPromocionesServlet extends HttpServlet {
 	private static final String ENTRADA_JSP = "/GestionPromociones.jsp";
 	private static final String GESTION_CURSOS_JSP = "/GestionPromociones.jsp";
 	private static final long serialVersionUID = 1L;
-	private Promocion promocion;
-	private ArrayList<Promocion> promociones;//Coger tabla promociones de la BBDD
-	private int new_IDPromo = 0;//El id de cada promocion. Aumenta en +1 a medida que creamos una promo
-	@Override
-	//Inicializamos la tabla de promociones de la BBDD
-	public void init() throws ServletException {
+	@PersistenceContext(unitName = "demoTIW")
+	private EntityManager em;
+	@Resource
+	private UserTransaction ut;
+	private ServletConfig config2;
+	private PromocionDAO promDao;
+	private CuponDAO cupDao;
+	private CursoDAO curDao;
 	
-		promociones = new ArrayList<Promocion>();
-		
+	
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		config2 = config;
+		curDao = new CursoDAOImpl(em, ut);
+		cupDao = new CuponDAOImpl(em, ut);
+		promDao = new PromocionDAOImpl(em, ut);
+
+	}
+
+	/**
+	 * @see Servlet#destroy()
+	 */
+	public void destroy() {
+		cupDao = null;
+		curDao = null;
+		promDao = null;
 	}
        
 
@@ -36,7 +68,7 @@ public class AltaPromocionesServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher(GESTION_CURSOS_JSP).forward(request, response);
+		config2.getServletContext().getRequestDispatcher(GESTION_CURSOS_JSP).forward(request, response);
 	}
 
 	/**
@@ -59,42 +91,42 @@ public class AltaPromocionesServlet extends HttpServlet {
 		//Comprobar que los datos almacenados en la peticion no estan vacios
 		String m = comprobarPromocion(nombrePromo, precio1, tipo_promocion1, fecha_fin);
 		//Si la promocion a crear presenta todos los datos necesarios para crearla, entonces:
-		if (m == null || m == ""){
+		if (m.equals(null) || m.equals("")){
 			int precio2 = Integer.parseInt(precio1);
 			int tipo_promocion2 = Integer.parseInt(tipo_promocion1);
-			//Creamos la promocion
+			//Creamos la promocion y guardamos en BBDD
 			Promocion p = crearPromocion(nombrePromo, precio2, tipo_promocion2, fecha_fin);
+			try {
+				p=promDao.guardarPromocion(p);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			cambiarPrecioCursos(p, curDao.buscarTodosLosCursos());
 			pagina = ENTRADA_JSP;
 			//metemos la tabla de promociones en el contexto para poder utilizarla desde otras paginas
-			context.setAttribute("promociones", promociones);
+			//context.setAttribute("promociones", promociones);
 			//metemos la promocion  en el contexto para poder mostar su informacion en las paginas de promociones creadas (GestionPromociones)
-			context.setAttribute("promocion", promocion);
+			//context.setAttribute("promocion", promocion);
 			
 			//Si falta algun dato de los introducidos por el formulario para crear la promocion, enviamos un mensaje de error a dicha pagina	
 		}else{
 			
 			mensaje = m;
 			request.setAttribute("mensaje", mensaje);
-			context.setAttribute("promocion", promocion);
 		}
 			
-			this.getServletContext().getRequestDispatcher(pagina).forward(request, response);
+			config2.getServletContext().getRequestDispatcher(pagina).forward(request, response);
 			
 		
 	}
 	//Creamos la promocion
 	private Promocion crearPromocion(String nombrePromo, int precio, int tipo_promocion, String fecha_fin) {
 		Promocion p = new Promocion();
-		
 		p.setNombrePromo(nombrePromo);
-		p.setId_promo(new_IDPromo);
 		p.setDescuento(precio);
 		p.setTipo_promo(tipo_promocion);
 		p.setFecha_fin(fecha_fin);
-
-		/* AÑADIR Promocion A LA TABLA DE Promociones */
-		promociones.add(p);
-		new_IDPromo++;
 		
 		return p;
 	}
@@ -110,5 +142,31 @@ public class AltaPromocionesServlet extends HttpServlet {
 		
 		return m;
 	}
+	
+	private void cambiarPrecioCursos(Promocion p, Collection<Curso> cursos) {
+			for (Curso curso : cursos) {
+				int precioInicial = curso.getPrecio_inicial();
+				int descuento = p.getDescuento();
+				int tipoDescuento = p.getTipo_promo();
+				if (tipoDescuento==0) {
+					curso.setPrecio_final(precioInicial-descuento);
+				}
+				else{
+					
+					int descuentoTotal = (int) (precioInicial-((descuento*0.01)*precioInicial));
+					curso.setPrecio_final(descuentoTotal);
+					
+				}
+				
+				curso.setFechaFinDescuento(p.getFecha_fin());
+				try {
+					curso = curDao.modificarCurso(curso);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		}
 
 }

@@ -41,9 +41,9 @@
             </ejbModule> -->
             <!-- 4.5.3. Include Web Application Module. -->
             <jarModule>
-				<groupId>es.uc3m.tiw.model</groupId>
-				<artifactId>grupo1-model</artifactId>
-			</jarModule>
+            <groupId>es.uc3m.tiw.model</groupId>
+          <artifactId>grupo1-model</artifactId>
+           </jarModule>
             <webModule>
             <groupId>es.uc3m.tiw.web</groupId>
             <artifactId>grupo1-web</artifactId>
@@ -75,10 +75,10 @@
   		<type>ejb</type>
   	</dependency> -->
   	<dependency>
-		<groupId>es.uc3m.tiw.model</groupId>
-		<artifactId>grupo1-model</artifactId>
-		<version>1.0</version>
-	</dependency>
+  		<groupId>es.uc3m.tiw.model</groupId>
+  		<artifactId>grupo1-model</artifactId>
+  		<version>1.0</version>
+  	</dependency>
   	<dependency>
   		<groupId>es.uc3m.tiw.web</groupId>
   		<artifactId>grupo1-web</artifactId>

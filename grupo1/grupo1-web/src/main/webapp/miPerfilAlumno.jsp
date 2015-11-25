@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -41,12 +42,16 @@
 	        <a href = "misCursos.jsp"><p class = "cabecera1" id = "cabecera-empresa">MIS CURSOS</p></a>
 	        
 	        <p class = "cabecera">|</p>
+	        
+	        <a href = "listadoCursos.jsp"><p class = "cabecera1" id = "cabecera-empresa">CURSOS</p></a>
+	        
+	        <p class = "cabecera">|</p>
 	            
 	        <a href = "miPerfilAlumno.jsp"><p class = "cabecera1" id = "cabecera-usuario">MI PERFIL</p></a>
 	        
 	        <p class = "cabecera">|</p>
 	            
-	        <a href = "listadoCursos.jsp"><p class = "cabecera1" id = "cabecera-usuario">BUSCAR CURSOS</p></a>
+	        <a href = "listadoCursos.jsp"><p class = "cabecera1" id = "cabecera-usuario">BUSCAR</p></a>
 	    
 	  	  	<p class = "cabecera">|</p>
 	            
@@ -114,6 +119,21 @@
 					
 					 </form>
 					
+				</div>
+				
+				<div id = "seguidores">
+				
+					<h5> Recomendados </h5>
+						<ul>
+						<c:forEach items="${cursosRecomendados }" var="curso"> 
+						<!-- recorremos todos los objetos de la coleccion cursos 
+							y cada objeto devuelto lo asignamos a la variable curso -->
+								<li>
+								<img class = "seguidores-foto" src = "images/famosos/gates.jpg" alt = "Error en la imagen">
+								<p class = "seguidores-info"><a style="color:black" href="contenidoCursos?nombreCurso=${curso.DES_titulo }">${curso.DES_titulo }</a></p></li>
+								</li>
+					</c:forEach>
+					</ul>
 				</div>
 				
 				

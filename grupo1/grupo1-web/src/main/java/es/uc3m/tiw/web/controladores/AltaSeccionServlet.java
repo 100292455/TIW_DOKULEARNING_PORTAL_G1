@@ -1,8 +1,12 @@
 package es.uc3m.tiw.web.controladores;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Collection;
 
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -11,26 +15,43 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.transaction.UserTransaction;
 
-import es.uc3m.tiw.web.dominio.Curso;
-import es.uc3m.tiw.web.dominio.Seccion;
+import es.uc3m.tiw.model.Curso;
+import es.uc3m.tiw.model.Cupon;
+import es.uc3m.tiw.model.Promocion;
+import es.uc3m.tiw.model.Seccion;
+import es.uc3m.tiw.model.Usuario;
+import es.uc3m.tiw.model.dao.SeccionDAO;
+import es.uc3m.tiw.model.dao.SeccionDAOImpl;
+import es.uc3m.tiw.model.dao.CursoDAO;
+import es.uc3m.tiw.model.dao.CursoDAOImpl;
+
 
 @WebServlet("/AltaSeccion")
-@MultipartConfig(location="/")
 public class AltaSeccionServlet extends HttpServlet {
-	private static final String ENTRADA_JSP = "/gestionSecciones.jsp";
-	private static final String GESTION_CURSOS_JSP = "/gestionSecciones.jsp";
+	//private static final String ENTRADA_JSP = "/gestionSecciones.jsp";
+	private static final String CONTENIDO_CURSO_JSP = "/contenidoCurso.jsp";
 	private static final long serialVersionUID = 1L;
-	private Seccion seccion;
-	private ArrayList<Seccion> secciones;
-	private int new_IDSeccion = 0;
+	@PersistenceContext(unitName = "demoTIW")
+	private EntityManager em;
+	@Resource
+	private UserTransaction ut;
+	private ServletConfig config2;
+	private CursoDAO curDao;
+	private SeccionDAO secDao;
 	ServletContext context;
-	private static final String SAVE_DIR = "uploadFiles";
 	@Override
-	public void init() throws ServletException {
+	public void init(ServletConfig config) throws ServletException {
+		config2 = config;
+		curDao = new CursoDAOImpl(em, ut);
+		secDao = new SeccionDAOImpl(em, ut);
+
+	}
 	
-		context= this.getServletConfig().getServletContext();
-		secciones=(ArrayList<Seccion>) context.getAttribute("secciones");
+	public void destroy() {
+		curDao = null;
+		secDao = null;
 	}
        
 
@@ -39,72 +60,65 @@ public class AltaSeccionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher(GESTION_CURSOS_JSP).forward(request, response);
+		config2.getServletContext().getRequestDispatcher(CONTENIDO_CURSO_JSP).forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		secciones = (ArrayList<Seccion>) context.getAttribute("secciones");
-		
-		
+				
 		HttpSession sesion = request.getSession();
-		//Curso cursoactual=(Curso)sesion.getAttribute("curso_actual");
-		String titulo = request.getParameter("titulo");
-		int id_curso= (int) context.getAttribute("idcurso");
+		Curso cursoactual=(Curso)sesion.getAttribute("curso_actual");
+		String nombreSeccion = request.getParameter("nombreSeccion");
+		int id_curso= (int) sesion.getAttribute("idCurso");
 		//int id_curso= (int) context.getAttribute("IDCURSO");  //cojo ID CURSO DEL CONTEXTO
-		Curso cursoactual=(Curso) context.getAttribute("curso_actual");
-		String nombrecursoactual=cursoactual.getDES_titulo();
-		context.setAttribute("nombrecursoactual", nombrecursoactual);
+		Curso contenidoCurso=(Curso) sesion.getAttribute("contenidoCurso");
+		//String nombrecursoactual=cursoactual.getDES_nombreCurso();
+		//sesion.setAttribute("nombrecursoactual", nombrecursoactual);
 		
 		String mensaje ="";
-		String pagina = "";
-		pagina = ENTRADA_JSP;
+		String pagina = CONTENIDO_CURSO_JSP;
 		
-		
-		String m = comprobarCurso(titulo);
-		if (m == null || m == ""){
-			
-		
-			Seccion c = crearSeccion(titulo,id_curso);
-			
-			pagina = GESTION_CURSOS_JSP;
-			context.setAttribute("secciones", secciones);
-			context.setAttribute("seccion", c);
+		String m = comprobarCurso(nombreSeccion);
+		if (m.equals(null) || m.equals("")){
+			Seccion s = crearSeccion(nombreSeccion,contenidoCurso);
+			try {
+				s=secDao.guardarSeccion(s);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Collection<Seccion> listaSeccionesCursoActual = secDao.recuperarSeccionesPorCurso(id_curso);
+			sesion.setAttribute("secciones", listaSeccionesCursoActual);
 			
 		}else{
 			
 			mensaje = m;
 			request.setAttribute("mensaje", mensaje);
-			context.setAttribute("secciones", secciones);
+			Collection<Seccion> listaSeccionesCursoActual = secDao.recuperarSeccionesPorCurso(id_curso);
+			sesion.setAttribute("secciones", listaSeccionesCursoActual);
 		}
 			
-			this.getServletContext().getRequestDispatcher(pagina).forward(request, response);
+			config2.getServletContext().getRequestDispatcher(pagina).forward(request, response);
 			
 		
 	}
 
-	private Seccion crearSeccion(String titulo, int id_curso) {
+	private Seccion crearSeccion(String nombreSeccion, Curso curso) {
 		Seccion c = new Seccion();
-		
-		c.setNombre(titulo);
-		c.setId_seccion(new_IDSeccion);
-		c.setId_curso(id_curso);
-		
-		secciones.add(c);
-		new_IDSeccion++;
+		c.setNombre(nombreSeccion);
+		c.setCurso(curso);
 		
 		return c;
 	}
 
 
 
-	private String comprobarCurso(String titulo) {
+	private String comprobarCurso(String nombreCurso) {
 		String m = "";
 		
-		if (titulo.equals("") || titulo.equals(null)) {
+		if (nombreCurso.equals("") || nombreCurso.equals(null)) {
 			m ="Fallo al crear nuevo curso. ";
 		}
 		

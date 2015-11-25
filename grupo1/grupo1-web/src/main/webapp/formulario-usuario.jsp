@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -44,7 +45,9 @@
 	        <link rel="stylesheet" type="text/css" href="style/formacion/style_common.css" />
 	        <link rel="stylesheet" type="text/css" href="style/formacion/style10.css" />
 	        <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css' />
-			
+			<style type="text/css">
+			.error {color: red;}
+			</style>
 	</head>
 	
 	
@@ -83,8 +86,13 @@
 				<form method="POST" action="FormularioUsuario" onsubmit="return validar();">
 				
 				<div id="cuestionario">
-				
-				
+					<c:choose>
+					<c:when test="${not empty mensaje }">
+								<p class="error">${mensaje }</p>
+							</c:when>
+							<c:otherwise>
+							</c:otherwise>
+					</c:choose>
 				
 					<div><div>
 							<!--Nombre-->
@@ -113,7 +121,7 @@
 							<p id="mens4" class = "mens">Te falta rellenar la casilla correo*</p>							
 							<input type="email" name="correo" id="correo"placeholder="carlos_ruiz@gmail.com" />
 
-					</div></div>		
+					</div></div>			
 							<!--Descripcion-->
 					<div><div class = "div-largo">		
 							<p><span class=obligatorio>Descripcion</span><span class=aster></span><span class=obligatorio>:</span></p>
@@ -146,19 +154,19 @@
 							<input  type="text" name="int" id="int" placeholder="Ciencias Sociales" />
 
 					</div></div>		
-							<!--Contraseña 1-->
+							<!--password 1-->
 					<div><div>
 							
-							<p><span class=obligatorio>Contraseña</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens9" class = "mens">Introduce una contraseña*</p>							
-							<input type="password" name="contraseña1" id="password1" placeholder="max. 8 caracteres a-z, 0-9" />
+							<p><span class=obligatorio>password</span><span class=aster>*</span><span class=obligatorio>:</span></p>
+							<p id="mens9" class = "mens">Introduce una password*</p>							
+							<input type="password" name="password1" id="password1" placeholder="max. 8 caracteres a-z, 0-9" />
 
 					</div>
-							<!--Contraseña 2-->
+							<!--password 2-->
 					<div>
-							<p><span class=obligatorio>Confirmar contraseña</span><span class=aster>*</span><span class=obligatorio>:</span></p>
-							<p id="mens10" class = "mens">Tienes que confirmar contraseña*</p>
-							<input type="password" name="contraseña2" id="password2"  placeholder="max. 8 caracteres a-z, 0-9" />
+							<p><span class=obligatorio>Confirmar password</span><span class=aster>*</span><span class=obligatorio>:</span></p>
+							<p id="mens10" class = "mens">Tienes que confirmar password*</p>
+							<input type="password" name="password2" id="password2"  placeholder="max. 8 caracteres a-z, 0-9" />
 					</div></div>
 							<!--Código Postal-->
 					<div id = "subir-imagen">

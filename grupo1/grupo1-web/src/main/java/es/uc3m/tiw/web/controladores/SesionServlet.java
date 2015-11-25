@@ -1,8 +1,12 @@
 package es.uc3m.tiw.web.controladores;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Collection;
 
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,12 +14,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.transaction.UserTransaction;
 
-import es.uc3m.tiw.web.dominio.Curso;
-import es.uc3m.tiw.web.dominio.Leccion;
-import es.uc3m.tiw.web.dominio.Matricula;
-import es.uc3m.tiw.web.dominio.Seccion;
-import es.uc3m.tiw.web.dominio.Usuario;
+import es.uc3m.tiw.model.Curso;
+import es.uc3m.tiw.model.Cupon;
+import es.uc3m.tiw.model.Deseo;
+import es.uc3m.tiw.model.Matricula;
+import es.uc3m.tiw.model.Promocion;
+import es.uc3m.tiw.model.Usuario;
+import es.uc3m.tiw.model.dao.CursoDAO;
+import es.uc3m.tiw.model.dao.CursoDAOImpl;
+import es.uc3m.tiw.model.dao.CuponDAOImpl;
+import es.uc3m.tiw.model.dao.CuponDAO;
+import es.uc3m.tiw.model.dao.DeseoDAO;
+import es.uc3m.tiw.model.dao.DeseoDAOImpl;
+import es.uc3m.tiw.model.dao.PromocionDAO;
+import es.uc3m.tiw.model.dao.PromocionDAOImpl;
+import es.uc3m.tiw.model.dao.UsuarioDAO;
+import es.uc3m.tiw.model.dao.UsuarioDAOImpl;
+import es.uc3m.tiw.model.dao.MatriculaDAO;
+import es.uc3m.tiw.model.dao.MatriculaDAOImpl;
+
 
 /**
  * Servlet de ejemplo que muestra distintos aspectos dentro de los ambitos request y session. 
@@ -34,106 +53,45 @@ public class SesionServlet extends HttpServlet {
 	private static final String LOGIN_JSP = "/login.jsp";
 	private static final String INDEX_JSP = "/index.jsp";
 	private static final long serialVersionUID = 1L;
-	private Usuario usuario;
-	private ArrayList<Usuario> usuarios;
-
-	private ArrayList<Seccion> secciones;//BBDD promociones
-	private ArrayList<Leccion> lecciones;//BBDD lecciones
-	private Curso curso;
-	private ArrayList<Curso> cursos;//BBDD cursos
-	private ArrayList<Curso> cursoscreados;//BBDD cursos
-	private ArrayList<Curso> cursosmatriculados;//BBDD cursos
-	private ArrayList<Curso> listadeseos;//BBDD cursos
-	private ArrayList<Matricula> matriculas;//BBDD matriculas
+	@PersistenceContext(unitName = "demoTIW")
+	private EntityManager em;
+	@Resource
+	private UserTransaction ut;
+	private ServletConfig config2;
+	private UsuarioDAO usDao;
+	private CursoDAO curDao;
+	private MatriculaDAO matDao;
+	private DeseoDAO desDao;
+	//private Usuario usuario;
+	//private Usuario usuario_2;
 	@Override
-	public void init() throws ServletException {
-		usuario = new Usuario(1,"Alejandro", "Ruiz", 1, "alex@uc3m.es","636780470","VISA",1, "1234");
-		Usuario usuario_2 = new Usuario(2,"Miguel", "Solera", 1, "miguel@uc3m.es","636780470","VISA",0, "1234");
-
-		usuarios = new ArrayList<Usuario>();
-		usuarios.add(usuario);
-		usuarios.add(usuario_2);
-
-		
-		/*CURSOS*/
-		Curso curso = new Curso(1, "Matematicas", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 1, 3, 3);
-		Curso curso1 = new Curso(2, "Ingles", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 1, 3, 3);
-		Curso curso2 = new Curso(3, "Lengua", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 1, 3, 3);
-		Curso curso3 = new Curso(4, "Arrte", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 3, 3);
-		Curso curso4 = new Curso(5, "Programacion", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 3, 3);
-		Curso curso5 = new Curso(6, "Geografia", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 1, 3);
-		Curso curso6 = new Curso(7, "Matematicas II", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 1, 3);
-		Curso curso7 = new Curso(8, "Introduccion a la contabilidad", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 1, 3);
-		Curso curso8 = new Curso(9, "Dibujo I", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 1, 3);
-		Curso curso9 = new Curso(10, "Historia del arte", "Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.", 2, 2, 30, 30, 0, 1, 3);
-
-		cursos = new ArrayList<Curso>();
-		cursos.add(curso);
-		cursos.add(curso1);
-		cursos.add(curso2);
-		cursos.add(curso3);
-		cursos.add(curso4);
-		cursos.add(curso5);
-		cursos.add(curso6);
-		cursos.add(curso7);
-		cursos.add(curso8);
-		cursos.add(curso9);
-		
-		/*SIMULACION DE CURSOS CREADOS*/
-		/*CUANDO INCORPOREMOS LA BASE DE DATOS NOS DEVOLVERA UN ARRAY*/
-		
-		cursoscreados = new ArrayList<Curso>();
-		cursoscreados.add(curso);
-		cursoscreados.add(curso1);
-		cursoscreados.add(curso2);
-
-		/*SIMULACION DE CURSOS MATRICULADOS*/
-		/*CUANDO INCORPOREMOS LA BASE DE DATOS NOS DEVOLVERA UN ARRAY*/
-		
-		cursosmatriculados = new ArrayList<Curso>();
-		cursosmatriculados.add(curso3);
-		cursosmatriculados.add(curso4);
-		cursosmatriculados.add(curso5);
-		
-		/*SIMULACION DE LA LISTA DE DESEOS*/
-		/*CUANDO INCORPOREMOS LA BASE DE DATOS NOS DEVOLVERA UN ARRAY*/
-		
-		listadeseos = new ArrayList<Curso>();
-		listadeseos.add(curso6);
-		listadeseos.add(curso7);
-		listadeseos.add(curso8);
-		listadeseos.add(curso9);
-		
-		//Crear BBDD matriculas
-		Matricula matricula = new Matricula(1, 1, 20);
-		Matricula matricula1 = new Matricula(1, 2, 20);
-		Matricula matricula2 = new Matricula(1, 3, 20);
-		matriculas = new ArrayList<Matricula>();
-		matriculas.add(matricula);
-		matriculas.add(matricula1);
-		matriculas.add(matricula2);
+	public void init(ServletConfig config) throws ServletException {
+		config2 = config;
+		usDao = new UsuarioDAOImpl(em, ut);
+		curDao = new CursoDAOImpl(em, ut);
+		matDao = new MatriculaDAOImpl(em, ut);
+		desDao = new DeseoDAOImpl(em, ut);
+		/*Usuario usuario = new Usuario("Alejandro", "Ruiz", 1, "alex@uc3m.es","636780470","VISA",null, null, 0, "1234", null, null);
+		Usuario usuario_2 = new Usuario("Miguel", "Solera", 1, "miguel@uc3m.es","636780470","VISA",null, null, 1, "1234", null, null);
+		try {
+			usuario=usDao.guardarUsuario(usuario);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			usuario_2=usDao.guardarUsuario(usuario_2);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+	}
 	
-		
-		//Crear BBDD Secciones
-		Seccion seccion1 = new Seccion(50, 1, "Seccion 1");
-		Seccion seccion2 = new Seccion(30, 1, "Seccion 2");
-		secciones = new ArrayList<Seccion>();
-		secciones.add(seccion1);
-		secciones.add(seccion2);
-		
-		//Crear BBDD Lecciones
-		Leccion leccion1 = new Leccion("Leccion 1 de la Seccion 1", "Descripcion de la Leccion", "txt", 50);
-		Leccion leccion2 = new Leccion("Leccion 2 de la Seccion 1", "Descripcion de la Leccion", "doc", 50);;
-		Leccion leccion3 = new Leccion("Leccion 1 de la Seccion 2", "Descripcion de la Leccion", "xls", 30);;
-		Leccion leccion4 = new Leccion("Leccion 2 de la Seccion 2", "Descripcion de la Leccion", "mp3", 30);
-		lecciones = new ArrayList<Leccion>();
-		lecciones.add(leccion1);
-		lecciones.add(leccion2);
-		lecciones.add(leccion3);
-		lecciones.add(leccion4);
-
-
-		
+	public void destroy() {
+		usDao = null;
+		curDao = null;
+		matDao=null;
+		desDao=null;
 	}
        
 
@@ -146,7 +104,7 @@ public class SesionServlet extends HttpServlet {
 		if (salir != null && !salir.equals("")) {
 			request.getSession().invalidate();
 		}
-		this.getServletContext().getRequestDispatcher(INDEX_JSP).forward(request, response);
+		config2.getServletContext().getRequestDispatcher(INDEX_JSP).forward(request, response);
 		
 	}
 
@@ -154,7 +112,6 @@ public class SesionServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String user = request.getParameter("usuario");
 		String password = request.getParameter("password");
 		String mensaje ="";
@@ -162,46 +119,44 @@ public class SesionServlet extends HttpServlet {
 		pagina = LOGIN_JSP;
 		HttpSession sesion = request.getSession(true);
 		ServletContext context = sesion.getServletContext();
-		Usuario u = comprobarUsuario(user, password);
-		if (u != null){
+		Usuario u = null;
+		try {
+			u=usDao.buscarPorEmailYpassword(user, password);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-				pagina = ENTRADA_ALUMNO_JSP;
+		if (u != null){
+			pagina = ENTRADA_ALUMNO_JSP;
 			
-			
-				
-			context.setAttribute("usuarios", usuarios);
+			Collection<Usuario> usuarios = usDao.buscarTodosLosUsuarios();	
+			Collection<Deseo> deseos = desDao.recuperarCursosDeseadosPorUsuario(u.getID_usuario());
+			sesion.setAttribute("listadeseos", deseos);
+			sesion.setAttribute("usuarios", usuarios);
 			sesion.setAttribute("usuario", u);
 			sesion.setAttribute("acceso", "ok");
-			context.setAttribute("cursos", cursos);
-			sesion.setAttribute("cursosmatriculados", cursosmatriculados);
-			sesion.setAttribute("listadeseos", listadeseos);
-			sesion.setAttribute("curso",curso);
-			sesion.setAttribute("cursoscreados", cursoscreados);
-			sesion.setAttribute("matriculas", matriculas);
-			sesion.setAttribute("secciones", secciones);
-			sesion.setAttribute("lecciones", lecciones);
+			Collection<Curso> cursos = curDao.buscarTodosLosCursos();
+			sesion.setAttribute("cursos", cursos);
+			Collection<Curso> cursosCreados = curDao.recuperarCursosPorProfesor(u.getID_usuario());
+			sesion.setAttribute("cursoscreados", cursosCreados);
+			Collection<Matricula> listadoMatricula = matDao.recuperarMatriculaPorAlumno(u.getID_usuario());
+			sesion.setAttribute("matriculas", listadoMatricula);
+			//context.setAttribute("matriculas", matriculas);
+			//context.setAttribute("secciones", secciones);
+			//context.setAttribute("lecciones", lecciones);
 
 			
 		}else{
 			
-			mensaje = "Usuario o password incorrectos";
+			mensaje = "No existen usuarios registrados con esos datos.";
 			request.setAttribute("mensaje", mensaje);
 		}
-		
-			this.getServletContext().getRequestDispatcher(pagina).forward(request, response);
+		Collection<Curso> listaCursos = curDao.buscarTodosLosCursos();
+		sesion.setAttribute("cursos", listaCursos);
+		config2.getServletContext().getRequestDispatcher(pagina).forward(request, response);
 			
 		
-	}
-
-	private Usuario  comprobarUsuario(String user, String password) {
-		Usuario u = null;
-		for (Usuario usuario : usuarios) {
-			if (user.equals(usuario.getEmail()) && password.equals(usuario.getClave())){
-				u = usuario;
-				break;
-			}
-		}
-		return u;
 	}
 
 }

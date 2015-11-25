@@ -1,4 +1,3 @@
-						
 
 $(document).ready(function(){
 	var añadiroferta = true;
@@ -147,5 +146,4 @@ if (isNaN(comprobarpre) || comprobarpre<1){   /* Si no introduce las horas como 
 	$( "#tabs" ).tabs({ active: 1 });
 	return validacion;
 }
-
 

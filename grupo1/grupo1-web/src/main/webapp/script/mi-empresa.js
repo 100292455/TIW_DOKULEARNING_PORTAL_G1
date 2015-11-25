@@ -1,4 +1,4 @@
-						
+
 
 $(document).ready(function(){
 	
@@ -107,5 +107,3 @@ if ( !(/^\d{9}$/.test(comprobartelefono)) || comprobartelefono == "" || comproba
 
 	return validacion;
 }
-
-

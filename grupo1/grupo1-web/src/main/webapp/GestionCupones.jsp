@@ -84,7 +84,7 @@
 										Hay que mostrar solo aquellos cursos cuyo TIPO_estado == 2 -->
 									<p class = "ofertas-titulo">Cupon ${cupon.id_cupon }</p>
 									<c:choose>
-										<c:when test="${cupon.tipo_descuento == 0 }">
+										<c:when test="${cupon.descuento == 0 }">
 											<p class = "ofertas-titulo">Descuento Fijo: ${cupon.descuento }€ descuento</p>
 		
 										</c:when>

@@ -2,8 +2,12 @@ package es.uc3m.tiw.web.controladores;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Collection;
 
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,10 +17,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import javax.transaction.UserTransaction;
 
-import es.uc3m.tiw.web.dominio.Curso;
-import es.uc3m.tiw.web.dominio.Leccion;
-import es.uc3m.tiw.web.dominio.Seccion;
+import es.uc3m.tiw.model.Curso;
+import es.uc3m.tiw.model.Cupon;
+import es.uc3m.tiw.model.Promocion;
+import es.uc3m.tiw.model.Leccion;
+import es.uc3m.tiw.model.Seccion;
+import es.uc3m.tiw.model.Usuario;
+import es.uc3m.tiw.model.dao.LeccionDAO;
+import es.uc3m.tiw.model.dao.LeccionDAOImpl;
+import es.uc3m.tiw.model.dao.CursoDAO;
+import es.uc3m.tiw.model.dao.CursoDAOImpl;
+import es.uc3m.tiw.model.dao.SeccionDAO;
+import es.uc3m.tiw.model.dao.SeccionDAOImpl;
 
 @WebServlet("/AltaLeccion")
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
@@ -24,20 +38,33 @@ maxFileSize=1024*1024*10,      // 10MB
 maxRequestSize=1024*1024*50,
 location = "/")   // 50MB
 public class AltaLeccionServlet extends HttpServlet {
-	private static final String ENTRADA_JSP = "/gestionlecciones.jsp";
-	private static final String GESTION_CURSOS_JSP = "/contenidoCurso.jsp";
+	//private static final String ENTRADA_JSP = "/gestionlecciones.jsp";
+	private static final String CONTENIDO_CURSO_JSP = "/contenidoCurso.jsp";
 	private static final long serialVersionUID = 1L;
-	private Leccion leccion;
+	private static final String SAVE_DIR = "lecciones";
+	@PersistenceContext(unitName = "demoTIW")
+	private EntityManager em;
+	@Resource
+	private UserTransaction ut;
+	private ServletConfig config2;
+	private CursoDAO curDao;
+	private SeccionDAO secDao;
+	private LeccionDAO lecDao;
 	ServletContext context;
-	private ArrayList<Leccion> lecciones;
-	private int new_IDLeccion = 0;
+	ServletContext sesion;
 	@Override
-	public void init() throws ServletException {
+	public void init(ServletConfig config) throws ServletException {
+		config2 = config;
+		curDao = new CursoDAOImpl(em, ut);
+		lecDao = new LeccionDAOImpl(em, ut);
+		secDao = new SeccionDAOImpl(em, ut);
+
+	}
 	
-		context= this.getServletConfig().getServletContext();
-		lecciones=(ArrayList<Leccion>) context.getAttribute("lecciones");
-		
-		
+	public void destroy() {
+		curDao = null;
+		lecDao = null;
+		secDao = null;
 	}
        
 
@@ -46,7 +73,7 @@ public class AltaLeccionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher(GESTION_CURSOS_JSP).forward(request, response);
+		config2.getServletContext().getRequestDispatcher(CONTENIDO_CURSO_JSP).forward(request, response);
 	}
 
 	/**
@@ -54,17 +81,22 @@ public class AltaLeccionServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		context= this.getServletConfig().getServletContext();
+		//context= this.getServletConfig().getServletContext();
+		
+		// gets absolute path of the web application
+        String appPath = "/home/tiw/workspace/maven.1444917813281/grupo1/grupo1-web/src/main/webapp/images";
+        // constructs path of the directory to save uploaded file
+        String savePath = appPath + File.separator + SAVE_DIR;
 		
 		String titulo = request.getParameter("titulo");
 		String formato = request.getParameter("formato");
 		String descripcion= request.getParameter("descripcion");
 		 
-		int id_seccion= (int) context.getAttribute("idseccion");
+		int id_seccion= (int) sesion.getAttribute("idseccion");
 		
-		Seccion seccionactual=(Seccion) context.getAttribute("seccion_actual");
+		Seccion seccionactual= secDao.recuperarSeccionPorPK(id_seccion);
 		String nombreseccionactual=seccionactual.getNombre();
-		context.setAttribute("nombreseccionactual",nombreseccionactual);
+		sesion.setAttribute("nombreseccionactual",nombreseccionactual);
 		
 		
 		
@@ -72,7 +104,6 @@ public class AltaLeccionServlet extends HttpServlet {
 		
 		String mensaje ="";
 		String pagina = "";
-		pagina = ENTRADA_JSP;
 		
 	
 		String m = comprobarLeccion(titulo, descripcion, formato);
@@ -80,39 +111,49 @@ public class AltaLeccionServlet extends HttpServlet {
 		  
 			
 		
-			Leccion c = crearLeccion(titulo, descripcion,formato,id_seccion);
+			Leccion l = crearLeccion(titulo, descripcion,formato,seccionactual);
+			try {
+				l=lecDao.guardarLeccion(l);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
+			// creates the save directory if it does not exists
+	        File fileSaveDir = new File(savePath);
+	        if (!fileSaveDir.exists()) {
+	            fileSaveDir.mkdir();
+	        }
+	         
+	        for (Part part : request.getParts()) {
+	            String fileName = "leccion_"+l.getId_leccion()+".jpg";
+	            part.write(savePath + File.separator + fileName);
+	        }
 			
-			
-			pagina = GESTION_CURSOS_JSP;
-			context.setAttribute("lecciones", lecciones);
-			context.setAttribute("leccion", c);
+			pagina = CONTENIDO_CURSO_JSP;
+			Collection<Leccion> listaLecciones = lecDao.recuperarLeccionesPorSeccion(id_seccion);
+			sesion.setAttribute("lecciones", listaLecciones);
+			sesion.setAttribute("leccion", l);
 			
 		}else{
-			
+			Collection<Leccion> listaLecciones = lecDao.recuperarLeccionesPorSeccion(id_seccion);
+			sesion.setAttribute("lecciones", listaLecciones);
 			mensaje = m;
 			request.setAttribute("mensaje", mensaje);
-			context.setAttribute("lecciones", lecciones);
 		}
 			
-			this.getServletContext().getRequestDispatcher(pagina).forward(request, response);
+			config2.getServletContext().getRequestDispatcher(pagina).forward(request, response);
 			
 		
 	}
 
-	private Leccion crearLeccion(String titulo, String descripcion, String formato, int id_seccion) {
+	private Leccion crearLeccion(String titulo, String descripcion, String formato, Seccion s) {
 		Leccion c = new Leccion();
 		
 	c.setTitulo(titulo);
-	c.setDes(descripcion);
+	c.setDescripcion(descripcion);
 	c.setFormato(formato);
-	c.setId_seccion(id_seccion);
-	c.setId_leccion(new_IDLeccion);
-	
-		/* AÑADIR CURSO A LA TABLA DE CURSOS */
-		lecciones.add(c);
-		new_IDLeccion++;
-		
+	c.setSeccion(s);
 		return c;
 	}
 

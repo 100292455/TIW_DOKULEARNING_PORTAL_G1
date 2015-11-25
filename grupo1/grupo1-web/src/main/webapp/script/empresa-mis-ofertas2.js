@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
 	var añadiroferta = true;
 	var anadircupon = true;
@@ -143,14 +144,14 @@ function validarcrearleccion(){
 }
 
 function validarcrearcupon(){
-	var comprobarpre = $("#cupon-precio-descuento").val();
-	var comprobarform = $("#formato-cupon").val();
+	var comprobarpre = $("#precio").val();
+	var comprobarform = $("#tipo_cupon").val();
 	var comprobardat = $("#datepicker").val();
 	var value = 0;
 	var validacion = true; /*variable para crear la oferta*/
 	if (isNaN(comprobarpre) || comprobarpre<1){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
 	     $("#mens7").show();
-	     $("#cupon-precio-descuento").val(value);
+	     $("#precio").val(value);
 	     validacion=false;
 
 	 }else{
@@ -176,7 +177,7 @@ function validarcrearcupon(){
 }
 
 function validarcrearseccion(){
-	var comprobartit = $("#nombre-seccion").val();
+	var comprobartit = $("#nombreSeccion").val();
 	if (comprobartit == "" || comprobartit == null){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
 	     $("#mens10").show();
 	     validacion=false;

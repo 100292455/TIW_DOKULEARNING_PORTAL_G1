@@ -1,28 +1,55 @@
 package es.uc3m.tiw.web.controladores;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collection;
 
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.transaction.UserTransaction;
 
-import es.uc3m.tiw.web.dominio.Curso;
-import es.uc3m.tiw.web.dominio.Seccion;
+import es.uc3m.tiw.model.Curso;
+import es.uc3m.tiw.model.Cupon;
+import es.uc3m.tiw.model.Promocion;
+import es.uc3m.tiw.model.Seccion;
+import es.uc3m.tiw.model.Usuario;
+import es.uc3m.tiw.model.dao.SeccionDAO;
+import es.uc3m.tiw.model.dao.SeccionDAOImpl;
+import es.uc3m.tiw.model.dao.CursoDAO;
+import es.uc3m.tiw.model.dao.CursoDAOImpl;
 
 @WebServlet("/BajaSeccionServlet")
 public class BajaSeccionServlet extends HttpServlet {
 	private static final String ENTRADA_JSP = "/gestionSecciones.jsp";
 	private static final String GESTION_CURSOS_JSP = "/gestionSecciones.jsp";
 	private static final long serialVersionUID = 1L;
+	@PersistenceContext(unitName = "demoTIW")
+	private EntityManager em;
+	@Resource
+	private UserTransaction ut;
+	private ServletConfig config2;
+	private CursoDAO curDao;
+	private SeccionDAO secDao;
 	@Override
-	public void init() throws ServletException {
-		
+	public void init(ServletConfig config) throws ServletException {
+		config2 = config;
+		curDao = new CursoDAOImpl(em, ut);
+		secDao = new SeccionDAOImpl(em, ut);
+
+	}
+	
+	public void destroy() {
+		curDao = null;
+		secDao = null;
 	}
        
 
@@ -31,7 +58,7 @@ public class BajaSeccionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher(GESTION_CURSOS_JSP).forward(request, response);
+		config2.getServletContext().getRequestDispatcher(GESTION_CURSOS_JSP).forward(request, response);
 	}
 
 	/**
@@ -45,21 +72,17 @@ public class BajaSeccionServlet extends HttpServlet {
 		ServletContext context = sesion.getServletContext();
 		String idSeccionStr = request.getParameter("IdSeccion");
 		int idSeccion = Integer.parseInt(idSeccionStr);
-		ArrayList<Seccion> secciones = (ArrayList<Seccion>) context.getAttribute("secciones");
-		
-		
-		sesion.removeAttribute("secciones");
-		for (Seccion seccion : secciones) {
-			if (seccion.getId_seccion() == idSeccion) {
-				secciones.remove(seccion);
-			
-				break;
-			}
+		Seccion s = secDao.recuperarSeccionPorPK(idSeccion);
+		try {
+			secDao.borrarSeccion(s);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
 		pagina = ENTRADA_JSP;
-		sesion.setAttribute("secciones", secciones);
-		this.getServletContext().getRequestDispatcher(pagina).forward(request, response);
+		Collection<Seccion> listadoSeccionesActualizada=secDao.recuperarSeccionesPorCurso(s.getCurso());
+		sesion.setAttribute("secciones", listadoSeccionesActualizada);
+		config2.getServletContext().getRequestDispatcher(pagina).forward(request, response);
 		
 	}
 

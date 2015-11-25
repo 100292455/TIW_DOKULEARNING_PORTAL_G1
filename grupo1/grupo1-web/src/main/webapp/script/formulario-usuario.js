@@ -1,5 +1,4 @@
 
-
 $(document).ready(function(){
 	//crear usuario
 	var añadiroferta = true;
@@ -44,8 +43,8 @@ $(document).ready(function(){
 			var apellidos =  $("#apellidos").val();
 			var correo = $("#correo").val();
 			var telefono = $("#telefono").val();
-			var contraseña1 = $("#password1").val();
-			var contraseña2 = $("#password2").val();
+			var password1 = $("#password1").val();
+			var password2 = $("#password2").val();
 			expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 			
 			var validacion = true; /*variable para crear la oferta*/
@@ -86,7 +85,7 @@ $(document).ready(function(){
 			
 		
 
-			if (contraseña2 == "" || contraseña2 == null || contraseña2 == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+			if (password2 == "" || password2 == null || password2 == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
 		         $("#mens10").show();
 		         validacion=false;
 		
@@ -94,7 +93,7 @@ $(document).ready(function(){
 		         $("#mens10").hide();      /* Si si lo introduce, esconde el mensaje */
 		         }
 		
-			if (contraseña1 == "" || contraseña1 == null || contraseña1 == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
+			if (password1 == "" || password1 == null || password1 == ''){   /* Si no introduce el titulo enseña el mensaje de error y pone la variable validacion a false*/
 		         $("#mens9").show();
 		         validacion=false;
 		
@@ -108,7 +107,7 @@ $(document).ready(function(){
 		         $("#mens3").show();
 		         validacion = false;
 	        } 
-		if(contraseña2 != contraseña1){
+		if(password2 != password1){
 			
 			validacion=false;
 		}
@@ -118,18 +117,3 @@ $(document).ready(function(){
 		
 			return validacion;
 	}
-		
-			
-	
-		
-  
-		
-		
-		
-		
-		
-	
-		
-		
-		
-		
