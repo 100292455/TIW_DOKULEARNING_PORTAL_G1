@@ -102,7 +102,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		String email=request.getParameter("correo");
 		String tel=request.getParameter("telefono");
 		String cobro=request.getParameter("cobro");	
-		//String descripcion=request.getParameter("descripcion");
+		String descripcion=request.getParameter("descripcion");
+		String intereses = request.getParameter("int");
 		String password1=request.getParameter("password1");
 		
 		/*if (nombre.equals("") || nombre == null){
@@ -139,7 +140,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		usuario.setEmail(email);
 		usuario.setTelefono(tel);
 		usuario.setClave(password1);
-		
+		usuario.setDescripcion(descripcion);
+		usuario.setMedio_cobro(cobro);
+		usuario.setIntereses(intereses);
 		
 		if(sexo.equals("hombre")){
 			
