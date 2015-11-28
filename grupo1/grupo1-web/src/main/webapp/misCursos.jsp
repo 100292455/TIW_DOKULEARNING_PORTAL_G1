@@ -234,16 +234,16 @@
 										<input type="file" name="file" id="imagen-curso" size="60" />
 									 </div>	
 							      	
-								 <!-- Dificultad del curso -->
+								 <!-- Tematica del curso -->
 
 							        <div id="formul7">  
 								        <p class="nombre">Tematica del curso<span class=aster>*</span>:</p> 
 								        <p  id="mens7">No ha especificado la tematica del curso*</p>
 								        <select name="tematica" id="tematica-curso">
 								        	<option value="-1" selected>Especifique la tematica del curso</option>
-		  									<option value="0">Artes</option>
-		  									<option value="1">Ciencias</option>
-		  									<option value="2">Ingenieria</option>
+		  									<option value="artes">Artes</option>
+		  									<option value="ciencias">Ciencias</option>
+		  									<option value="ingenieria">Ingenieria</option>
 										</select> 
 							        </div>
 					        	</div>

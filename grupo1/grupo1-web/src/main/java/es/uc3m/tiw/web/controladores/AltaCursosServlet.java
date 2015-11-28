@@ -2,7 +2,6 @@ package es.uc3m.tiw.web.controladores;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import javax.servlet.http.Part;
 import javax.annotation.Resource;
@@ -22,10 +21,8 @@ import javax.transaction.UserTransaction;
 
 import es.uc3m.tiw.model.Curso;
 import es.uc3m.tiw.model.Usuario;
-import es.uc3m.tiw.model.dao.CuponDAO;
 import es.uc3m.tiw.model.dao.CursoDAO;
 import es.uc3m.tiw.model.dao.CursoDAOImpl;
-import es.uc3m.tiw.model.dao.PromocionDAO;
 
 
 @WebServlet("/AltaCursos")
@@ -84,29 +81,15 @@ public class AltaCursosServlet extends HttpServlet {
 		String tematicaStr = request.getParameter("tematica");
 		String horasStr = request.getParameter("horas");
 		String precioStr = request.getParameter("precio");
-		String codProfStr = "10";
 		
 		HttpSession sesion = request.getSession();
 		Usuario user = (Usuario) sesion.getAttribute("usuario");
-		
 		
 		String m = comprobarCurso(titulo, descripcion, dificultadStr, horasStr, precioStr, tematicaStr);
 		if (m == null || m.equals("")){
 			int dificultad = Integer.parseInt(dificultadStr);
 			int horas = Integer.parseInt(horasStr);
 			int precio = Integer.parseInt(precioStr);  
-			if(tematicaStr.equals("0")){
-				tematicaStr="artes";
-			}
-			else if (tematicaStr.equals("1")) {
-				tematicaStr="ciencias";
-			}
-			else {
-				tematicaStr="ingenieria";
-			}
-			
-			
-		
 			
 			// creates the save directory if it does not exists
 			File fileSaveDir = new File(savePath);
@@ -118,8 +101,7 @@ public class AltaCursosServlet extends HttpServlet {
 	            String fileName = "Alejandro.jpg";
 	            part.write(savePath + File.separator + fileName);
 	        }
-			
-	        Collection<Curso> cursosCreados = curDao.recuperarCursosPorProfesor(user.getID_usuario());
+				        
 	        Curso c = crearCurso(titulo, descripcion, dificultad, horas, precio, user, tematicaStr);
 			try {
 				c=curDao.guardarCurso(c);
@@ -127,6 +109,8 @@ public class AltaCursosServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+	        Collection<Curso> cursosCreados = curDao.recuperarCursosPorProfesor(user.getID_usuario());
 			
 			sesion.setAttribute("cursoscreados", cursosCreados);
 			Collection<Curso> listaCursos = curDao.buscarTodosLosCursos();
