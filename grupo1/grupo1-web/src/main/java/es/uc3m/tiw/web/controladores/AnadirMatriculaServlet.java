@@ -1,14 +1,12 @@
 package es.uc3m.tiw.web.controladores;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +29,6 @@ import es.uc3m.tiw.model.dao.MatriculaDAO;
 @WebServlet("/AnadirMatricula")
 public class AnadirMatriculaServlet extends HttpServlet {
 	private static final String MISCURSOS_JSP = "/misCursos.jsp";
-	private ArrayList<Matricula> matriculas;//tabla matriculas
 	private static final long serialVersionUID = 1L;
 	@PersistenceContext(unitName = "demoTIW")
 	private EntityManager em;
@@ -81,7 +78,6 @@ public class AnadirMatriculaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession sesion = request.getSession();
-		ServletContext context = sesion.getServletContext();
 		
 		//Coger el titulo del curso y coger su ID
 		String nombreCurso = (String) sesion.getAttribute("nombreCurso");

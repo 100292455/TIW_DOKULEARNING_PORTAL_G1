@@ -69,7 +69,7 @@ public class AltaCursosServlet extends HttpServlet {
 		String pagina = MIS_CURSOS_JSP;
 		String mensaje ="";
 		// gets absolute path of the web application
-        String appPath = request.getServletContext().getRealPath("");
+        String appPath = request.getServletContext().getRealPath("images");
         // constructs path of the directory to save uploaded file
         String savePath = appPath + File.separator + SAVE_DIR;
 		
@@ -81,6 +81,7 @@ public class AltaCursosServlet extends HttpServlet {
 		String tematicaStr = request.getParameter("tematica");
 		String horasStr = request.getParameter("horas");
 		String precioStr = request.getParameter("precio");
+		Part filePart = request.getPart("file");
 		
 		HttpSession sesion = request.getSession();
 		Usuario user = (Usuario) sesion.getAttribute("usuario");
@@ -91,24 +92,26 @@ public class AltaCursosServlet extends HttpServlet {
 			int horas = Integer.parseInt(horasStr);
 			int precio = Integer.parseInt(precioStr);  
 			
+
+				        
+	        Curso c = crearCurso(titulo, descripcion, dificultad, horas, precio, user, tematicaStr);
+			try {
+				c=curDao.guardarCurso(c);
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			// creates the save directory if it does not exists
 			File fileSaveDir = new File(savePath);
 	        if (!fileSaveDir.exists()) {
 	            fileSaveDir.mkdir();
 	        }
 	         
-	        for (Part part : request.getParts()) {
-	            String fileName = "Alejandro.jpg";
-	            part.write(savePath + File.separator + fileName);
-	        }
-				        
-	        Curso c = crearCurso(titulo, descripcion, dificultad, horas, precio, user, tematicaStr);
-			try {
-				c=curDao.guardarCurso(c);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	       
+	            int fileName = c.getID_curso();
+	            filePart.write(savePath + File.separator + fileName);
+			
 			
 	        Collection<Curso> cursosCreados = curDao.recuperarCursosPorProfesor(user.getID_usuario());
 			
