@@ -78,7 +78,7 @@
 				
 				<h4>Pago de Matricula</h4>
 
-				<form method="POST" action="AñadirMatricula" onsubmit="return comprobarTarjeta();">
+				<form method="POST" action="AnadirMatricula" onsubmit="return comprobarTarjeta();">
 								
 					<div id="form-name" class="form-pago-class">
 							<!--Nombre-->

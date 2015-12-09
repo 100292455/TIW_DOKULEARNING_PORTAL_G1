@@ -22,5 +22,7 @@ public interface MatriculaDAO {
 	public abstract Collection<Matricula> buscarTodosLosMatriculas();
 
 	public abstract Collection<Matricula> recuperarMatriculaPorAlumno(int id_usuario);
+	
+	public abstract Collection<Matricula> recuperarMatriculaPorCurso(int id_curso);
 
 }

@@ -3,6 +3,9 @@
   <description>Proyecto TIW UC3M GRUPO 1</description>
   <display-name>grupo1-ear</display-name>
   <module>
+    <ejb>grupo1-ejb-1.0.jar</ejb>
+  </module>
+  <module>
     <web>
       <web-uri>grupo1-web-1.0.war</web-uri>
       <context-root>/grupo1-web</context-root>

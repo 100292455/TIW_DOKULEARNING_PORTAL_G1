@@ -7,9 +7,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,16 +17,11 @@ import javax.transaction.UserTransaction;
 
 import es.uc3m.tiw.model.Curso;
 import es.uc3m.tiw.model.Cupon;
-import es.uc3m.tiw.model.Promocion;
 import es.uc3m.tiw.model.Usuario;
 import es.uc3m.tiw.model.dao.CursoDAO;
 import es.uc3m.tiw.model.dao.CursoDAOImpl;
 import es.uc3m.tiw.model.dao.CuponDAOImpl;
 import es.uc3m.tiw.model.dao.CuponDAO;
-import es.uc3m.tiw.model.dao.MatriculaDAO;
-import es.uc3m.tiw.model.dao.MatriculaDAOImpl;
-import es.uc3m.tiw.model.dao.PromocionDAOImpl;
-import es.uc3m.tiw.model.dao.PromocionDAO;
 
 @WebServlet("/AltaCupones")
 public class AltaCuponesServlet extends HttpServlet {
@@ -40,7 +33,6 @@ public class AltaCuponesServlet extends HttpServlet {
 	@Resource
 	private UserTransaction ut;
 	private ServletConfig config2;
-	private PromocionDAO promDao;
 	private CuponDAO cupDao;
 	private CursoDAO curDao;
 	@Override
@@ -48,14 +40,12 @@ public class AltaCuponesServlet extends HttpServlet {
 		config2 = config;
 		cupDao = new CuponDAOImpl(em, ut);
 		curDao = new CursoDAOImpl(em, ut);
-		promDao = new PromocionDAOImpl(em, ut);
 
 	}
 	
 	public void destroy() {
 		cupDao = null;
 		curDao = null;
-		promDao = null;
 	}
        
 
@@ -76,8 +66,10 @@ public class AltaCuponesServlet extends HttpServlet {
 		String precio1 = request.getParameter("precio");
 		String tipo_cupon1 = request.getParameter("tipo_cupon");
 		String fecha_fin = request.getParameter("datepicker");
+		//String fecha_fin ="hola";
+		//String precio1 = "2";
+		//String tipo_cupon1 = "0";
 		HttpSession sesion = request.getSession();
-		ServletContext context = sesion.getServletContext();
 		Usuario user = (Usuario) sesion.getAttribute("usuario");
 		String nombreCurso = (String) sesion.getAttribute("nombreCurso");
 		/*****/
@@ -108,17 +100,31 @@ public class AltaCuponesServlet extends HttpServlet {
 			//modificar precio del curso
 			int precioInicial = c.getPrecio_inicial();
 			int descuento = cuponNuevo.getDescuento();
-			int tipoDescuento = cuponNuevo.getDescuento();
+			int tipoDescuento = cuponNuevo.getTIPO_cupon();
 			if (tipoDescuento==0) {
 				c.setPrecio_final(precioInicial-descuento);
-				c.setFechaFinDescuento(cuponNuevo.getFecha_fin());
+				c.setFechaFinDescuento(cuponNuevo.getFecha_vto_cupon());
 			}
 			else{
 				
 				int descuentoTotal = (int) (precioInicial-((descuento*0.01)*precioInicial));
 				c.setPrecio_final(descuentoTotal);
-				c.setFechaFinDescuento(cuponNuevo.getFecha_fin());
+				c.setFechaFinDescuento(cuponNuevo.getFecha_vto_cupon());
 			}
+			
+			//metemos la tabla de cupones en el contexto para poder utilizarla desde otras paginas
+			Collection<Cupon> listadoCupones = cupDao.recuperarCuponPorCurso(c);
+			c.setCupones(listadoCupones);
+			try {
+				curDao.modificarCurso(c);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			//metemos el curso a matricular en el contexto para luego poder mostrar su informacion
+			sesion.setAttribute("curso", c);
+			sesion.setAttribute("cupones", listadoCupones);
 			
 			//Guardamos curso modificado
 			try {
@@ -131,8 +137,8 @@ public class AltaCuponesServlet extends HttpServlet {
 			//metemos el curso a matricular en el contexto para luego poder mostrar su informacion
 			sesion.setAttribute("curso", c);
 			//metemos la tabla de cupones en el contexto para poder utilizarla desde otras paginas
-			Collection<Cupon> listadoCupones = cupDao.recuperarCuponPorCurso(c.getID_curso());
-			sesion.setAttribute("cupones", listadoCupones);
+			//Collection<Cupon> listadoCupones = cupDao.recuperarCuponPorCurso(c);
+			//sesion.setAttribute("cupones", listadoCupones);
 			Collection<Curso> listadoCursos = curDao.buscarTodosLosCursos();
 			sesion.setAttribute("cursos", listadoCursos);
 		
@@ -151,9 +157,9 @@ public class AltaCuponesServlet extends HttpServlet {
 	//Creamos el cupon
 	private Cupon crearCupon(String fecha_fin, Usuario profe, int tipo_cupon, Curso curso, int descuento) {
 		Cupon c = new Cupon();
-		c.setFecha_fin(fecha_fin);
+		c.setFecha_vto_cupon(fecha_fin);
 		c.setProfesor(profe);
-		c.setDescuento(tipo_cupon);
+		c.setTIPO_cupon(tipo_cupon);
 		c.setCurso(curso);
 		c.setDescuento(descuento);
 		return c;

@@ -54,6 +54,7 @@ public class LeccionDAOImpl implements LeccionDAO {
 		ut.begin();
 		em.remove(em.merge(leccion));
 		ut.commit();
+
 	}
 	/* (non-Javadoc)
 	 * @see es.uc3m.tiw.daos.UsuarioDAO#recuperarUsuarioPorPK(java.lang.Integer)
@@ -71,7 +72,7 @@ public class LeccionDAOImpl implements LeccionDAO {
 	}
 	@Override
 	public Collection<Leccion> recuperarLeccionesPorSeccion(int id_seccion)throws NoResultException{
-		return em.createQuery("select l from Leccion l where l.seccion.id_seccion='"+id_seccion, Leccion.class).getResultList();
+		return em.createQuery("select l from Leccion l where l.seccion.id_seccion="+id_seccion, Leccion.class).getResultList();
 	}
 	
 	public Collection<Leccion> buscarTodosLosLecciones(){

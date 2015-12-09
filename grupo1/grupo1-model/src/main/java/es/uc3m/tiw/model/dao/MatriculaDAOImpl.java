@@ -78,6 +78,10 @@ public class MatriculaDAOImpl implements MatriculaDAO {
 	
 	public Collection<Matricula> buscarTodosLosMatriculas(){
 		return em.createQuery("select m from Matricula m",Matricula.class).getResultList();
+	}	
+		
+	public Collection<Matricula> recuperarMatriculaPorCurso(int id_curso) {
+			return em.createQuery("select m from Matricula m where m.curso.ID_curso="+id_curso, Matricula.class).getResultList();
+		}
 	}
 	
-}

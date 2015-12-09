@@ -1,14 +1,12 @@
 package es.uc3m.tiw.web.controladores;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,7 +59,6 @@ public class ContenidoCursosServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sesion = request.getSession();
-		ServletContext context = sesion.getServletContext();
 		
 		Usuario user = (Usuario) sesion.getAttribute("usuario");
 		String nombreCurso = request.getParameter("nombreCurso");//Coger nombre del curso a matricular

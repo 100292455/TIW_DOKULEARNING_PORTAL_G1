@@ -103,6 +103,13 @@ public class AnadirMatriculaServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		Collection<Matricula> listadoMatricula = matDao.recuperarMatriculaPorAlumno(user.getID_usuario());
+		c.setMatriculas(listadoMatricula);
+		try {
+			curDao.modificarCurso(c);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		sesion.setAttribute("matriculas", listadoMatricula);
 		config2.getServletContext().getRequestDispatcher(MISCURSOS_JSP).forward(request, response);
 

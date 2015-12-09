@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,19 +16,13 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 
 import es.uc3m.tiw.model.Curso;
-import es.uc3m.tiw.model.Cupon;
 import es.uc3m.tiw.model.Deseo;
 import es.uc3m.tiw.model.Matricula;
-import es.uc3m.tiw.model.Promocion;
 import es.uc3m.tiw.model.Usuario;
 import es.uc3m.tiw.model.dao.CursoDAO;
 import es.uc3m.tiw.model.dao.CursoDAOImpl;
-import es.uc3m.tiw.model.dao.CuponDAOImpl;
-import es.uc3m.tiw.model.dao.CuponDAO;
 import es.uc3m.tiw.model.dao.DeseoDAO;
 import es.uc3m.tiw.model.dao.DeseoDAOImpl;
-import es.uc3m.tiw.model.dao.PromocionDAO;
-import es.uc3m.tiw.model.dao.PromocionDAOImpl;
 import es.uc3m.tiw.model.dao.UsuarioDAO;
 import es.uc3m.tiw.model.dao.UsuarioDAOImpl;
 import es.uc3m.tiw.model.dao.MatriculaDAO;
@@ -118,7 +111,6 @@ public class SesionServlet extends HttpServlet {
 		String pagina = "";
 		pagina = LOGIN_JSP;
 		HttpSession sesion = request.getSession(true);
-		ServletContext context = sesion.getServletContext();
 		Usuario u = null;
 		try {
 			u=usDao.buscarPorEmailYpassword(user, password);

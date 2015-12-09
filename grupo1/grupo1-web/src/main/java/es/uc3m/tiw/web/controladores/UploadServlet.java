@@ -90,6 +90,8 @@ public class UploadServlet extends HttpServlet {
 			String correo = request.getParameter("correo");
 			String descripcion = request.getParameter("descripcion");
 			String intereses = request.getParameter("intereses");
+			Part filePart = request.getPart("file");
+
 			
 			String m = comprobarCurso(nombre, apellido, telefono, correo);
 			if (m == null || m.equals( "")){
@@ -101,10 +103,6 @@ public class UploadServlet extends HttpServlet {
 		            fileSaveDir.mkdir();
 		        }
 		         
-		        for (Part part : request.getParts()) {
-		            String fileName = idUsuario+".jpg";
-		            part.write(savePath + File.separator + fileName);
-		        }
 				
 				 usuario = actualizarUsuario(nombre, apellido, telefono, correo, usuario, descripcion, intereses);
 				sesion.setAttribute("usuario", usuario);

@@ -2,6 +2,9 @@
     <wb-module deploy-name="grupo1-ear-1.0">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
+        <dependent-module archiveName="grupo1-ejb-1.0.jar" deploy-path="/" handle="module:/resource/grupo1-ejb/grupo1-ejb">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="grupo1-model-1.0.jar" deploy-path="/lib" handle="module:/resource/grupo1-model/grupo1-model">
             <dependency-type>uses</dependency-type>
         </dependent-module>

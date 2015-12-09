@@ -33,8 +33,8 @@ import es.uc3m.tiw.model.dao.SeccionDAO;
 import es.uc3m.tiw.model.dao.SeccionDAOImpl;
 @WebServlet("/EnlaceSL")
 public class EnlaceSL extends HttpServlet {
-	private static final String ENTRADA_JSP = "/gestionlecciones.jsp";
-	private static final String GESTION_CURSOS_JSP = "/gestionlecciones.jsp";
+	private static final String ENTRADA_JSP = "/formularioLecciones.jsp";
+	private static final String GESTION_CURSOS_JSP = "/formularioLecciones.jsp";
 	private static final long serialVersionUID = 1L;
 	@PersistenceContext(unitName = "demoTIW")
 	private EntityManager em;
@@ -70,23 +70,20 @@ public class EnlaceSL extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unchecked")
+	//@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String id_seccion= request.getParameter("IdSeccion"); //cuidado con esto
+		System.out.println("-------------------------------------------------"+id_seccion);
 		int idseccion = Integer.parseInt(id_seccion);
-		
 		String pagina = "";
 		pagina = GESTION_CURSOS_JSP;
-		
-		context= this.getServletConfig().getServletContext();
 	
 		Seccion seccionActual = secDao.recuperarSeccionPorPK(idseccion);
 		HttpSession sesion = request.getSession();
 	    sesion.setAttribute("seccion_actual",seccionActual);
-		sesion.setAttribute("idseccion", idseccion);
-		Collection<Leccion> listadoLeccionesIniciales = lecDao.recuperarLeccionesPorSeccion(seccionActual);
-		sesion.setAttribute("lecciones", listadoLeccionesIniciales);
+	    sesion.setAttribute("idseccion", idseccion);
+
 		
 		pagina = ENTRADA_JSP;
 		

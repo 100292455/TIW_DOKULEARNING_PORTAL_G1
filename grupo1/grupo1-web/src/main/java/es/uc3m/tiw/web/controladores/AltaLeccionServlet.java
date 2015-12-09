@@ -19,16 +19,10 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.transaction.UserTransaction;
 
-import es.uc3m.tiw.model.Curso;
-import es.uc3m.tiw.model.Cupon;
-import es.uc3m.tiw.model.Promocion;
 import es.uc3m.tiw.model.Leccion;
 import es.uc3m.tiw.model.Seccion;
-import es.uc3m.tiw.model.Usuario;
 import es.uc3m.tiw.model.dao.LeccionDAO;
 import es.uc3m.tiw.model.dao.LeccionDAOImpl;
-import es.uc3m.tiw.model.dao.CursoDAO;
-import es.uc3m.tiw.model.dao.CursoDAOImpl;
 import es.uc3m.tiw.model.dao.SeccionDAO;
 import es.uc3m.tiw.model.dao.SeccionDAOImpl;
 
@@ -39,7 +33,7 @@ maxRequestSize=1024*1024*50,
 location = "/")   // 50MB
 public class AltaLeccionServlet extends HttpServlet {
 	//private static final String ENTRADA_JSP = "/gestionlecciones.jsp";
-	private static final String CONTENIDO_CURSO_JSP = "/contenidoCurso.jsp";
+	private static final String FORMULARIO_LECCIONES_JSP = "/formularioLecciones.jsp";
 	private static final long serialVersionUID = 1L;
 	private static final String SAVE_DIR = "lecciones";
 	@PersistenceContext(unitName = "demoTIW")
@@ -47,7 +41,6 @@ public class AltaLeccionServlet extends HttpServlet {
 	@Resource
 	private UserTransaction ut;
 	private ServletConfig config2;
-	private CursoDAO curDao;
 	private SeccionDAO secDao;
 	private LeccionDAO lecDao;
 	ServletContext context;
@@ -55,14 +48,12 @@ public class AltaLeccionServlet extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		config2 = config;
-		curDao = new CursoDAOImpl(em, ut);
 		lecDao = new LeccionDAOImpl(em, ut);
 		secDao = new SeccionDAOImpl(em, ut);
 
 	}
 	
 	public void destroy() {
-		curDao = null;
 		lecDao = null;
 		secDao = null;
 	}
@@ -73,33 +64,30 @@ public class AltaLeccionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		config2.getServletContext().getRequestDispatcher(CONTENIDO_CURSO_JSP).forward(request, response);
+		config2.getServletContext().getRequestDispatcher(FORMULARIO_LECCIONES_JSP).forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//context= this.getServletConfig().getServletContext();
-		
+		HttpSession sesion = request.getSession();
 		// gets absolute path of the web application
         String appPath = "/home/tiw/workspace/maven.1444917813281/grupo1/grupo1-web/src/main/webapp/images";
         // constructs path of the directory to save uploaded file
         String savePath = appPath + File.separator + SAVE_DIR;
-		
+		int id_seccion =  (int) sesion.getAttribute("idseccion");
+		System.out.println("-------------------------------------------------222222222222222222"+id_seccion);
 		String titulo = request.getParameter("titulo");
 		String formato = request.getParameter("formato");
 		String descripcion= request.getParameter("descripcion");
-		 
-		int id_seccion= (int) sesion.getAttribute("idseccion");
-		
 		Seccion seccionactual= secDao.recuperarSeccionPorPK(id_seccion);
 		String nombreseccionactual=seccionactual.getNombre();
 		sesion.setAttribute("nombreseccionactual",nombreseccionactual);
-		
-		
-		
+		//Collection<Leccion> listadoLeccionesIniciales = lecDao.recuperarLeccionesPorSeccion(seccionactual.getId_seccion());
+		//sesion.setAttribute("lecciones", listadoLeccionesIniciales);
+		Collection<Leccion> listadoLeccionesIniciales = lecDao.buscarTodosLosLecciones();
+		sesion.setAttribute("lecciones", listadoLeccionesIniciales);
 		/*****/
 		
 		String mensaje ="";
@@ -126,12 +114,19 @@ public class AltaLeccionServlet extends HttpServlet {
 	        }
 	         
 	        for (Part part : request.getParts()) {
-	            String fileName = "leccion_"+l.getId_leccion()+".jpg";
+	            String fileName = "leccion_"+l.getID_leccion()+".jpg";
 	            part.write(savePath + File.separator + fileName);
 	        }
 			
-			pagina = CONTENIDO_CURSO_JSP;
+			pagina = "/contenidoCurso.jsp";
 			Collection<Leccion> listaLecciones = lecDao.recuperarLeccionesPorSeccion(id_seccion);
+			seccionactual.setLecciones(listaLecciones);
+			try {
+				secDao.modificarSeccion(seccionactual);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			sesion.setAttribute("lecciones", listaLecciones);
 			sesion.setAttribute("leccion", l);
 			

@@ -16,9 +16,12 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 
 import es.uc3m.tiw.model.Curso;
+import es.uc3m.tiw.model.Matricula;
 import es.uc3m.tiw.model.Usuario;
 import es.uc3m.tiw.model.dao.CursoDAO;
 import es.uc3m.tiw.model.dao.CursoDAOImpl;
+import es.uc3m.tiw.model.dao.MatriculaDAO;
+import es.uc3m.tiw.model.dao.MatriculaDAOImpl;
 
 @WebServlet("/BajaCursos")
 public class BajaCursosServlet extends HttpServlet {
@@ -31,15 +34,18 @@ public class BajaCursosServlet extends HttpServlet {
 	private UserTransaction ut;
 	private ServletConfig config2;
 	private CursoDAO curDao;
+	private MatriculaDAO matDao;
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		config2 = config;
 		curDao = new CursoDAOImpl(em, ut);
+		matDao = new MatriculaDAOImpl(em, ut);
 
 	}
 	
 	public void destroy() {
 		curDao = null;
+		matDao = null;
 	}
        
 
@@ -60,7 +66,11 @@ public class BajaCursosServlet extends HttpServlet {
 		String pagina = "";
 		pagina = GESTION_CURSOS_JSP;
 		
+	      //no se pierda la pestaña
+			request.setAttribute("selectedTab", "1");
+		
 		HttpSession sesion = request.getSession();	
+		Usuario user = (Usuario) sesion.getAttribute("usuario");
 		String idCursoStr = request.getParameter("IdCurso");
 		int idCurso = Integer.parseInt(idCursoStr);
 		Curso curso=curDao.recuperarCursoPorPK(idCurso);
@@ -71,14 +81,18 @@ public class BajaCursosServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		//actualiza curso creado
-		Usuario user = (Usuario) sesion.getAttribute("usuario");
-        Collection<Curso> cursosCreados = curDao.recuperarCursosPorProfesor(user.getID_usuario());
+		pagina = ENTRADA_JSP;
+		
+		/*ACTUALIZAMOS LAS LISTAS DE CURSOS DE LA SESION*/
+		Collection<Curso> listadoCursos = curDao.buscarTodosLosCursos();
+		sesion.setAttribute("cursos", listadoCursos);
+		
+		Collection<Curso> cursosCreados = curDao.recuperarCursosPorProfesor(user.getID_usuario());
 		sesion.setAttribute("cursoscreados", cursosCreados);
 		
-		Collection<Curso> listadoCursos = curDao.buscarTodosLosCursos();
-		pagina = ENTRADA_JSP;
-		sesion.setAttribute("cursos", listadoCursos);
+		Collection<Matricula> listadoMatricula = matDao.recuperarMatriculaPorAlumno(user.getID_usuario());
+		sesion.setAttribute("matriculas", listadoMatricula);
+		
 		config2.getServletContext().getRequestDispatcher(pagina).forward(request, response);
 		
 	}

@@ -2,6 +2,7 @@ package es.uc3m.tiw.model;
 
 import static javax.persistence.GenerationType.AUTO;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,7 +28,6 @@ public class Matricula {
 	
 	public Matricula(Usuario alumno, Curso curso, int precio_pagado) {
 		super();
-		this.ID_matricula = ID_matricula;
 		this.alumno = alumno;
 		this.curso = curso;
 		this.precio_pagado = precio_pagado;

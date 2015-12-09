@@ -170,8 +170,10 @@
             				</div>
             				
             				<div id="contenedor-enviar"> 
- 								<input type="text" name="mensaje">
-  								<input type="submit" value="Enviar">
+            					<form action="mensajes" method="post">
+ 									<input type="text" name="mensaje" placeholder="Escribir mensaje">
+  									<input type="submit" value="Enviar">
+								</form>              				
               				</div>
             				
             			</div>

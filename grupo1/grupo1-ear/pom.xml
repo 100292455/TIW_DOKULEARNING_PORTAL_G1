@@ -35,19 +35,19 @@
           <artifactId>grupo1-util</artifactId>
            </jarModule> -->
             <!-- 4.5.2. Include EJB Module. -->
-            <!-- <ejbModule>
-          <groupId>es.uc3m.tiw.ejb</groupId>
-            <artifactId>grupo1-ejb</artifactId>
+            <ejbModule>
+          		<groupId>es.uc3m.tiw.ejb</groupId>
+           		<artifactId>grupo1-ejb</artifactId>
             </ejbModule> -->
             <!-- 4.5.3. Include Web Application Module. -->
             <jarModule>
-            <groupId>es.uc3m.tiw.model</groupId>
-          <artifactId>grupo1-model</artifactId>
+            	<groupId>es.uc3m.tiw.model</groupId>
+         		<artifactId>grupo1-model</artifactId>
            </jarModule>
             <webModule>
-            <groupId>es.uc3m.tiw.web</groupId>
-            <artifactId>grupo1-web</artifactId>
-           <contextRoot>${webContext}</contextRoot>          
+           		<groupId>es.uc3m.tiw.web</groupId>
+            	<artifactId>grupo1-web</artifactId>
+           		<contextRoot>${webContext}</contextRoot>          
             </webModule>
           </modules>
         </configuration>
@@ -68,12 +68,12 @@
   		<version>1.0</version>
   		<type>jar</type>
   	</dependency> -->
-  	<!-- <dependency>
+  	<dependency>
   		<groupId>es.uc3m.tiw.ejb</groupId>
   		<artifactId>grupo1-ejb</artifactId>
   		<version>1.0</version>
   		<type>ejb</type>
-  	</dependency> -->
+  	</dependency>
   	<dependency>
   		<groupId>es.uc3m.tiw.model</groupId>
   		<artifactId>grupo1-model</artifactId>
