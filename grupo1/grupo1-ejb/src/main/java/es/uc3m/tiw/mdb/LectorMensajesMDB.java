@@ -1,5 +1,7 @@
 package es.uc3m.tiw.mdb;
 
+import java.util.Collection;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.ActivationConfigProperty;
@@ -19,7 +21,10 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
+import es.uc3m.tiw.model.Curso;
 import es.uc3m.tiw.model.Mensaje;
+import es.uc3m.tiw.model.dao.CursoDAO;
+import es.uc3m.tiw.model.dao.CursoDAOImpl;
 import es.uc3m.tiw.model.dao.MensajeDAO;
 import es.uc3m.tiw.model.dao.MensajeDAOImpl;
 
@@ -35,6 +40,7 @@ import es.uc3m.tiw.model.dao.MensajeDAOImpl;
 @TransactionManagement(TransactionManagementType.BEAN)
 public class LectorMensajesMDB implements MessageListener {
 	private MensajeDAO msgDao;
+	private CursoDAO curDao;
 	@PersistenceContext(unitName="demoTIW")
 	EntityManager em;
 	@Resource
@@ -44,6 +50,7 @@ public class LectorMensajesMDB implements MessageListener {
 	private void configurador(){
 		System.out.println("****POSTCONSTRUCT LectorMnsajesMDB");
 		msgDao = new MensajeDAOImpl(em, ut);
+		curDao = new CursoDAOImpl(em,ut);
 	}
 
     /**
@@ -60,14 +67,24 @@ public class LectorMensajesMDB implements MessageListener {
        System.out.println("******Ha llegado un mensaje");
         
         ObjectMessage om =  (ObjectMessage) message;
+        Mensaje mensaje = null;
         try {
-        		Mensaje mensaje = (Mensaje) om.getObject();
+        		mensaje = (Mensaje) om.getObject();
         		msgDao.guardarMensaje(mensaje);
         		
 		} catch (JMSException | SecurityException | IllegalStateException | NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
+		}    
+        Curso c = mensaje.getCurso();
+        Collection<Mensaje> listaMensajesCursoActual = msgDao.recuperarMensajePorCurso(mensaje.getID_curso());
+        c.setMensaje(listaMensajesCursoActual);
+        try {
+			curDao.modificarCurso(c);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
    
         

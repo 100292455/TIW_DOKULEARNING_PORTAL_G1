@@ -74,7 +74,7 @@ public class MensajesServlet extends HttpServlet {
 		//HttpSession sesion = request.getSession();
 		String mensaje = request.getParameter("mensaje");
 		Usuario u = usDao.buscarPorEmail("carlos@uc3m.es");
-		int numero = 3;
+		int numero = 2;
 		Curso c = curDao.recuperarCursoPorPK(numero);
 		Mensaje msg = new Mensaje(mensaje,u, c);
 	

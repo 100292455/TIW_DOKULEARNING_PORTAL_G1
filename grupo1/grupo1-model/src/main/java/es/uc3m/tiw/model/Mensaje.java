@@ -17,7 +17,7 @@ public class Mensaje implements Serializable {
 
 	@Id
  	@GeneratedValue(strategy = AUTO)
-	private Long ID_curso;
+	private Long ID_mensaje;
 	private String DES_mensaje;
 	@OneToOne
 	private Usuario emisor;
@@ -28,12 +28,16 @@ public class Mensaje implements Serializable {
 		super();
 	}
 
-	public Long getID_curso() {
-		return ID_curso;
+	public long getID_mensaje() {
+		return ID_mensaje;
 	}
 
-	public void setID_curso(Long iD_curso) {
-		this.ID_curso = iD_curso;
+	public void setID_mensaje(Long iD_curso) {
+		this.ID_mensaje = iD_curso;
+	}
+	
+	public int getID_curso(){
+		return this.curso.getID_curso();
 	}
 
 	public Mensaje(String dES_mensaje, Usuario emisor, Curso curso) {
