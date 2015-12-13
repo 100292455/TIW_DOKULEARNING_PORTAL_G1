@@ -14,19 +14,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 import es.uc3m.tiw.model.Curso;
+import es.uc3m.tiw.model.Matricula;
 import es.uc3m.tiw.model.Mensaje;
 import es.uc3m.tiw.model.Usuario;
-import es.uc3m.tiw.model.dao.CursoDAOImpl;
+import es.uc3m.tiw.model.dao.MatriculaDAO;
+import es.uc3m.tiw.model.dao.MatriculaDAOImpl;
 import es.uc3m.tiw.model.dao.MensajeDAOImpl;
-import es.uc3m.tiw.model.dao.UsuarioDAOImpl;
 import es.uc3m.tiw.web.jms.EscribirEnQueue;
 /**
  * Servlet implementation class MensajesServlet
@@ -39,8 +35,7 @@ public class MensajesServlet extends HttpServlet {
 	@Resource
 	private UserTransaction ut;
 	private MensajeDAOImpl msgDao;
-	private UsuarioDAOImpl usDao;
-	private CursoDAOImpl curDao;
+	private MatriculaDAO matDao;
 	@Inject
 	private EscribirEnQueue colaMensajes;
        
@@ -50,18 +45,29 @@ public class MensajesServlet extends HttpServlet {
 	 */
 	public void init() throws ServletException {
 		msgDao = new MensajeDAOImpl(em, ut);
-		usDao = new UsuarioDAOImpl(em,ut);
-		curDao = new CursoDAOImpl(em,ut);
+		matDao = new MatriculaDAOImpl(em, ut);
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 	
+		/*CARGAR LOS MENSAJES*/
+		
 		HttpSession sesion = request.getSession();
+		
+		/*Recuperamos de la sesion el curso del foro*/
 		Curso c = (Curso) sesion.getAttribute("curso");
+		
+		/*Recuperamos de la BBDD los matriculados y los mensajes del curso*/
 		Collection<Mensaje> mensajes = msgDao.recuperarMensajePorCurso(c.getID_curso());
+		Collection<Matricula> matriculas = matDao.recuperarMatriculaPorCurso(c.getID_curso());
+		
+		/*Enviamos a la vista los mensajes y los matriculados*/
 		request.setAttribute("listaMensajes", mensajes);
+		request.setAttribute("matriculascursoactual", matriculas);
+		
+		/*Dispahcher*/
 		this.getServletContext().getRequestDispatcher("/Foro.jsp").forward(request, response);
 		
 	}
@@ -71,15 +77,21 @@ public class MensajesServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//HttpSession sesion = request.getSession();
-		String mensaje = request.getParameter("mensaje");
-		Usuario u = usDao.buscarPorEmail("carlos@uc3m.es");
-		int numero = 2;
-		Curso c = curDao.recuperarCursoPorPK(numero);
-		Mensaje msg = new Mensaje(mensaje,u, c);
-	
+		HttpSession sesion = request.getSession();
 		
+		/*Recuperamos el usuario y el curso de sesion*/
+		Usuario u = (Usuario) sesion.getAttribute("usuario");
+		Curso c = (Curso) sesion.getAttribute("curso");
+
+		/*Recuperamos el mensaje*/
+		String mensaje = request.getParameter("mensaje");
+
+		/*Creamos un mensaje con el contenido, el emisor y el curso del foro y lo metemos en la cola*/
+		Mensaje msg = new Mensaje(mensaje,u, c);
 		colaMensajes.enviar(msg);
+		
+		Collection<Mensaje> mensajes = msgDao.recuperarMensajePorCurso(c.getID_curso());
+		request.setAttribute("listaMensajes", mensajes);
 		
 		this.getServletConfig().getServletContext().getRequestDispatcher("/Foro.jsp").forward(request, response);
 		

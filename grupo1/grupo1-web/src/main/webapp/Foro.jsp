@@ -60,49 +60,23 @@
             
             	<div id = "contenedor-foro">
             		
-            		<h3>Bellas Artes</h3>
+            		<h3>${requestScope.curso.DES_titulo}</h3>
             		
             		<div id = "contenedor-mensaje">
             		
             			<div id= "contenedor-participantes">
             				<ul>
-            					<li>
+            				    <li>
             						<img  src="images/famosos/alice.jpg" alt="Error en la imagen">  
-            						 <p>Alice Gould</p>
+            						 <p>${requestScope.curso.profesor.nombre} ${requestScope.curso.profesor.apellido}</p>
             					</li>
-             					<li>
-            						<img  src="images/famosos/amancio.jpg" alt="Error en la imagen">  
-            						 <p>Amancio Ortega</p>
-            					</li>
-             					<li>
-            						<img  src="images/famosos/bernard.jpg" alt="Error en la imagen">  
-            						 <p>Bernard Sanz</p>
-            					</li>
-             					<li>
-            						<img  src="images/famosos/carlos.jpg" alt="Error en la imagen">  
-            						 <p>Carlos Sainz</p>
-            					</li>
-             					<li>
-            						<img  src="images/famosos/charles.jpg" alt="Error en la imagen">  
-            						 <p>Principe Charles</p>
-            					</li>
-             					<li>
-            						<img  src="images/famosos/gates.jpg" alt="Error en la imagen">  
-            						 <p>Bill Gates</p>
-            					</li>
-             					<li>
-            						<img  src="images/famosos/jim.jpg" alt="Error en la imagen">  
-            						 <p>Jimmy Falon</p>
-            					</li>
-             					<li>
-            						<img  src="images/famosos/larry.jpg" alt="Error en la imagen">  
-            						 <p>Larry Perry</p>
-            					</li>
-             					<li>
-            						<img  src="images/famosos/michael.jpg" alt="Error en la imagen">  
-            						 <p>Micheal Jackson</p>
-            					</li>
-                				</ul>
+            					<c:forEach items="${requestScope.matriculascursoactual }" var="matricula">
+	            					 <li>
+	            						<img  src="images/famosos/alice.jpg" alt="Error en la imagen">  
+	            						 <p>${matricula.alumno.nombre} ${matricula.alumno.nombre}</p>
+	            					</li>
+            					</c:forEach>
+                			</ul>
             			</div>
             			
             			<div id = "contenedor-conversacion">
@@ -110,61 +84,26 @@
             				<div id = conversacion>
             					
             					<ul>
-            						<li>
-            							<div class="remitente">
-	            							<p>Bill Gates</p>
-	            							<p>¿Alguien sabe cuando es el primer parcial?</p>
-       							     	</div>
-            							
-            						</li>
-            						<li>
-            							<div class="emisor">
-            								<p>Yo</p>
-            								<p>Que yo recuerde es el martes por la mañana, pero no estoy seguro.</p>
-       							     	</div>
-            						</li>
-            						<li>
-            							<div class="remitente">
-            								<p>Alice Gould</p>
-            								<p>Es el martes a las 10:30 en la clase de siempre.</p>
-       							     	</div>
-            						</li>
-            						<li>
-            							<div class="remitente">
-            								<p>Bill Gates</p>
-            								<p>Mucgas gracias chicos :)</p>
-       							     	</div>
-            						</li>
-            						<li>
-            							<div class="remitente">
-            								<p>Larry Perry</p>
-            								<p>Bill tienes que atender mas en clase cuando hablamos de los examenes o por lo menos apuntarlo bien. No os olvideis que entran los 3 primeros temas y se puede liberar temario. Suete.</p>
-       							     	</div>
-            						</li>
-            						<li>
-            							<div class="emisor">
-            								<p>Yo</p>
-           									<p>Jajajajaja</p>
-       							     	</div>
-            						</li>
-            						<li>
-            							<div class="remitente">
-            								<p>Michael Jackson</p>
-        	    							<p>Zass en toda la boca.</p>
-       							     	</div>
-            						</li>
-            						<li>
-            							<div class="remitente">
-    	        							<p>Bill Gates</p>
-	            							<p>Jajajaja si es que no estaba seguro.</p>
-       							     	</div>
-            						</li>
-            						<li>
-            							<div class="emisor">
-            								<p>Yo</p>
-            								<p>Eso mismo dicen todos, ¿os apetece quedar mañana para estudiar en la biblio?</p>
-       							     	</div>
-            						</li>
+            						<c:forEach items="${requestScope.listaMensajes }" var="listaMensajes">
+            							<c:choose>
+											<c:when  test="${requestScope.usuario.ID_usuario eq listaMensajes.emisor.ID_usuario}">
+	            							   <li>
+			            							<div class="emisor">
+				            							<p>${listaMensajes.emisor.nombre}</p>
+				            							<p>${listaMensajes.DES_mensaje}</p>
+			       							     	</div>
+			            						</li>								
+			            					</c:when>
+											<c:otherwise>
+	            							   <li>
+			            							<div class="remitente">
+				            							<p>${listaMensajes.emisor.nombre}</p>
+				            							<p>${listaMensajes.DES_mensaje}</p>
+			       							     	</div>
+			            						</li>
+											</c:otherwise>
+										</c:choose>
+             						</c:forEach>           			
             					</ul>
             				
             				</div>
