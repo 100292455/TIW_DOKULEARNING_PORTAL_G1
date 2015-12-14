@@ -88,25 +88,27 @@
 					</div >	
 					
 					 </form>
+					 
+	 				<div id=mi-empresa-recomendados>
+				
+						<h5> Recomendados </h5>
+							<ul>
+							<c:forEach items="${cursosRecomendados }" var="curso"> 
+							<!-- recorremos todos los objetos de la coleccion cursos 
+								y cada objeto devuelto lo asignamos a la variable curso -->
+								<% System.out.println("--------------------"+session.getAttribute("cursosRecomendados")); %>
+									<li>
+									<img class = "seguidores-foto" src = "images/index/microsoft.jpg" alt = "Error en la imagen">
+									<p><a  href="contenidoCursos?nombreCurso=${curso.DES_titulo }">${curso.DES_titulo }</a></p></li>
+									</li>
+						</c:forEach>
+						</ul>
+					</div>
+					
 					
 				</div>
 				
-				<div>
-				
-					<h5> Recomendados </h5>
-						<ul>
-						<c:forEach items="${cursosRecomendados }" var="curso"> 
-						<!-- recorremos todos los objetos de la coleccion cursos 
-							y cada objeto devuelto lo asignamos a la variable curso -->
-							<% System.out.println("--------------------"+session.getAttribute("cursosRecomendados")); %>
-								<li>
-								<img class = "seguidores-foto" src = "images/famosos/gates.jpg" alt = "Error en la imagen">
-								<p><a style="color:black" href="contenidoCursos?nombreCurso=${curso.DES_titulo }">${curso.DES_titulo }</a></p></li>
-								</li>
-					</c:forEach>
-					</ul>
-				</div>
-				
+
 				
 					
 

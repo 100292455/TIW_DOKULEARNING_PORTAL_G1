@@ -76,40 +76,7 @@
 		display:inline-block;
 	}
 	
-		/*---------------------------------------------------------------------------------------------------*/
-		/*ESTILO DEL LOGO DE LA CABECERA*/
-	
 		
-			#cabecera-logo {
-				width:270px;
-				padding:16px 40px;
-				position:relative;
-				top:4px;
-			}
-			
-			header a {
-				text-decoration:none;
-			}
-			
-			header .cabecera {
-				display:inline;
-			}
-			
-			header img.cabecera {
-				width:44px;
-				height:63px;
-			}
-			
-			header h1 {
-				font-family: 'Ubuntu', sans-serif;
-				color:white;
-				position:relative;
-				padding-left:10px;
-				top:-14px;
-				font-size:50px;
-			}
-		
-		/*----------------------------------------------------------------------------------------------*/
 		nav {
 			position:relative;
 			padding:20px;
@@ -146,7 +113,61 @@
 			color:rgb(227,197,25);
 		}
 		
-		/*----------------------------------------------------------------------------------------------*/
+	/*---------------------------------------------------------------------------------------------------*/
+	/*ESTILO DE LA CABECERA*/
+	
+	/*ESTILO DE LA CABECERA*/
+	
+	#cabecera-logo, #cabecera-sesion {
+		display:inline-block;
+	}
+	
+		/*---------------------------------------------------------------------------------------------------*/
+		/*ESTILO DEL LOGO DE LA CABECERA*/
+	
+		
+			#cabecera-logo, #cabecera-sesion, nav {
+				display:inline-block;
+			}
+
+				/*---------------------------------------------------------------------------------------------------*/
+				/*ESTILO DEL LOGO DE LA CABECERA*/
+
+
+					#cabecera-logo {
+						width:270px;
+						padding:16px 40px;
+						position:relative;
+						top:4px;
+					}
+
+					header a {
+						text-decoration:none;
+					}
+
+					header .cabecera {
+						display:inline;
+					}
+
+					header img.cabecera {
+						width:44px;
+						height:63px;
+					}
+
+					header h1 {
+						font-family: 'Ubuntu', sans-serif;
+						color:white;
+						position:relative;
+						padding-left:10px;
+						top:-14px;
+						font-size:50px;
+					}
+
+				/*----------------------------------------------------------------------------------------------*/
+
+
+
+					/*----------------------------------------------------------------------------------------------*/
 		/*ESTILO DEL INICIO DE SESION DE LA CABECERA*/
 			
 			#cabecera-sesion { /*div que engloba todo*/
@@ -190,7 +211,6 @@
 			
 			#cabecera-sesion-men a {
 				font-size:14px;
-				color:white;
 			 	text-decoration: underline;
 			
 			}
@@ -199,12 +219,36 @@
 				color:rgb(227,197,25);
 			}
 			
+			header .cabecera, header .cabecera1 {
+				display:inline;
+			}
 			
+			header h1 {
+				position:relative;
+				color:white;
+				padding:10px;
+				top:-14px;
+				font-size:50px;
+			}
+
+			header p {
+				color:white;
+				padding-left:25px;
+				position:relative;
+				top:-25px;
+				left:250px;
+			}
+			
+			header .cabecera1:hover {
+				color:rgb(29,102,168) ;
+				cursor:pointer;
+			}
 		
-		/*----------------------------------------------------------------------------------------------*/
+
 		
-		
-		
+	
+	/*---------------------------------------------------------------------------------------------------*/
+
 
 		
 	

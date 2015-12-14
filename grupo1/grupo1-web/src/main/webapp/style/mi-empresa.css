@@ -136,7 +136,61 @@
 		}
 		
 		
-		/*----------------------------------------------------------------------------------------------*/
+	/*---------------------------------------------------------------------------------------------------*/
+	/*ESTILO DE LA CABECERA*/
+	
+	/*ESTILO DE LA CABECERA*/
+	
+	#cabecera-logo, #cabecera-sesion {
+		display:inline-block;
+	}
+	
+		/*---------------------------------------------------------------------------------------------------*/
+		/*ESTILO DEL LOGO DE LA CABECERA*/
+	
+		
+			#cabecera-logo, #cabecera-sesion, nav {
+				display:inline-block;
+			}
+
+				/*---------------------------------------------------------------------------------------------------*/
+				/*ESTILO DEL LOGO DE LA CABECERA*/
+
+
+					#cabecera-logo {
+						width:270px;
+						padding:16px 40px;
+						position:relative;
+						top:4px;
+					}
+
+					header a {
+						text-decoration:none;
+					}
+
+					header .cabecera {
+						display:inline;
+					}
+
+					header img.cabecera {
+						width:44px;
+						height:63px;
+					}
+
+					header h1 {
+						font-family: 'Ubuntu', sans-serif;
+						color:white;
+						position:relative;
+						padding-left:10px;
+						top:-14px;
+						font-size:50px;
+					}
+
+				/*----------------------------------------------------------------------------------------------*/
+
+
+
+					/*----------------------------------------------------------------------------------------------*/
 		/*ESTILO DEL INICIO DE SESION DE LA CABECERA*/
 			
 			#cabecera-sesion { /*div que engloba todo*/
@@ -180,7 +234,6 @@
 			
 			#cabecera-sesion-men a {
 				font-size:14px;
-				color:white;
 			 	text-decoration: underline;
 			
 			}
@@ -206,18 +259,19 @@
 				padding-left:25px;
 				position:relative;
 				top:-25px;
-				left:350px;
+				left:250px;
 			}
 			
 			header .cabecera1:hover {
 				color:rgb(29,102,168) ;
 				cursor:pointer;
 			}
-			
 		
-		/*----------------------------------------------------------------------------------------------*/
+
 		
-		
+	
+	/*---------------------------------------------------------------------------------------------------*/
+
 		
 
 		
@@ -287,6 +341,7 @@
 		#informacion-empresa {
 			background:rgb(246,246,246);
 			padding:0 10px 10px 10px ;
+			width:900px;
 
 		}
 		
@@ -303,7 +358,6 @@
 			text-align:center;
 			margin:auto;
 			position:relative;
-			left:50px;
 			margin-top:100px;
 		}
 		
@@ -318,6 +372,12 @@
 			margin-top:10px;
 		}
 		
+		input[type=file]{
+			width:300px;
+			font-size:14px;
+			overflow:auto;
+		}
+		
 		
 		
 		#informacion-empresa-imagen , #informacion-empresa-basica {
@@ -326,14 +386,14 @@
 		
 		#informacion-empresa-basica {
 			margin-left:30px;
-			width:700px;
+			width:550px;
 			font-size:12px;
 			float:right;
 			
 		}
 		
 		#informacion-empresa-basica input {
-			width:80%;
+			width:350px;
 			font-size:14px;
 			margin:5px 0px 5px 15px;
 			margin-bottom:1%;
@@ -349,7 +409,7 @@
 		}
 		
 		#edit-descripcion {
-			width:80%;
+			width:350px;
 			height: 100px;
 			font-size:14px;
 			resize: none;
@@ -445,8 +505,57 @@
 
 	/*-----------------------------------------------------------------------------------------------*/
 		
-	/*ESTILO DEL MENU INICIO SESION*/
+	/*RECOMENDADOS*/
 		
+	#mi-empresa-recomendados, #mi-empresa > form{
+			display:inline-block;
+	}
+	
+	#mi-empresa-recomendados {
+		float:right;
+		padding:10px;
+		position:relative;
+		right:25px;
+	}	
+	
+	#mi-empresa-recomendados > h5 {
+		font-size:20px;
+		color: rgb(81,81,81);
+		text-align:center;
+		margin-bottom:15px;
+	}
+	
+	#mi-empresa-recomendados > ul {
+		max-height:700px;
+		overflow:auto;
+	}
+	
+	#mi-empresa-recomendados > ul > li{
+		list-style-type: none;
+		width:200px;
+		padding:10px 0;
+		text-align:center;
+		border-bottom:1px  solid rgb(241,241,241);
+	}
+	
+	#mi-empresa-recomendados > ul > li:first-child{
+		border-top:1px  solid rgb(241,241,241);
+	}
+	
+	#mi-empresa-recomendados img {
+		border-radius:50%;
+		border:inset 3px rgb(161,194,107);
+		width:100px;
+		height:100px;
+	}
+	
+	#mi-empresa-recomendados a, #mi-empresa-recomendados a:visited {
+		color:rgb(140,168,93);
+	}
+	
+	#mi-empresa-recomendados a:hover {
+		color: rgb(29,102,168);
+	}
 		
 
 	/*-----------------------------------------------------------------------------------------------*/

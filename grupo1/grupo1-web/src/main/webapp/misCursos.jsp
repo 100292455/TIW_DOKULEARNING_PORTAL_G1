@@ -266,7 +266,7 @@
  			<!-- LISTA DE DESEOS -->
 			  
 			    <div id="tabs-3">
-			 	<div class = "mi-empresa">
+			 	<div id = "mi-empresa-deseo">
 				<h4>LISTA DE DESEOS</h4>
 			
 					<input type="hidden" id="selectedTabInput" value="${requestScope.selectedTab}">
@@ -302,9 +302,9 @@
 										<p class = "numero-seguidores"><a  href="contenidoCursos?nombreCurso=${deseo.cursoDeseado.DES_titulo }">Ver Contenidos</a></p>
 								</div>
 									
-								<div class = "ofertas-edicion">
-							    <img class="eliminar-icon" src="images/edicion/trash.png" alt="Error en la imagen">
-							    <p class = "numero-seguidores"><a  href="GestionDeseados?IdCurso=${deseo.cursoDeseado.ID_curso}&Pagina=misCursos&Tipo=Baja">Eliminar deseo.</a></p>
+								<div class = "ofertas-edicion" id ="edicion-borrar-deseo">
+							   		 <img class="eliminar-icon" src="images/edicion/trash.png" alt="Error en la imagen">
+							    	<p class = "numero-seguidores"><a  href="GestionDeseados?IdCurso=${deseo.cursoDeseado.ID_curso}&Pagina=misCursos&Tipo=Baja">Eliminar deseo.</a></p>
 						        </div>
 									
 								</li>

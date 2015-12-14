@@ -255,12 +255,12 @@
 		text-align:center;
 		font-size:40px;
 	}
-	#mi-empresa {
+	#mi-empresa, #mi-empresa-deseo {
 		min-height:700px;
 		font-family: 'Ubuntu', sans-serif;
 	}
 	
-	#mi-empresa > h4 {
+	#mi-empresa > h4, #mi-empresa-deseo > h4 {
 		margin:30px 0;
 		color:rgb(29,102,168);
 		text-align:center;
@@ -279,7 +279,7 @@
 		max-height:220px;
 		
 	}
-		#mi-empresa ul li {
+		#mi-empresa ul li, #mi-empresa-deseo ul li {
 		border-top: solid 2px rgba(81,81,81,0.2);
 		padding-top:12px;
 		width: 1075px;
@@ -424,6 +424,11 @@
 			-webkit-box-shadow: 0 0 15px #ccc; 
 			box-shadow: 0 0 15px #ccc; 
 		}
+		#edicion-borrar-deseo{
+						top:-27px;
+		}
+		
+
 		
 		
 		
