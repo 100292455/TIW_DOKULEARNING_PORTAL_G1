@@ -102,8 +102,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		String email=request.getParameter("correo");
 		String tel=request.getParameter("telefono");
 		String cobro=request.getParameter("cobro");	
-		String descripcion=request.getParameter("descripcion");
-		String intereses = request.getParameter("int");
+		//String descripcion=request.getParameter("descripcion");
 		String password1=request.getParameter("password1");
 		
 		/*if (nombre.equals("") || nombre == null){
@@ -140,9 +139,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		usuario.setEmail(email);
 		usuario.setTelefono(tel);
 		usuario.setClave(password1);
-		usuario.setDescripcion(descripcion);
-		usuario.setMedio_cobro(cobro);
-		usuario.setIntereses(intereses);
+		
 		
 		if(sexo.equals("hombre")){
 			
@@ -179,12 +176,14 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			sesion.setAttribute("acceso", "ok");
 			Collection<Curso> cursos = curDao.buscarTodosLosCursos();
 			sesion.setAttribute("cursos", cursos);
+			String mensaje="";
+			sesion.setAttribute("mensajeRegistro", mensaje);
 			config2.getServletContext().getRequestDispatcher(ENTRADA_ALUMNO_JSP).forward(request, response);
 			
 		}else{
 			
 			String mensaje = "Ya existe un usuario con ese email. Por favor, elija otro";
-			sesion.setAttribute("mensaje", mensaje);
+			sesion.setAttribute("mensajeRegistro", mensaje);
 			sesion.setAttribute("usuario", usuario);
 			config2.getServletContext().getRequestDispatcher(FORMULARIO_USUARIO_JSP).forward(request, response);
 		}

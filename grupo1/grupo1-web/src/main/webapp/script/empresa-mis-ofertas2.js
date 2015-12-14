@@ -10,12 +10,12 @@ $(document).ready(function(){
 		  });
 
   //Añadir una oferta nueva 
-	$("#añadir-leccion").hide();
-	$(".añadir-leccion").click(function(){
+	$("#anadir-leccion").hide();
+	$(".anadir-leccion").click(function(){
 	   if (añadiroferta){
-		$("#añadir-leccion").show();
+		$("#anadir-leccion").show();
 		añadiroferta=false;
-		$(".añadir-leccion").val("Ocultar añadir");
+		$(".anadir-leccion").val("Ocultar añadir");
 		window.scrollTo(0, 1500);
 		anadirseccion=true;
 		$("#anadir-seccion").hide();
@@ -27,8 +27,8 @@ $(document).ready(function(){
 	}
 		else{
 			añadiroferta=true;
-			$("#añadir-leccion").hide();
-			$(".añadir-leccion").val("Añadir leccion");
+			$("#anadir-leccion").hide();
+			$(".anadir-leccion").val("Añadir leccion");
 			
 		}
 	  });
@@ -42,8 +42,8 @@ $(document).ready(function(){
 		$("#boton-anadir-cupon").val("Ocultar anadir")
 		window.scrollTo(0, 1500);
 		añadiroferta=true;
-		$("#añadir-leccion").hide();
-		$(".añadir-leccion").val("Añadir leccion");
+		$("#anadir-leccion").hide();
+		$(".anadir-leccion").val("Añadir leccion");
 		anadirseccion=true;
 		$("#anadir-seccion").hide();
 		$("#boton-anadir-seccion").val("Anadir seccion");
@@ -66,8 +66,8 @@ $(document).ready(function(){
 		$("#boton-anadir-seccion").val("Ocultar anadir")
 		window.scrollTo(0, 1500);
 		añadiroferta=true;
-		$("#añadir-leccion").hide();
-		$(".añadir-leccion").val("Añadir leccion");
+		$("#anadir-leccion").hide();
+		$(".anadir-leccion").val("Añadir leccion");
 		anadircupon=true;
 		$("#anadir-cupon").hide();
 		$("#boton-anadir-cupon").val("Anadir cupon");
@@ -96,7 +96,7 @@ $(document).ready(function(){
     $("#mens10").hide();    
     /* Al pulsar el boton anadir leccion*/
     
-    $("#añadir-leccion-button").click(function(){
+    $("#anadir-leccion-button").click(function(){
     	validarcrearleccion();
  	  });
     /* Al pulsar el boton anadir cupon*/

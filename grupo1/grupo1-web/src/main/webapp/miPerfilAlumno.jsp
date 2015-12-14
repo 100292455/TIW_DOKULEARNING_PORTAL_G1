@@ -1,6 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,45 +21,14 @@
 		<!--CSS de la pagina-->
 		
 		<link rel="stylesheet" type="text/css" href="./style/mi-empresa.css">
-				
 		<!--<script type = "text/javascript" src ="script/myscript.js"></script>-->
 		<link href="./script/jquery-ui-1.11.2.custom/jquery-ui.css" rel="stylesheet">
-
 		<script src="./script/jquery-ui-1.11.2.custom/external/jquery/jquery.js"></script>
 		<script src="./script/jquery-ui-1.11.2.custom/jquery-ui.js"></script>
 
 </head>
 <body>
-	<header>
-                
-	    <a href="miPerfilAlumno.jsp">    
-	        
-	        <img class = "cabecera" src="images/logo.png" alt="Error en la imagen">    
-	    
-	        <h1 class = "cabecera">DOKU</h1>
-	    
-	    </a>
-	    
-	        <a href = "misCursos.jsp"><p class = "cabecera1" id = "cabecera-empresa">MIS CURSOS</p></a>
-	        
-	        <p class = "cabecera">|</p>
-	        
-	        <a href = "listadoCursos.jsp"><p class = "cabecera1" id = "cabecera-empresa">CURSOS</p></a>
-	        
-	        <p class = "cabecera">|</p>
-	            
-	        <a href = "miPerfilAlumno.jsp"><p class = "cabecera1" id = "cabecera-usuario">MI PERFIL</p></a>
-	        
-	        <p class = "cabecera">|</p>
-	            
-	        <a href = "listadoCursos.jsp"><p class = "cabecera1" id = "cabecera-usuario">BUSCAR</p></a>
-	    
-	  	  	<p class = "cabecera">|</p>
-	            
-	        <a href = "sesion?accion=salir"><p class = "cabecera1" id = "cabecera-usuario">SALIR</p></a>
-	        
-            
-	</header>
+	<jsp:include page="cabecera.jsp" flush="true"/>
 
 				<!--MENU-->
 			
@@ -121,16 +91,17 @@
 					
 				</div>
 				
-				<div id = "seguidores">
+				<div>
 				
 					<h5> Recomendados </h5>
 						<ul>
 						<c:forEach items="${cursosRecomendados }" var="curso"> 
 						<!-- recorremos todos los objetos de la coleccion cursos 
 							y cada objeto devuelto lo asignamos a la variable curso -->
+							<% System.out.println("--------------------"+session.getAttribute("cursosRecomendados")); %>
 								<li>
 								<img class = "seguidores-foto" src = "images/famosos/gates.jpg" alt = "Error en la imagen">
-								<p class = "seguidores-info"><a style="color:black" href="contenidoCursos?nombreCurso=${curso.DES_titulo }">${curso.DES_titulo }</a></p></li>
+								<p><a style="color:black" href="contenidoCursos?nombreCurso=${curso.DES_titulo }">${curso.DES_titulo }</a></p></li>
 								</li>
 					</c:forEach>
 					</ul>

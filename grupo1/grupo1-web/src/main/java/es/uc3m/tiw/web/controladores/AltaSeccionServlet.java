@@ -72,17 +72,13 @@ public class AltaSeccionServlet extends HttpServlet {
 		Curso cursoactual=(Curso)sesion.getAttribute("curso_actual");
 		String nombreSeccion = request.getParameter("nombreSeccion");
 		int id_curso= (int) sesion.getAttribute("idCurso");
-		//int id_curso= (int) context.getAttribute("IDCURSO");  //cojo ID CURSO DEL CONTEXTO
-		Curso contenidoCurso=(Curso) sesion.getAttribute("contenidoCurso");
-		//String nombrecursoactual=cursoactual.getDES_nombreCurso();
-		//sesion.setAttribute("nombrecursoactual", nombrecursoactual);
-		
 		String mensaje ="";
 		String pagina = CONTENIDO_CURSO_JSP;
 		
 		String m = comprobarCurso(nombreSeccion);
 		if (m.equals(null) || m.equals("")){
-			Seccion s = crearSeccion(nombreSeccion,contenidoCurso);
+			Curso c = curDao.recuperarCursoPorPK(id_curso);
+			Seccion s = crearSeccion(nombreSeccion,c);
 			try {
 				s=secDao.guardarSeccion(s);
 			} catch (Exception e) {
@@ -90,14 +86,21 @@ public class AltaSeccionServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			Collection<Seccion> listaSeccionesCursoActual = secDao.recuperarSeccionesPorCurso(id_curso);
+			c.setSecciones(listaSeccionesCursoActual);
+			try {
+				curDao.modificarCurso(c);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			sesion.setAttribute("secciones", listaSeccionesCursoActual);
+			mensaje = m;
+			sesion.setAttribute("mensajeSecciones", mensaje);
 			
 		}else{
 			
 			mensaje = m;
-			request.setAttribute("mensaje", mensaje);
-			Collection<Seccion> listaSeccionesCursoActual = secDao.recuperarSeccionesPorCurso(id_curso);
-			sesion.setAttribute("secciones", listaSeccionesCursoActual);
+			sesion.setAttribute("mensajeSecciones", mensaje);
 		}
 			
 			config2.getServletContext().getRequestDispatcher(pagina).forward(request, response);
@@ -119,7 +122,7 @@ public class AltaSeccionServlet extends HttpServlet {
 		String m = "";
 		
 		if (nombreCurso.equals("") || nombreCurso.equals(null)) {
-			m ="Fallo al crear nuevo curso. ";
+			m ="Fallo al crear nueva seccion. ";
 		}
 		
 		return m;

@@ -68,6 +68,7 @@
 	
 	
 
+	
 	/*---------------------------------------------------------------------------------------------------*/
 	/*ESTILO DE LA CABECERA*/
 	
@@ -119,34 +120,7 @@
 					}
 
 				/*----------------------------------------------------------------------------------------------*/
-				nav {
-					position:relative;
-					padding:20px;
-					width:330px;
-					float:center;
-					top:-20px;
-					left:150px;
-				}
-				nav ul {
-					position:relative;
-					width:100%;
-					font-size:20px;
-				}
-				nav ul li{
-					display:inline;
-					margin:20px;
-				}
-				nav ul #menu-ofertas a{
-					color:rgb(29,102,168);
-				}
 
-				nav ul #menu-empresa a{
-					color:white;
-				}
-
-				nav ul #menu-empresa a:hover{
-					color:rgb(227,197,25);
-				}
 
 
 					/*----------------------------------------------------------------------------------------------*/
@@ -218,7 +192,7 @@
 				padding-left:25px;
 				position:relative;
 				top:-25px;
-				left:350px;
+				left:250px;
 			}
 			
 			header .cabecera1:hover {

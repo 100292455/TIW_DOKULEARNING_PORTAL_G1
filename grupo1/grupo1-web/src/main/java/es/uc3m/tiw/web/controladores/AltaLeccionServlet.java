@@ -19,10 +19,16 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.transaction.UserTransaction;
 
+import es.uc3m.tiw.model.Curso;
+import es.uc3m.tiw.model.Cupon;
+import es.uc3m.tiw.model.Promocion;
 import es.uc3m.tiw.model.Leccion;
 import es.uc3m.tiw.model.Seccion;
+import es.uc3m.tiw.model.Usuario;
 import es.uc3m.tiw.model.dao.LeccionDAO;
 import es.uc3m.tiw.model.dao.LeccionDAOImpl;
+import es.uc3m.tiw.model.dao.CursoDAO;
+import es.uc3m.tiw.model.dao.CursoDAOImpl;
 import es.uc3m.tiw.model.dao.SeccionDAO;
 import es.uc3m.tiw.model.dao.SeccionDAOImpl;
 
@@ -41,6 +47,7 @@ public class AltaLeccionServlet extends HttpServlet {
 	@Resource
 	private UserTransaction ut;
 	private ServletConfig config2;
+	private CursoDAO curDao;
 	private SeccionDAO secDao;
 	private LeccionDAO lecDao;
 	ServletContext context;
@@ -48,12 +55,14 @@ public class AltaLeccionServlet extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		config2 = config;
+		curDao = new CursoDAOImpl(em, ut);
 		lecDao = new LeccionDAOImpl(em, ut);
 		secDao = new SeccionDAOImpl(em, ut);
 
 	}
 	
 	public void destroy() {
+		curDao = null;
 		lecDao = null;
 		secDao = null;
 	}
@@ -113,10 +122,7 @@ public class AltaLeccionServlet extends HttpServlet {
 	            fileSaveDir.mkdir();
 	        }
 	         
-	        for (Part part : request.getParts()) {
-	            String fileName = "leccion_"+l.getID_leccion()+".jpg";
-	            part.write(savePath + File.separator + fileName);
-	        }
+	       
 			
 			pagina = "/contenidoCurso.jsp";
 			Collection<Leccion> listaLecciones = lecDao.recuperarLeccionesPorSeccion(id_seccion);
@@ -129,12 +135,14 @@ public class AltaLeccionServlet extends HttpServlet {
 			}
 			sesion.setAttribute("lecciones", listaLecciones);
 			sesion.setAttribute("leccion", l);
+			mensaje = m;
+			sesion.setAttribute("mensajeLecciones", mensaje);
 			
 		}else{
 			Collection<Leccion> listaLecciones = lecDao.recuperarLeccionesPorSeccion(id_seccion);
 			sesion.setAttribute("lecciones", listaLecciones);
 			mensaje = m;
-			request.setAttribute("mensaje", mensaje);
+			sesion.setAttribute("mensajeLecciones", mensaje);
 		}
 			
 			config2.getServletContext().getRequestDispatcher(pagina).forward(request, response);
@@ -158,7 +166,7 @@ public class AltaLeccionServlet extends HttpServlet {
 		String m = "";
 		
 		if (titulo.equals("") || titulo.equals(null) || descripcion.equals("") || descripcion.equals(null)) {
-			m ="Fallo al crear nuevo curso. ";
+			m ="Fallo al crear nueva leccion. ";
 		}
 		
 		return m;

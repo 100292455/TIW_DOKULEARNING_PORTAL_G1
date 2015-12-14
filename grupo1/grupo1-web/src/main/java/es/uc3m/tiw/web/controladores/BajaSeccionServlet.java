@@ -7,7 +7,9 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +18,11 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 
 import es.uc3m.tiw.model.Curso;
+import es.uc3m.tiw.model.Cupon;
+import es.uc3m.tiw.model.Leccion;
+import es.uc3m.tiw.model.Promocion;
 import es.uc3m.tiw.model.Seccion;
+import es.uc3m.tiw.model.Usuario;
 import es.uc3m.tiw.model.dao.SeccionDAO;
 import es.uc3m.tiw.model.dao.SeccionDAOImpl;
 import es.uc3m.tiw.model.dao.CursoDAO;
@@ -64,6 +70,7 @@ public class BajaSeccionServlet extends HttpServlet {
 		String pagina = "";
 		pagina = GESTION_CURSOS_JSP;
 		HttpSession sesion = request.getSession();	
+		ServletContext context = sesion.getServletContext();
 		String idSeccionStr = request.getParameter("IdSeccion");
 		int idSeccion = Integer.parseInt(idSeccionStr);
 		

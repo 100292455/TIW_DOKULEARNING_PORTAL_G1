@@ -4,7 +4,7 @@
 <html>
 	<head>
 
-
+ 
 		<!-- Información sobre el documento -->
 	
 		<title>Practica final: Formulario Pago</title>
@@ -29,7 +29,9 @@
 
 		<script src="script/jquery-ui-1.11.2.custom/external/jquery/jquery.js"></script>
 		<script src="script/jquery-ui-1.11.2.custom/jquery-ui.js"></script>
-		
+		<style type="text/css">
+			.error {color: red;}
+		</style>
 
 	</head>
 	
@@ -78,8 +80,15 @@
 				
 				<h4>Pago de Matricula</h4>
 
-				<form method="POST" action="AnadirMatricula" onsubmit="return comprobarTarjeta();">
-								
+				<form method="get" action="WebService" onsubmit="return comprobarTarjeta();">
+					<c:choose>
+							<c:when test="${not empty mensajePago }">
+								<p class="error">${mensajePago }</p>
+							</c:when>
+							<c:otherwise>
+								<p>Introduce tus datos para formalizar la matricula del curso</p>
+							</c:otherwise>
+						</c:choose>
 					<div id="form-name" class="form-pago-class">
 							<!--Nombre-->
 							<p><span class=obligatorio>Nombre (como aparece en tu tarjeta)</span><span class=aster>*</span><span class=obligatorio>:</span></p>
@@ -94,7 +103,7 @@
 					</div>						
 					
 					<div id = "registrar-boton">
-						<input class = "registrar1" name='registrar1' type="submit" value="REALIZAR PAGO">					
+						<input class = "registrar1" name='filtro' type="submit" value="Facturar">					
 					</div>
 				</form>
 							

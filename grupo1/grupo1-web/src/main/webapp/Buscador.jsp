@@ -43,34 +43,9 @@
 
 <body>
 
-
-	<header> <a href="index.jsp"> <img class="cabecera"
-		src="images/logo.png" alt="Error en la imagen">
-
-		<h1 class="cabecera">DOKU</h1>
-
-	</a> <a href="misCursos.jsp"><p class="cabecera1" id="cabecera-empresa">MIS
-			CURSOS</p></a>
-
-	<p class="cabecera">|</p>
-
-	<a href="miPerfilAlumno.jsp"><p class="cabecera1"
-			id="cabecera-usuario">MI PERFIL</p></a>
-
-	<p class="cabecera">|</p>
-
-	<a href="listadoCursos.jsp"><p class="cabecera1"
-			id="cabecera-usuario">CURSOS</p></a>
-
-
-	<p class="cabecera">|</p>
-
-	<a href="sesion?accion=salir"><p class="cabecera1"
-			id="cabecera-usuario">SALIR</p></a> </header>
+	<jsp:include page="cabecera.jsp" flush="true"/>
 
 	<!--MENU-->
-
-
 
 	<!--CUERPO DE LA PAGINA-->
 	<div class="buscador">
@@ -152,10 +127,14 @@
 							<img src="images/cursoImages/curso_${curso.ID_curso }.jpg"
 								alt="Error en la imagen del curso ${curso.ID_curso }">
 						</div>
-						<div class = "ofertas-seguidores">
-							<img src = "images/deseado.png" alt = "Error en la imagen">
-							<p class = "numero-seguidores"><a  href="GestionDeseados?IdCurso=${curso.ID_curso }&Pagina=Buscador&Tipo=Alta">Añadir curso a la lista de deseados.</a></p>
-						</div>
+						<c:choose>
+										<c:when test="${curso.TIPO_destacado == 0 }">
+											<div class ="ofertas-seguidores">
+											    <img src = "images/deseado.png" alt = "Error en la imagen">
+											    <p class = "numero-seguidores"><a  href="GestionDeseados?IdCurso=${curso.ID_curso }&Pagina=Buscador&Tipo=Alta">Añadir curso a deseados.</a></p>
+										        </div>
+										</c:when>
+						</c:choose>
 						
 					 <!-- *** -->
 						</li>

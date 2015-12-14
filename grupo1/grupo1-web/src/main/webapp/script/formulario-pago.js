@@ -1,5 +1,3 @@
-
-
 $(document).ready(function(){
 	//crear usuario
 	
@@ -41,18 +39,3 @@ $(document).ready(function(){
 		
 			return validacion;
 	}
-		
-			
-	
-		
-  
-		
-		
-		
-		
-		
-	
-		
-		
-		
-		

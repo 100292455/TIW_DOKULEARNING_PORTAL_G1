@@ -20,6 +20,8 @@ import es.uc3m.tiw.model.Curso;
 import es.uc3m.tiw.model.Matricula;
 import es.uc3m.tiw.model.Mensaje;
 import es.uc3m.tiw.model.Usuario;
+import es.uc3m.tiw.model.dao.CursoDAO;
+import es.uc3m.tiw.model.dao.CursoDAOImpl;
 import es.uc3m.tiw.model.dao.MatriculaDAO;
 import es.uc3m.tiw.model.dao.MatriculaDAOImpl;
 import es.uc3m.tiw.model.dao.MensajeDAOImpl;
@@ -36,6 +38,7 @@ public class MensajesServlet extends HttpServlet {
 	private UserTransaction ut;
 	private MensajeDAOImpl msgDao;
 	private MatriculaDAO matDao;
+	private CursoDAO curDao;
 	@Inject
 	private EscribirEnQueue colaMensajes;
        
@@ -46,6 +49,7 @@ public class MensajesServlet extends HttpServlet {
 	public void init() throws ServletException {
 		msgDao = new MensajeDAOImpl(em, ut);
 		matDao = new MatriculaDAOImpl(em, ut);
+		curDao = new CursoDAOImpl(em,ut);
 	}
 
 	@Override
@@ -57,15 +61,35 @@ public class MensajesServlet extends HttpServlet {
 		HttpSession sesion = request.getSession();
 		
 		/*Recuperamos de la sesion el curso del foro*/
-		Curso c = (Curso) sesion.getAttribute("curso");
+		int id_curso = (int) sesion.getAttribute("idCurso");
+		Curso c = null;
+		try {
+			c = curDao.recuperarCursoPorPK(id_curso);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		/*Recuperamos de la BBDD los matriculados y los mensajes del curso*/
-		Collection<Mensaje> mensajes = msgDao.recuperarMensajePorCurso(c.getID_curso());
-		Collection<Matricula> matriculas = matDao.recuperarMatriculaPorCurso(c.getID_curso());
+		Collection<Matricula> matriculas = null;
+		Collection<Mensaje> mensajes = null;
+		try {
+			mensajes = msgDao.recuperarMensajePorCurso(c.getID_curso());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			matriculas = matDao.recuperarMatriculaPorCurso(c.getID_curso());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		/*Enviamos a la vista los mensajes y los matriculados*/
 		request.setAttribute("listaMensajes", mensajes);
 		request.setAttribute("matriculascursoactual", matriculas);
+		request.setAttribute("curso", c);
 		
 		/*Dispahcher*/
 		this.getServletContext().getRequestDispatcher("/Foro.jsp").forward(request, response);
@@ -81,17 +105,42 @@ public class MensajesServlet extends HttpServlet {
 		
 		/*Recuperamos el usuario y el curso de sesion*/
 		Usuario u = (Usuario) sesion.getAttribute("usuario");
-		Curso c = (Curso) sesion.getAttribute("curso");
-
+		/*Recuperamos de la sesion el curso del foro*/
+		int id_curso = (int) sesion.getAttribute("idCurso");
+		Curso c = null;
+		try {
+			c = curDao.recuperarCursoPorPK(id_curso);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		/*Recuperamos de la BBDD los matriculados y los mensajes del curso*/
+		Collection<Matricula> matriculas = null;
+		Collection<Mensaje> mensajes = null;
+		try {
+			mensajes = msgDao.recuperarMensajePorCurso(c.getID_curso());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			matriculas = matDao.recuperarMatriculaPorCurso(c.getID_curso());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		/*Recuperamos el mensaje*/
 		String mensaje = request.getParameter("mensaje");
 
 		/*Creamos un mensaje con el contenido, el emisor y el curso del foro y lo metemos en la cola*/
 		Mensaje msg = new Mensaje(mensaje,u, c);
-		colaMensajes.enviar(msg);
-		
-		Collection<Mensaje> mensajes = msgDao.recuperarMensajePorCurso(c.getID_curso());
+		/*Enviamos a la vista los mensajes y los matriculados*/
 		request.setAttribute("listaMensajes", mensajes);
+		request.setAttribute("matriculascursoactual", matriculas);
+		request.setAttribute("curso", c);
+
+		colaMensajes.enviar(msg);
 		
 		this.getServletConfig().getServletContext().getRequestDispatcher("/Foro.jsp").forward(request, response);
 		

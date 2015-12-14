@@ -104,6 +104,8 @@ public class AltaPromocionesServlet extends HttpServlet {
 			}
 			cambiarPrecioCursos(p, curDao.buscarTodosLosCursos());
 			pagina = ENTRADA_JSP;
+			mensaje = m;
+			sesion.setAttribute("mensaje", mensaje);
 			//metemos la tabla de promociones en el contexto para poder utilizarla desde otras paginas
 			//context.setAttribute("promociones", promociones);
 			//metemos la promocion  en el contexto para poder mostar su informacion en las paginas de promociones creadas (GestionPromociones)
@@ -113,7 +115,7 @@ public class AltaPromocionesServlet extends HttpServlet {
 		}else{
 			
 			mensaje = m;
-			request.setAttribute("mensaje", mensaje);
+			sesion.setAttribute("mensaje", mensaje);
 		}
 			
 			config2.getServletContext().getRequestDispatcher(pagina).forward(request, response);

@@ -38,34 +38,7 @@
 	<body>
 		
 	
-		<header>
-                
-                <a href="miPerfilAlumno.jsp">    
-                    
-                    <img class = "cabecera" src="images/logo.png" alt="Error en la imagen">    
-                
-                    <h1 class = "cabecera">DOKU</h1>
-                
-                </a>
-                
-                    <a href = "misCursos.jsp"><p class = "cabecera1" id = "cabecera-empresa">MIS CURSOS</p></a>
-                    
-                    <p class = "cabecera">|</p>
-                        
-                    <a href = "miPerfilAlumno.jsp"><p class = "cabecera1" id = "cabecera-usuario">MI PERFIL</p></a>
-                    
-                    <p class = "cabecera">|</p>
-                        
-                    <a href = "listadoCursos.jsp"><p class = "cabecera1" id = "cabecera-usuario">CURSOS</p></a>
-                
-                    
-               <p class = "cabecera">|</p>
-                        
-                    <a href = "sesion?accion=salir"><p class = "cabecera1" id = "cabecera-usuario">SALIR</p></a>
-                    
-                    
-            
-            </header>
+		<jsp:include page="cabecera.jsp" flush="true"/>
 			
 
 			<!--CUERPO DE LA PAGINA-->
@@ -78,6 +51,8 @@
 			    <li><a href="#tabs-1">CURSOS MATRICULADOS</a></li>
 			    <li><a href="#tabs-2">CURSOS CREADOS</a></li>
 			    <li><a href="#tabs-3">LISTA DE DESEOS</a></li>
+			    <li> <a href="#tabs-4">SECCION DE PAGOS</a></li>
+			   
 			  </ul>
 			  
 			  <!-- CURSOS MATRICULADOS -->
@@ -234,16 +209,16 @@
 										<input type="file" name="file" id="imagen-curso" size="60" />
 									 </div>	
 							      	
-								 <!-- Tematica del curso -->
+								 <!-- Dificultad del curso -->
 
 							        <div id="formul7">  
 								        <p class="nombre">Tematica del curso<span class=aster>*</span>:</p> 
 								        <p  id="mens7">No ha especificado la tematica del curso*</p>
 								        <select name="tematica" id="tematica-curso">
 								        	<option value="-1" selected>Especifique la tematica del curso</option>
-		  									<option value="artes">Artes</option>
-		  									<option value="ciencias">Ciencias</option>
-		  									<option value="ingenieria">Ingenieria</option>
+		  									<option value="0">Artes</option>
+		  									<option value="1">Ciencias</option>
+		  									<option value="2">Ingenieria</option>
 										</select> 
 							        </div>
 					        	</div>
@@ -290,9 +265,11 @@
 			 
  			<!-- LISTA DE DESEOS -->
 			  
-			  <div id="tabs-3">
+			    <div id="tabs-3">
 			 	<div class = "mi-empresa">
 				<h4>LISTA DE DESEOS</h4>
+			
+					<input type="hidden" id="selectedTabInput" value="${requestScope.selectedTab}">
 						<ul>
 							<c:forEach items="${sessionScope.listadeseos }" var="deseo">
 								<li id = "oferta-ejemplo${deseo.cursoDeseado.ID_curso}">
@@ -319,23 +296,92 @@
 										</c:otherwise>
 										</c:choose>
 									</div>
-									<div class = "ofertas-seguidores">
+									
+								<div class = "ofertas-seguidores">
 										<img src = "images/edicion/seguidores-icon.png" alt = "Error en la imagen">
 										<p class = "numero-seguidores"><a  href="contenidoCursos?nombreCurso=${deseo.cursoDeseado.DES_titulo }">Ver Contenidos</a></p>
-									</div>
+								</div>
+									
+								<div class = "ofertas-edicion">
+							    <img class="eliminar-icon" src="images/edicion/trash.png" alt="Error en la imagen">
+							    <p class = "numero-seguidores"><a  href="GestionDeseados?IdCurso=${deseo.cursoDeseado.ID_curso}&Pagina=misCursos&Tipo=Baja">Eliminar deseo.</a></p>
+						        </div>
+									
 								</li>
 							</c:forEach>
 						</ul>			 
 					</div> 
 				</div>
-				
-			</div>
-				
-				
-				
+		 <!-- Seccion de pagos -->
+			 <div id="tabs-4">	
+			 
+			
+				<div id = "mi-empresa">
 				
 					
-
+					
+				
+					<h4>GESTION DE PAGOS</h4>
+					
+					
+					
+					<div id = "ofertas">
+					
+				 		<c:if test="${empty cursoscreados }">
+							<!-- cursos es un atributo metido en el request por eso no es necesario 
+							ponerle el prefijo param -->
+							<p class="error">Actualmente no imparte ningun curso como profesor.</p>
+						</c:if>
+			
+						<ul>
+							<c:forEach items="${cursoscreados }" var="curso">
+								<li id = "oferta-ejemplo${curso.ID_curso}">
+									<div class = "ofertas-descripcion">
+										<!-- Descripcion de ofertas -->
+										<p class = "ofertas-titulo">${curso.DES_titulo }</p>
+										<p class = "ofertas-empresa">Impartido por: <!-- TO-DO cambiar COD_prof por nombre -->${curso.profesor.nombre }</p>
+										<p class = "ofertas-resumen">${curso.DES_descripcion }</p>
+										<p class = "ofertas-tipo-contrato">${curso.horas } hrs.</p>
+										<p class = "ofertas-jornada">Precio inicial: ${curso.precio_inicial } euros.</p>
+										<p class = "ofertas-jornada">Precio final: ${curso.precio_final } euros.</p>
+										<c:if test="${not empty curso.fechaFinDescuento }">
+												<p class = "ofertas-jornada">fin descuento: ${curso.fechaFinDescuento }</p>
+										</c:if>
+										<c:choose>
+											<c:when test="${curso.TIPO_dificultad == 0 }">
+											<p class = "ofertas-salario">Basico.</p>
+										</c:when>
+										<c:when test="${curso.TIPO_dificultad == 1 }">
+											<p class = "ofertas-salario">Intermedio.</p>
+										</c:when>
+										<c:otherwise>
+											<p class = "ofertas-salario">Avanzado.</p>
+										</c:otherwise>
+										</c:choose>
+									</div>
+									<div class = "ofertas-seguidores">
+										<img src = "images/edicion/seguidores-icon.png" alt = "Error en la imagen">
+										<p class = "numero-seguidores"><a  href="SeccionPagosAlumnosServlet?idcurso=${curso.ID_curso}">Gestionar Pagos</a></p>
+									</div>
+									
+								</li>
+							</c:forEach>						
+						</ul>
+						
+						<c:if test="${ mensaje != null }">
+							<p class="error">${mensaje }</p>
+						</c:if>
+					
+					</div> 
+				</div>
+			
+			</div>	
+			
+			</div>    <!-- final de tabs -->
+				
+			
+			 
+			    
 			</section>
 
 	

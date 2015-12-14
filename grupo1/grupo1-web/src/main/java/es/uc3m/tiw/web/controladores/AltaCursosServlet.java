@@ -2,6 +2,7 @@ package es.uc3m.tiw.web.controladores;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.servlet.http.Part;
 import javax.annotation.Resource;
@@ -21,8 +22,10 @@ import javax.transaction.UserTransaction;
 
 import es.uc3m.tiw.model.Curso;
 import es.uc3m.tiw.model.Usuario;
+import es.uc3m.tiw.model.dao.CuponDAO;
 import es.uc3m.tiw.model.dao.CursoDAO;
 import es.uc3m.tiw.model.dao.CursoDAOImpl;
+import es.uc3m.tiw.model.dao.PromocionDAO;
 
 
 @WebServlet("/AltaCursos")
@@ -69,7 +72,7 @@ public class AltaCursosServlet extends HttpServlet {
 		String pagina = MIS_CURSOS_JSP;
 		String mensaje ="";
 		// gets absolute path of the web application
-        String appPath = request.getServletContext().getRealPath("images");
+        String appPath = request.getServletContext().getRealPath("");
         // constructs path of the directory to save uploaded file
         String savePath = appPath + File.separator + SAVE_DIR;
 		
@@ -81,49 +84,62 @@ public class AltaCursosServlet extends HttpServlet {
 		String tematicaStr = request.getParameter("tematica");
 		String horasStr = request.getParameter("horas");
 		String precioStr = request.getParameter("precio");
-		Part filePart = request.getPart("file");
+		String codProfStr = "10";
 		
 		HttpSession sesion = request.getSession();
 		Usuario user = (Usuario) sesion.getAttribute("usuario");
+		
 		
 		String m = comprobarCurso(titulo, descripcion, dificultadStr, horasStr, precioStr, tematicaStr);
 		if (m == null || m.equals("")){
 			int dificultad = Integer.parseInt(dificultadStr);
 			int horas = Integer.parseInt(horasStr);
 			int precio = Integer.parseInt(precioStr);  
-			
-
-				        
-	        Curso c = crearCurso(titulo, descripcion, dificultad, horas, precio, user, tematicaStr);
-			try {
-				c=curDao.guardarCurso(c);
-
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if(tematicaStr.equals("0")){
+				tematicaStr="artes";
 			}
+			else if (tematicaStr.equals("1")) {
+				tematicaStr="ciencias";
+			}
+			else {
+				tematicaStr="ingenieria";
+			}
+			
+			
+		
+			
 			// creates the save directory if it does not exists
 			File fileSaveDir = new File(savePath);
 	        if (!fileSaveDir.exists()) {
 	            fileSaveDir.mkdir();
 	        }
 	         
-	       
-	            int fileName = c.getID_curso();
-	            filePart.write(savePath + File.separator + fileName);
+	        for (Part part : request.getParts()) {
+	            String fileName = "Alejandro.jpg";
+	            part.write(savePath + File.separator + fileName);
+	        }
 			
+	        
+	        Curso c = crearCurso(titulo, descripcion, dificultad, horas, precio, user, tematicaStr);
+			try {
+				c=curDao.guardarCurso(c);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
-	        Collection<Curso> cursosCreados = curDao.recuperarCursosPorProfesor(user.getID_usuario());
-			
+			Collection<Curso> cursosCreados = curDao.recuperarCursosPorProfesor(user.getID_usuario());
 			sesion.setAttribute("cursoscreados", cursosCreados);
 			Collection<Curso> listaCursos = curDao.buscarTodosLosCursos();
 			sesion.setAttribute("cursos", listaCursos);
+			mensaje = m;
+			sesion.setAttribute("mensaje", mensaje);
 			
 			
 		}else{
 			
 			mensaje = m;
-			request.setAttribute("mensaje", mensaje);
+			sesion.setAttribute("mensaje", mensaje);
 			Collection<Curso> listaCursos = curDao.buscarTodosLosCursos();
 			sesion.setAttribute("cursos", listaCursos);
 		}

@@ -28,32 +28,7 @@
 	
 	<body>
 		
-	<header>
-         	 	<a href="miPerfilAlumno.jsp">    
-                    
-                    <img class = "cabecera" src="images/logo.png" alt="Error en la imagen">    
-                
-                    <h1 class = "cabecera">DOKU</h1>
-                
-                </a>
-                
-                    <a href = "misCursos.jsp"><p class = "cabecera1" id = "cabecera-empresa">MIS CURSOS</p></a>
-                    
-                    <p class = "cabecera">|</p>
-                        
-                    <a href = "miPerfilAlumno.jsp"><p class = "cabecera1" id = "cabecera-usuario">MI PERFIL</p></a>
-                    
-                    <p class = "cabecera">|</p>
-                        
-                    <a href = "listadoCursos.jsp"><p class = "cabecera1" id = "cabecera-usuario">CURSOS</p></a>
-                
-                    
-               <p class = "cabecera">|</p>
-                        
-                    <a href = "sesion?accion=salir"><p class = "cabecera1" id = "cabecera-usuario">SALIR</p></a>
-                    
-            
-            </header>
+	<jsp:include page="cabecera.jsp" flush="true"/>
 
 			<!--CUERPO DE LA PAGINA-->
 	
@@ -65,18 +40,29 @@
 					<div id = "crear-curso">
 						<input type = "button"  value = "Anadir cupon"  class = "anadir-cupon" id="boton-anadir-cupon">
 						<input type = "button"  value = "Anadir seccion"  class = "anadir-cupon" id="boton-anadir-seccion">
+						 <a href = "mensajes"><p>FORO</p></a>
 					</div>
 					<div id = "descripcion-curso">
 						<p>Profesor: Javier</p>
 						<p>4 alumnos</p>
 						<p>Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.</p>
 					</div>
-					<c:forEach items="${cupones }" var="cupon"> 	
+					<c:choose>
+						<c:when test="${not empty mensajeCupones }">
+							<c:out value="${mensajeCupones}"/>
+							<c:set var="mensajeCupones" scope="session" value="${mensajeCupones}"/>
+							<c:set var="mensajeCupones" scope="session" value=""/>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+						</c:choose>
+					<c:forEach items="${sessionScope.cupones }" var="cupon">
+							<ul class ="lista-seccion"> 	
 							<li id = "oferta-ejemplo">
 								<div class = "ofertas-descripcion">
-									<p class = "ofertas-titulo">Cupon ${cupon.ID_cupon }</p>
+									<p class = "ofertas-titulo">Cupon ${cupon.nombreCupon }</p>
 									<c:choose>
-										<c:when test="${cupon.TIPO_descuento == 0 }">
+										<c:when test="${cupon.TIPO_cupon == 0 }">
 											<p class = "ofertas-titulo">Descuento Fijo: ${cupon.descuento }euros de descuento</p>
 		
 										</c:when>
@@ -88,20 +74,20 @@
 									<p class = "ofertas-titulo">${cupon.fecha_vto_cupon } fin del cupon.</p>
 								</div>		
 							</li>
+							</ul>
 						</c:forEach>
-					
 					
 					<c:forEach items="${secciones }" var="seccion">
 						<ul class ="lista-seccion">
 							<p>${seccion.nombre }</p>
-							<a input type = "button"  value = "Añadir leccion"  class = "añadir-leccion" href="contenidoCursos?idseccion=${seccion.id_seccion }"></a>
-							<input type = "button"  value = "Borrar seccion"  class = "anadir-cupon">
+							<a  class = "añadir-leccion" href="BajaSeccionServlet?IdSeccion=${seccion.id_seccion }">Borrar seccion</a>
+							<a  class = "añadir-leccion" href="EnlaceSL?IdSeccion=${seccion.id_seccion }">Añadir leccion</a>
 							<c:forEach items="${lecciones }" var="leccion">							
 								<c:if test="${leccion.seccion.id_seccion.equals(seccion.id_seccion)}">
 									<li>
 										<img class = "leccion" src="images/formatos/${leccion.formato}.png" alt="Error en la imagen"> 
 										<p class = "leccion">${leccion.titulo }</p>
-										<input type = "button"  value = "Borrar"  class = "borrar-leccion">
+										<a  class = "añadir-leccion" href="BajaLeccionServlet?IdLeccion=${leccion.ID_leccion }">Borrar leccion</a>
 									</li>	
 								</c:if>			
 							</c:forEach>
@@ -111,83 +97,9 @@
 				
 				<!-- Crear un leccion nuevo -->
 									 
-						<div id="añadir-leccion">
-
-					        <h2> Añade una nueva leccion </h2>  
-							<!-- 				
-							<div id="formul">  
-					        	<p class="nombre">Seleccione una imagen para el curso<span class=aster>*</span>.</p>  
-					        </div>
-							<form action="UploadCursoImagesServlet" method="post" enctype="multipart/form-data">
-								<input type="hidden" name="Curso" size="60" />
-								<input type="file" name="file" size="60" /> <br />
-								<input type="submit" value="Cargar Imagen" />
-							</form>
-							<!-- ***************************************************************** -->
-			
-							<form action="AltaLeccion" method="post" enctype="multipart/form-data" id ="añadir-leccion-form" onsubmit="return validarcrearleccion();">
-								
-								<div> 
-								<!-- Titulo del curso -->
-	
-							       	<div id="formul1">  
-							        	<p class="nombre">Titulo de la leccion<span class=aster>*</span>:</p>
-								        <p  id="mens1">No ha especificado el titulo de la leccion*</p>
-								        <input type="text" name="titulo" id="titulo-leccion"  placeholder = "Titulo de la leccion"/>
-							      	</div>		
-							      	
-								 <!-- Formato de la leccion -->
-
-							        <div id="formul3">  
-								        <p class="nombre">Formato de la leccion<span class=aster>*</span>:</p> 
-								        <p  id="mens2">No ha especificado el formato de la leccion*</p>
-								        <select name="formato" id="formato-leccion">
-								        	<option value="otro" selected>Especifique el formato de la leccion</option>
-		  									<option value="txt">Archivo txt</option>
-		  									<option value="doc">Archivo doc</option>
-		  									<option value="docx">Archivo docx</option>
-		  									<option value="xls">Archivo excel</option>
-		  									<option value="ppt">Archivo pdf</option>
-		  									<option value="mp4">Video en mp4</option>
-		  									<option value="m4v">Video en m4v</option>
-											<option value="mp3">Audio en mp3</option>
-										</select> 
-							        </div>
-					        	</div>
-					        	
-								
-								
-								<!-- Importar imagen -->
-								
-								
-								<div id="formul">  
-						        	<p class="nombre">Seleccione una imagen para el curso<span class=aster>*</span>.</p>  
-									<input type="hidden" name="Curso" size="60" />
-									<input type="file" name="file" size="60" /> <br />
-								 </div>
-								 
-
-					        <!-- Descripcion del curso -->
-
-					        <div id="formul4">  
-					        	<p class="nombre">Descipcion del curso<span class=aster>*</span>:</p>  
-						        <p  id="mens4">No ha especificado la descripcion del curso*</p>
-								<textarea id="añadir-descripcion" name="descripcion" placeholder = "Descripcion del curso"></textarea>
-					        </div>
-					
-							
-
-							<div id="formul6">  
-					        	<p class="nombre">Recuerde que usted sera el encargado de impartir este curso<span class=aster></span>.</p>  
-					        </div>
-
-					        <!-- Boton añadir -->
-
-							<input type="submit" id="añadir-leccion-button" value="Añadir" />
-							</form>
-					   	</div>
+						
 					   	
-					   		<!-- Crear un leccion nuevo -->
+					   		<!-- Crear un cupon nuevo -->
 									 
 						<div id="anadir-cupon">
 

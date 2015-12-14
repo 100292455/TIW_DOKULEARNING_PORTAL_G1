@@ -57,21 +57,20 @@
 			<!-- CABECERA-->
 	
 				<header>
-
-					<a href="./index.jsp">	
-
-						<img class = "cabecera" src="images/logo.png" alt="Error en la imagen">    
-
-						<h1 class = "cabecera">DOKU</h1>
-
-					</a>
-
+				
+				<a href="index.jsp">	
+					
+					<img class = "cabecera" src="./images/logo.png" alt="Error en la imagen">    
+				
+					<h1 class = "cabecera">DOKU</h1>
+				
+				</a>
+				
 					<p class = "cabecera1" id = "cabecera-empresa" onclick = "window.location.href='./login.jsp'">INICAR SESION</p>
 				
 					<input class = "cabecera" name='registrar' type="button" value="REGISTRAR" onclick = "window.location.href='./formulario-usuario.jsp'">
 					
-
-				</header>			
+			</header>	
 
 			<!--MENU-->
 	
@@ -87,8 +86,8 @@
 				
 				<div id="cuestionario">
 					<c:choose>
-					<c:when test="${not empty mensaje }">
-								<p class="error">${mensaje }</p>
+					<c:when test="${not empty mensajeRegistro }">
+								<p class="error">${mensajeRegistro }</p>
 							</c:when>
 							<c:otherwise>
 							</c:otherwise>
