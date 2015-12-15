@@ -38,9 +38,8 @@
 					
 					<h4>MIS CURSOS - ${nombreCurso}</h4>
 					<div id = "descripcion-curso">
-						<p>Profesor: Javier</p>
-						<p>4 alumnos</p>
-						<p>Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.</p>
+						<p>Profesor: ${cursoContenido.profesor.nombre }</p>
+						<p>Descripcion: ${cursoContenido.DES_descripcion }</p>
 					</div>
 					<c:choose>
 						<c:when test="${not empty mensajeCupones }">
@@ -75,14 +74,11 @@
 					<c:forEach items="${secciones }" var="seccion">
 						<ul class ="lista-seccion">
 							<p>${seccion.nombre }</p>
-							<a  class = "añadir-leccion" href="BajaSeccionServlet?IdSeccion=${seccion.id_seccion }">Borrar seccion</a>
-							<a  class = "añadir-leccion" href="EnlaceSL?IdSeccion=${seccion.id_seccion }">Añadir leccion</a>
 							<c:forEach items="${lecciones }" var="leccion">							
 								<c:if test="${leccion.seccion.id_seccion.equals(seccion.id_seccion)}">
 									<li>
 										<img class = "leccion" src="images/formatos/${leccion.formato}.png" alt="Error en la imagen"> 
 										<p class = "leccion">${leccion.titulo }</p>
-										<a  class = "añadir-leccion" href="BajaLeccionServlet?IdLeccion=${leccion.ID_leccion }">Borrar leccion</a>
 									</li>	
 								</c:if>			
 							</c:forEach>
