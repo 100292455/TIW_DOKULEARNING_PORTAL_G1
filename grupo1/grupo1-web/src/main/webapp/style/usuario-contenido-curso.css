@@ -744,3 +744,30 @@
 
 	/*-----------------------------------------------------------------------------------------------*/
 
+	/*-----------------------------------------------------------------------------------------------*/
+	/*BOTON FORO*/
+	
+	#boton-foro{
+		position:relative;
+		width:60px;
+		margin:10px auto;
+		display:block;
+		background: rgb(161,194,107);
+		border-radius: 10px;
+		color: #ffffff;
+		font-size: 16px;
+		border:solid 1px white;
+		border-radius:2px;
+		padding: 8px 15px 8px 15px;
+		text-align:center;	
+		text-decoration: none
+	}
+		
+	#boton-foro:hover {
+		background: white;
+		color: rgb(161,194,107);
+		border:solid 1px rgb(161,194,107);
+		
+	}	
+	/*-----------------------------------------------------------------------------------------------*/
+	

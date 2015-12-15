@@ -38,9 +38,9 @@
 					
 					<h4>MIS CURSOS - ${sessionScope.cursoContenido.DES_titulo}</h4>
 					<div id = "crear-curso">
+						<a  id="boton-foro" href="mensajes">Foro</a>
 						<input type = "button"  value = "Anadir cupon"  class = "anadir-cupon" id="boton-anadir-cupon">
 						<input type = "button"  value = "Anadir seccion"  class = "anadir-cupon" id="boton-anadir-seccion">
-						 <a  class = "añadir-leccion" href="mensajes">Foro</a>
 					</div>
 					<div id = "descripcion-curso">
 						<p>Profesor: ${sessionScope.cursoContenido.profesor.nombre}</p>

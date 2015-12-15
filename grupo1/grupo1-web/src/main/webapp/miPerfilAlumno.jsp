@@ -60,7 +60,7 @@
 							<div id = "informacion-empresa-basica">
 								
 							
-								<h5>Información básica empresa</h5>
+								<h5>Información básica usuario</h5>
 							
 								<ul>
 									<li>Nombre: <br><input id = "edit-nombre" type="text" name="nombre" value="${sessionScope.usuario.nombre}" tabindex="1"></li>

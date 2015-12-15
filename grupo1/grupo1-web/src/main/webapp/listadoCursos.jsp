@@ -9,24 +9,15 @@
 <!-- Información sobre el documento -->
 
 <title>Practica TIW: Listado Cursos</title>
-<meta charset="UTF-8">
-<meta name="keywords" content="e-learning, cursos">
-<meta name="description" content="Web de cursos en linea">
-<meta name="author" content="Jorge Garcia de la Rosa">
-<link href="<c:url value="/style/empresa-mis-ofertas.css" />"
-	rel="stylesheet" type="text/css">
-<link
-	href="<c:url value="http://fonts.googleapis.com/css?family=Ubuntu" />"
-	rel='stylesheet' type='text/css'>
-<link
-	href="<c:url value="/script/jquery-ui-1.11.2.custom/jquery-ui.css" />"
-	rel="stylesheet">
-<script
-	src="<c:url value="/script/jquery-ui-1.11.2.custom/external/jquery/jquery.js" />"></script>
-<script
-	src="<c:url value="/script/jquery-ui-1.11.2.custom/jquery-ui.js" />"></script>
-<link rel="stylesheet" type="text/css" href="style/busqueda.css">
-<style type="text/css">
+			<meta name="keywords" content="e-learning, cursos">
+			<meta name="description" content="Web de cursos en linea">
+			<meta name="author" content="Jorge Garcia de la Rosa">
+			<link href="<c:url value="/style/empresa-mis-ofertas.css" />" rel="stylesheet" type="text/css">
+			<link href="<c:url value="http://fonts.googleapis.com/css?family=Ubuntu" />" rel='stylesheet' type='text/css'>
+			<link href="<c:url value="/script/jquery-ui-1.11.2.custom/jquery-ui.css" />" rel="stylesheet">
+			<script src="<c:url value="/script/jquery-ui-1.11.2.custom/external/jquery/jquery.js" />"></script>
+			<script src="<c:url value="/script/jquery-ui-1.11.2.custom/jquery-ui.js" />"></script>
+			<style type="text/css">
 .error {
 	color: red;
 }
@@ -46,7 +37,7 @@
 
 	<section>
 
-		<div id="mi-empresa">
+		<div id="mi-empresa-lista">
 
 
 
@@ -65,7 +56,7 @@
 							y cada objeto devuelto lo asignamos a la variable curso -->
 
 						<li id="oferta-ejemplo${curso.ID_curso}">
-							<div class="ofertas-descripcion">
+							<div class="ofertas-descripcion-lista">
 								<c:choose>
 									<c:when test="${curso.TIPO_estado == 2 }">
 										<p class="ofertas-titulo">${curso.DES_titulo }</p>
@@ -98,18 +89,25 @@
 											</c:otherwise>
 
 										</c:choose>
-
+							</div>
+										<div class="ofertas-seguidores">
+											<img src="images/edicion/seguidores-icon.png"
+												alt="Error en la imagen">
+											<p class="numero-seguidores">
+												<a
+													href="contenidoCursos?nombreCurso=${curso.DES_titulo }&idCurso=${curso.ID_curso}">Ver
+													Contenidos</a>
+											</p>
+										</div>
 										<c:choose>
 											<c:when test="${empty sessionScope.listadeseos }">
 
-												<div class="ofertas-seguidores">
-													<img src="images/deseado.png" alt="Error en la imagen">
-													<p class="numero-seguidores">
-														<a
-															href="GestionDeseados?IdCurso=${curso.ID_curso }&Pagina=ListadoCursos&Tipo=Alta">Añadir
-															curso a deseados.</a>
-													</p>
-												</div>
+													<div class="ofertas-edicion-lista">
+														<a href="GestionDeseados?IdCurso=${curso.ID_curso }&Pagina=ListadoCursos&Tipo=Alta">
+															<img src="images/deseado.png" alt="Error en la imagen">
+															<p>Añadir a deseados</p>
+														</a>
+													</div>
 
 											</c:when>
 											<c:otherwise>
@@ -121,46 +119,38 @@
 													<c:choose>
 														<c:when
 															test="${curso.ID_curso == deseo.cursoDeseado.ID_curso}">
-										
-														 <c:set var="encontrado" value="1" />
-														 </c:when>
-														 <c:otherwise>
-														 </c:otherwise>
+
+															<c:set var="encontrado" value="1" />
+														</c:when>
+														<c:otherwise>
+														</c:otherwise>
 													</c:choose>
 
 												</c:forEach>
 
 												<c:choose>
 													<c:when test="${encontrado == 1}">
-														
+
 
 
 													</c:when>
+													
+
 													<c:otherwise>
-														<div class="ofertas-seguidores">
+													<div class="ofertas-edicion-lista">
+														<a href="GestionDeseados?IdCurso=${curso.ID_curso }&Pagina=ListadoCursos&Tipo=Alta">
 															<img src="images/deseado.png" alt="Error en la imagen">
-															<p class="numero-seguidores">
-																<a
-																	href="GestionDeseados?IdCurso=${curso.ID_curso }&Pagina=ListadoCursos&Tipo=Alta">Añadir
-																	curso a deseados.</a>
-															</p>
-														
-														</div>
+															<p>Añadir a deseados</p>
+														</a>
+													</div>
 													</c:otherwise>
-													</c:choose>
+												</c:choose>
 											</c:otherwise>
 
 										</c:choose>
 
 
-										<div class="ofertas-seguidores">
-											<img src="images/edicion/seguidores-icon.png"
-												alt="Error en la imagen">
-											<p class="numero-seguidores">
-												<a href="contenidoCursos?nombreCurso=${curso.DES_titulo }&idCurso=${curso.ID_curso}">Ver
-													Contenidos</a>
-											</p>
-										</div>
+
 
 									</c:when>
 
@@ -170,7 +160,6 @@
 									</c:otherwise>
 
 								</c:choose>
-							</div>
 
 
 
@@ -191,45 +180,47 @@
 			</div>
 
 		</div>
+		
+		<div id="barra-lateral">
 
-		<div id="seguidores">
-
-			<h5>Destacados</h5>
-			<ul>
-				<c:forEach items="${cursos }" var="curso">
-					<li><c:choose>
-
-							<c:when test="${curso.TIPO_destacado == 1 }">
-								<img class="seguidores-foto" src="images/famosos/gates.jpg"
-									alt="Error en la imagen">
-								<p class="seguidores-info">
-									<a style="color: black"
-										href="contenidoCursos?nombreCurso=${curso.DES_titulo }&idCurso=${curso.ID_curso}">${curso.DES_titulo }</a>
-								</p>
-							</c:when>
-
-						</c:choose></li>
-				</c:forEach>
-			</ul>
-		</div>
-		<div id="seguidores">
-
-			<h5>Recomendados</h5>
-			<ul>
-				<c:forEach items="${cursosRecomendados }" var="curso">
-					<!-- recorremos todos los objetos de la coleccion cursos 
-							y cada objeto devuelto lo asignamos a la variable curso -->
-					<li><img class="seguidores-foto"
-						src="images/famosos/gates.jpg" alt="Error en la imagen">
-						<p class="seguidores-info">
-							<a style="color: black"
-								href="contenidoCursos?nombreCurso=${curso.DES_titulo }&idCurso=${curso.ID_curso}">${curso.DES_titulo }</a>
-						</p></li>
-					</li>
-				</c:forEach>
-			</ul>
-		</div>
-
+			<div class="seguidores">
+	
+				<h5>Destacados</h5>
+				<ul>
+					<c:forEach items="${cursos }" var="curso">
+						<li><c:choose>
+	
+								<c:when test="${curso.TIPO_destacado == 1 }">
+									<img class="seguidores-foto" src="images/famosos/gates.jpg"
+										alt="Error en la imagen">
+									<p class="seguidores-info">
+										<a style="color: black"
+											href="contenidoCursos?nombreCurso=${curso.DES_titulo }&idCurso=${curso.ID_curso}">${curso.DES_titulo }</a>
+									</p>
+								</c:when>
+	
+							</c:choose></li>
+					</c:forEach>
+				</ul>
+			</div>
+			<div class="seguidores">
+	
+				<h5>Recomendados</h5>
+				<ul>
+					<c:forEach items="${cursosRecomendados }" var="curso">
+						<!-- recorremos todos los objetos de la coleccion cursos 
+								y cada objeto devuelto lo asignamos a la variable curso -->
+						<li><img class="seguidores-foto"
+							src="images/famosos/gates.jpg" alt="Error en la imagen">
+							<p class="seguidores-info">
+								<a style="color: black"
+									href="contenidoCursos?nombreCurso=${curso.DES_titulo }&idCurso=${curso.ID_curso}">${curso.DES_titulo }</a>
+							</p></li>
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
+	</div>
 
 	</section>
 

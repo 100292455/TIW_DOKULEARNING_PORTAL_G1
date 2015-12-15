@@ -255,12 +255,12 @@
 		text-align:center;
 		font-size:40px;
 	}
-	#mi-empresa, #mi-empresa-deseo {
+	#mi-empresa, #mi-empresa-deseo,#mi-empresa-lista {
 		min-height:700px;
 		font-family: 'Ubuntu', sans-serif;
 	}
 	
-	#mi-empresa > h4, #mi-empresa-deseo > h4 {
+	#mi-empresa > h4, #mi-empresa-deseo > h4, #mi-empresa-lista > h4 {
 		margin:30px 0;
 		color:rgb(29,102,168);
 		text-align:center;
@@ -279,7 +279,7 @@
 		max-height:220px;
 		
 	}
-		#mi-empresa ul li, #mi-empresa-deseo ul li {
+		#mi-empresa ul li, #mi-empresa-deseo ul li, #mi-empresa-lista ul li {
 		border-top: solid 2px rgba(81,81,81,0.2);
 		padding-top:12px;
 		width: 1075px;
@@ -665,3 +665,117 @@
 	}
 
 	/*-----------------------------------------------------------------------------------------------*/
+
+	/*-----------------------------------------------------------------------------------------------*/
+	/*LISTA DE CURSOS*/	
+
+	#mi-empresa-lista {
+		min-height:700px;
+		font-family: 'Ubuntu', sans-serif;
+	}
+	
+	#mi-empresa-lista > h4 {
+		margin:30px 0;
+		color:rgb(29,102,168);
+		text-align:center;
+		font-size:40px;
+	}
+
+	#mi-empresa-lista ul li {
+		border-top: solid 2px rgba(81,81,81,0.2);
+		padding-top:12px;
+		width: 900px;
+		margin: 10px;
+		list-style: none;
+		min-height:117px;
+		max-height:220px;
+		
+	}
+	
+	.ofertas-descripcion-lista, .ofertas-seguidores, .ofertas-edicion-lista {
+		display:inline-block;
+	}		
+	
+	.ofertas-descripcion-lista {
+			width: 550px;
+			font-size:12px;
+			padding-left:10px;
+		}
+		
+	.ofertas-edicion-lista {
+			background-color: rgb(161,194,107);
+			text-align:center;
+			padding: 26px 20px 20px 20px;
+			margin:0;
+			position:relative;
+			color:white;
+			top:-20px;
+			font-size: 14px;
+			
+		}
+		.ofertas-edicion-lista > a > img {
+			width:80px;
+			height:80px;
+		}
+		
+		.ofertas-edicion-lista > a:hover {
+			color: white;
+		}	
+		
+		/*seguidores*/
+		
+		#mi-empresa-lista, #barra-lateral{
+			display:inline-block;
+		}
+		#barra-lateral{
+			position:relative;
+			top:50px;;
+			left:30px;
+		}
+		
+		.seguidores {
+			padding:10px;
+			position:relative;
+			width:150px;
+		}	
+		.seguidores > h5 {
+			font-size:20px;
+			color: rgb(81,81,81);
+			text-align:center;
+			margin-bottom:15px;
+		}
+		.seguidores > ul {
+			max-height:700px;
+			overflow:auto;
+		}
+		
+		.seguidores > ul > li{
+			list-style-type: none;
+			width:100px;
+			padding:10px 0;
+			margin:auto;
+			text-align:center;
+			border-bottom:1px  solid rgb(241,241,241);
+		}
+		
+		.seguidores > ul > li:first-child{
+			border-top:1px  solid rgb(241,241,241);
+		}
+		
+		.seguidores img {
+			border-radius:50%;
+			border:inset 3px rgb(161,194,107);
+			width:100px;
+			height:100px;
+		}
+		
+		.seguidores a, .seguidores a:visited {
+			color:rgb(140,168,93);
+		}
+		
+		.seguidores a:hover {
+			color: rgb(29,102,168);
+		}
+	/*-----------------------------------------------------------------------------------------------*/
+	
+	
