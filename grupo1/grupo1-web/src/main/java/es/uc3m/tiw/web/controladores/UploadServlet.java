@@ -3,6 +3,7 @@ package es.uc3m.tiw.web.controladores;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -12,7 +13,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.servlet.ServletConfig;
+import javax.transaction.UserTransaction;
 
+import es.uc3m.tiw.model.Usuario;
+import es.uc3m.tiw.model.dao.CursoDAOImpl;
+import es.uc3m.tiw.model.dao.DeseoDAOImpl;
+import es.uc3m.tiw.model.dao.MatriculaDAOImpl;
+import es.uc3m.tiw.model.dao.UsuarioDAO;
+import es.uc3m.tiw.model.dao.UsuarioDAOImpl;
 import es.uc3m.tiw.model.Usuario;
 
 @WebServlet("/UploadServlet")
@@ -28,12 +40,25 @@ public class UploadServlet extends HttpServlet {
      * the web application directory.
      */
     private static final String SAVE_DIR = "usuarios-img";
+	@PersistenceContext(unitName = "demoTIW")
+	private EntityManager em;
+	@Resource
+	private UserTransaction ut;
+	private ServletConfig config2;
+	private UsuarioDAO usDao;
      
-    /**
-     * hand
 	@Override
-	public void init() throws ServletException {
-	
+	public void init(ServletConfig config) throws ServletException {
+		config2 = config;
+		usDao = new UsuarioDAOImpl(em, ut);
+
+	}
+
+	/**
+	 * @see Servlet#destroy()
+	 */
+	public void destroy() {
+		usDao = null;
 	}
        
 	/**
@@ -66,6 +91,8 @@ public class UploadServlet extends HttpServlet {
 			String correo = request.getParameter("correo");
 			String descripcion = request.getParameter("descripcion");
 			String intereses = request.getParameter("intereses");
+			Part filePart = request.getPart("file");
+
 			
 			String m = comprobarCurso(nombre, apellido, telefono, correo);
 			if (m == null || m.equals( "")){
@@ -77,10 +104,6 @@ public class UploadServlet extends HttpServlet {
 		            fileSaveDir.mkdir();
 		        }
 		         
-		        for (Part part : request.getParts()) {
-		            String fileName = idUsuario+".jpg";
-		            part.write(savePath + File.separator + fileName);
-		        }
 				
 				 usuario = actualizarUsuario(nombre, apellido, telefono, correo, usuario, descripcion, intereses);
 				sesion.setAttribute("usuario", usuario);
@@ -92,8 +115,7 @@ public class UploadServlet extends HttpServlet {
 				mensaje = m;
 				request.setAttribute("mensaje", mensaje);
 			}
-			
-				this.getServletContext().getRequestDispatcher(pagina).forward(request, response);
+			config2.getServletContext().getRequestDispatcher(pagina).forward(request, response);
 
 			
 		
@@ -101,12 +123,32 @@ public class UploadServlet extends HttpServlet {
 
 	private Usuario actualizarUsuario(String nombre, String apellido, String telefono, String correo, Usuario usuario, String descripcion, String intereses) {
 		
+		if(!usuario.getEmail().equals(correo)){
+			Collection<Usuario> u = null;
+			try {
+				u=usDao.buscarPorEmail(correo);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (u.isEmpty()) {
+				usuario.setEmail(correo);
+			}
+		}
+		
 		usuario.setApellido(apellido);
 		usuario.setNombre(nombre);
-		usuario.setEmail(correo);
 		usuario.setTelefono(telefono);
 		usuario.setDescripcion(descripcion);
 		usuario.setIntereses(intereses);
+		
+		try {
+			usuario=usDao.modificarUsuario(usuario);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		
 		return usuario;
 	}

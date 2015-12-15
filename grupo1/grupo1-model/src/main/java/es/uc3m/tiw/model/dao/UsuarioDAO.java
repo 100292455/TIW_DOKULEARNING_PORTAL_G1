@@ -1,6 +1,7 @@
 package es.uc3m.tiw.model.dao;
 
 import java.util.Collection;
+import java.util.List;
 
 import es.uc3m.tiw.model.Usuario;
 
@@ -19,8 +20,10 @@ public interface UsuarioDAO {
 
 	public abstract Usuario buscarPorEmailYpassword(String email, String password);
 	
-	public abstract Usuario buscarPorEmail(String email);
+	public abstract Collection<Usuario> buscarPorEmail(String email);
 
 	public abstract Collection<Usuario> buscarTodosLosUsuarios();
+	
+	public abstract List<Usuario> recuperarUsuarioPorNombreLista(String nombre);
 
 }

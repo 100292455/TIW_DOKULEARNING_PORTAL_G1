@@ -50,7 +50,7 @@
 					<div id = "informacion-empresa">
 							<div id= "informacion-empresa-imagen">
 											
-								<img id = "imagen-empresa" src = "./images/famosos/bernard.jpg" alt = "Error en la imagen">
+								<img id = "imagen-empresa" src = "./images/famosos/stefan.jpg" alt = "Error en la imagen">
 								<p>Para cambiar imagen seleccione un archivo</p>
 	       						<input type="file" name="imagen" id="edit-imagen" value="Upload" size ="60"/>
 								

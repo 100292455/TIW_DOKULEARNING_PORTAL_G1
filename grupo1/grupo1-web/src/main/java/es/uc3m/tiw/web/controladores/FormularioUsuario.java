@@ -102,8 +102,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		String email=request.getParameter("correo");
 		String tel=request.getParameter("telefono");
 		String cobro=request.getParameter("cobro");	
-		//String descripcion=request.getParameter("descripcion");
+		String descripcion=request.getParameter("descripcion");
 		String password1=request.getParameter("password1");
+		String intereses = request.getParameter("int");
 		
 		/*if (nombre.equals("") || nombre == null){
 			request.getRequestDispatcher("formulario-usuario.jsp");
@@ -139,6 +140,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		usuario.setEmail(email);
 		usuario.setTelefono(tel);
 		usuario.setClave(password1);
+		usuario.setDescripcion(descripcion);
+		usuario.setMedio_cobro(cobro);
+		usuario.setIntereses(intereses);
 		
 		
 		if(sexo.equals("hombre")){
@@ -156,14 +160,14 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			usuario.setTipo_usuario(1);
 		}
 	
-		Usuario u = null;
+		Collection<Usuario> u = null;
 		try {
 			u=usDao.buscarPorEmail(usuario.getEmail());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (u == null){
+		if (u.isEmpty()){
 			try {
 				usuario=usDao.guardarUsuario(usuario);
 			} catch (Exception e) {

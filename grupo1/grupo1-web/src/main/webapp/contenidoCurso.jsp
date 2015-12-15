@@ -36,16 +36,16 @@
 				
 				<div id = "mi-empresa">
 					
-					<h4>MIS CURSOS - ${nombreCurso}</h4>
+					<h4>MIS CURSOS - ${sessionScope.cursoContenido.DES_titulo}</h4>
 					<div id = "crear-curso">
 						<input type = "button"  value = "Anadir cupon"  class = "anadir-cupon" id="boton-anadir-cupon">
 						<input type = "button"  value = "Anadir seccion"  class = "anadir-cupon" id="boton-anadir-seccion">
 						 <a href = "mensajes"><p>FORO</p></a>
 					</div>
 					<div id = "descripcion-curso">
-						<p>Profesor: Javier</p>
+						<p>Profesor: ${sessionScope.cursoContenido.profesor.nombre}</p>
 						<p>4 alumnos</p>
-						<p>Actualmente, todas las ciencias aportan problemas que son estudiados por matemáticos, al mismo tiempo que aparecen nuevos problemas dentro de las propias matemáticas. Por ejemplo, el físico Richard Feynman propuso la integral de caminos como fundamento de la mecánica cuántica, combinando el razonamiento matemático y el enfoque de la física, pero todavía no se ha logrado una definición plenamente satisfactoria en términos matemáticos. Similarmente, la teoría de cuerdas, una teoría científica en desarrollo que trata de unificar las cuatro fuerzas fundamentales de la física, sigue inspirando a las más modernas matemáticas.</p>
+						<p>${sessionScope.cursoContenido.DES_descripcion}</p>
 					</div>
 					<c:choose>
 						<c:when test="${not empty mensajeCupones }">

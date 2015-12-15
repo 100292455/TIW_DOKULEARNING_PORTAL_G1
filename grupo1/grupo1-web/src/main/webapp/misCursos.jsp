@@ -88,7 +88,7 @@
 									</div>
 									<div class = "ofertas-seguidores">
 										<img src = "images/edicion/seguidores-icon.png" alt = "Error en la imagen">
-										<p class = "numero-seguidores"><a href="contenidoCursos?nombreCurso=${matricula.curso.DES_titulo}">Ver Contenidos</a></p>
+										<p class = "numero-seguidores"><a href="contenidoCursos?nombreCurso=${matricula.curso.DES_titulo}&idCurso=${matricula.curso.ID_curso}">Ver Contenidos</a></p>
 									</div>
 								</li>															
 							</c:forEach>
@@ -135,7 +135,7 @@
 									</div>
 									<div class = "ofertas-seguidores">
 										<img src = "images/edicion/seguidores-icon.png" alt = "Error en la imagen">
-										<p class = "numero-seguidores"><a  href="contenidoCursos?nombreCurso=${curso.DES_titulo }">Ver Contenidos</a></p>
+										<p class = "numero-seguidores"><a  href="contenidoCursos?nombreCurso=${curso.DES_titulo }&idCurso=${curso.ID_curso}">Ver Contenidos</a></p>
 									</div>
 									<div class = "ofertas-edicion">
 										<form action="BajaCursos" method="post" onsubmit="false">
@@ -299,7 +299,7 @@
 									
 								<div class = "ofertas-seguidores">
 										<img src = "images/edicion/seguidores-icon.png" alt = "Error en la imagen">
-										<p class = "numero-seguidores"><a  href="contenidoCursos?nombreCurso=${deseo.cursoDeseado.DES_titulo }">Ver Contenidos</a></p>
+										<p class = "numero-seguidores"><a  href="contenidoCursos?nombreCurso=${deseo.cursoDeseado.DES_titulo}&idCurso=${deseo.cursoDeseado.ID_curso}">Ver Contenidos</a></p>
 								</div>
 									
 								<div class = "ofertas-edicion" id ="edicion-borrar-deseo">

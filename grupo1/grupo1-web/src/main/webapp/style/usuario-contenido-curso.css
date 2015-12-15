@@ -218,7 +218,7 @@
 				padding-left:25px;
 				position:relative;
 				top:-25px;
-				left:350px;
+				left:250px;
 			}
 			
 			header .cabecera1:hover {
@@ -436,7 +436,6 @@
 	}
 	.añadir-leccion{
 		width:120px;
-		display:block;
 		margin:30px;
 		background: rgb(29,102,168);
 		border-radius: 10px;
@@ -447,7 +446,7 @@
 		padding: 8px 15px 8px 15px;
 		display:inline;
 	}
-	input.añadir-leccion:hover{
+	.añadir-leccion:hover{
 		background: white;
 		color: rgb(29,102,168);
 		border:solid 1px rgb(29,102,168);

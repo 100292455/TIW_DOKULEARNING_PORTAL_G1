@@ -92,7 +92,7 @@
 	
 							<li id="oferta-ejemplo${curso.ID_curso}">
 									<c:choose>
-										<c:when test="${curso.TIPO_estado == 0 }">
+										<c:when test="${curso.TIPO_estado == 2 }">
 											<div class="ofertas-descripcion">
 												<p class="ofertas-titulo">${curso.DES_titulo }</p>
 												<p class="ofertas-empresa">Impartido por: ${curso.profesor.nombre }</p>
@@ -129,7 +129,7 @@
 											<c:choose>
 												<c:when test="${empty sessionScope.listadeseos }">
 													<div class="ofertas-edicion">
-														<a href="GestionDeseados?IdCurso=${curso.ID_curso }&Pagina=ListadoCursos&Tipo=Alta">
+														<a href="GestionDeseados?IdCurso=${curso.ID_curso }&Pagina=Buscador&Tipo=Alta">
 															<img src="images/deseado.png" alt="Error en la imagen">
 															<p>Añadir a deseados</p>
 														</a>
@@ -150,7 +150,7 @@
 															</c:when>
 															<c:otherwise>
 																<div class="ofertas-edicion">
-																	<a href="GestionDeseados?IdCurso=${curso.ID_curso }&Pagina=ListadoCursos&Tipo=Alta">
+																	<a href="GestionDeseados?IdCurso=${curso.ID_curso }&Pagina=Buscador&Tipo=Alta">
 																		<img src="images/deseado.png" alt="Error en la imagen">
 																		<p>Añadir a deseados</p>
 																	</a>
