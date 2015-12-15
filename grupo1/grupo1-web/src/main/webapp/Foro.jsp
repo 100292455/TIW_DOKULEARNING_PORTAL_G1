@@ -47,7 +47,7 @@
             					<c:forEach items="${requestScope.matriculascursoactual }" var="matricula">
 	            					 <li>
 	            						<img  src="images/famosos/alice.jpg" alt="Error en la imagen">  
-	            						 <p>${matricula.alumno.nombre} ${matricula.alumno.nombre}</p>
+	            						 <p>${matricula.alumno.nombre} ${matricula.alumno.apellido}</p>
 	            					</li>
             					</c:forEach>
                 			</ul>

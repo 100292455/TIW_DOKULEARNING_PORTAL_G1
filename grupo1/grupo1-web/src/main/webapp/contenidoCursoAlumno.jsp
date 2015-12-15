@@ -37,6 +37,9 @@
 				<div id = "mi-empresa">
 					
 					<h4>MIS CURSOS - ${nombreCurso}</h4>
+					<div id = "crear-curso">
+					 <a  class = "añadir-leccion" href="mensajes">Foro</a>
+					</div>
 					<div id = "descripcion-curso">
 						<p>Profesor: ${cursoContenido.profesor.nombre }</p>
 						<p>Descripcion: ${cursoContenido.DES_descripcion }</p>

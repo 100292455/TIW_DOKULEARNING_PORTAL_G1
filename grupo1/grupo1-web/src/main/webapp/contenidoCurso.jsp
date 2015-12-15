@@ -40,12 +40,11 @@
 					<div id = "crear-curso">
 						<input type = "button"  value = "Anadir cupon"  class = "anadir-cupon" id="boton-anadir-cupon">
 						<input type = "button"  value = "Anadir seccion"  class = "anadir-cupon" id="boton-anadir-seccion">
-						 <a href = "mensajes"><p>FORO</p></a>
+						 <a  class = "añadir-leccion" href="mensajes">Foro</a>
 					</div>
 					<div id = "descripcion-curso">
 						<p>Profesor: ${sessionScope.cursoContenido.profesor.nombre}</p>
-						<p>4 alumnos</p>
-						<p>${sessionScope.cursoContenido.DES_descripcion}</p>
+						<p>Descripcion: ${sessionScope.cursoContenido.DES_descripcion}</p>
 					</div>
 					<c:choose>
 						<c:when test="${not empty mensajeCupones }">

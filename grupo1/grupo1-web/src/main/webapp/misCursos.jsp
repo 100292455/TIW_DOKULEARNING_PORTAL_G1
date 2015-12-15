@@ -60,6 +60,11 @@
 			  <div id="tabs-1">
 			 	<div class = "mi-empresa">
 				<h4>CURSOS MATRICULADOS</h4>
+				<c:if test="${empty matriculas }">
+				
+					<p class="error">Actualmente no se encuentra matriculado en ningun curso.</p>
+				</c:if>
+				
 						<ul>
 							<c:forEach items="${matriculas }" var="matricula">
 								<li id = "oferta-ejemplo${matricula.curso.ID_curso}">
@@ -101,6 +106,13 @@
 			  <div id="tabs-2">
 			 	<div id = "mi-empresa">
 				<h4>CURSOS CREADOS</h4>
+				
+			
+				<c:if test="${empty cursoscreados }">
+					<!-- cursos es un atributo metido en el request por eso no es necesario 
+							ponerle el prefijo param -->
+					<p class="error">Actualmente no hay ningun curso creado.</p>
+				</c:if>
 					<!-- Usuario con metodo de pago, puede crear curso -->
 					<input type="hidden" id="selectedTabInput" value="${requestScope.selectedTab}">
 					<c:if test="${usuario.tipo_usuario == 1 }">
@@ -268,7 +280,10 @@
 			    <div id="tabs-3">
 			 	<div id = "mi-empresa-deseo">
 				<h4>LISTA DE DESEOS</h4>
-			
+			       <c:if test="${empty sessionScope.listadeseos }">
+					
+					<p class="error">Actualmente no hay ningun curso deseado.</p>
+				</c:if>
 					<input type="hidden" id="selectedTabInput" value="${requestScope.selectedTab}">
 						<ul>
 							<c:forEach items="${sessionScope.listadeseos }" var="deseo">

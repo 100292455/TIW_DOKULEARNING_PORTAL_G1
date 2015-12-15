@@ -122,7 +122,7 @@
 														<c:when
 															test="${curso.ID_curso == deseo.cursoDeseado.ID_curso}">
 										
-														   ${encontrado = 1}
+														 <c:set var="encontrado" value="1" />
 														 </c:when>
 														 <c:otherwise>
 														 </c:otherwise>
@@ -204,7 +204,7 @@
 									alt="Error en la imagen">
 								<p class="seguidores-info">
 									<a style="color: black"
-										href="contenidoCursos?nombreCurso=${curso.DES_titulo }">${curso.DES_titulo }</a>
+										href="contenidoCursos?nombreCurso=${curso.DES_titulo }&idCurso=${curso.ID_curso}">${curso.DES_titulo }</a>
 								</p>
 							</c:when>
 
@@ -223,7 +223,7 @@
 						src="images/famosos/gates.jpg" alt="Error en la imagen">
 						<p class="seguidores-info">
 							<a style="color: black"
-								href="contenidoCursos?nombreCurso=${curso.DES_titulo }">${curso.DES_titulo }</a>
+								href="contenidoCursos?nombreCurso=${curso.DES_titulo }&idCurso=${curso.ID_curso}">${curso.DES_titulo }</a>
 						</p></li>
 					</li>
 				</c:forEach>

@@ -140,7 +140,7 @@
 														<c:forEach items="${sessionScope.listadeseos }" var="deseo">
 															<c:choose>
 																<c:when test="${curso.ID_curso == deseo.cursoDeseado.ID_curso}">
-																	 ${encontrado = 1}
+																	<c:set var="encontrado" value="1" />
 																 </c:when>
 																 <c:otherwise> </c:otherwise>
 															</c:choose>	

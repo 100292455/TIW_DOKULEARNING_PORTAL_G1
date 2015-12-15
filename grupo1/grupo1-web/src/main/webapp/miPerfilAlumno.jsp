@@ -99,7 +99,7 @@
 								<% System.out.println("--------------------"+session.getAttribute("cursosRecomendados")); %>
 									<li>
 									<img class = "seguidores-foto" src = "images/index/microsoft.jpg" alt = "Error en la imagen">
-									<p><a  href="contenidoCursos?nombreCurso=${curso.DES_titulo }">${curso.DES_titulo }</a></p></li>
+									<p><a  href="contenidoCursos?nombreCurso=${curso.DES_titulo }&idCurso=${curso.ID_curso}">${curso.DES_titulo }</a></p></li>
 									</li>
 						</c:forEach>
 						</ul>
