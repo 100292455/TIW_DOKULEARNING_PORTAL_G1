@@ -20,20 +20,18 @@ public class Leccion {
 	String descripcion;
 	String formato;
 	Seccion seccion;
-	Curso curso;
 	public Leccion() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Leccion(String titulo, String des, String formato,
-			Seccion Seccion, Curso curso) {
+			Seccion Seccion) {
 		super();
 		
 		this.titulo = titulo;
 		this.descripcion = des;
 		this.formato = formato;
 		this.seccion = Seccion;
-		this.curso = curso;
 		
 	}
 	

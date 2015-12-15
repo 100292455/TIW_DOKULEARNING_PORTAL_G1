@@ -69,7 +69,7 @@
 					</li>
 					<li class="buscador_elemento">
 						<p>Precio:</p>
-						<input type="text" name="filtroPrecio" id="filtroExperiencia" size="20" /> 
+						<input type="text" name="filtroPrecio" id="filtroExperiencia" size="20" value="0"/> 
 					</li>
 				</ul>
 				

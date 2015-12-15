@@ -86,7 +86,6 @@ public class AltaLeccionServlet extends HttpServlet {
         // constructs path of the directory to save uploaded file
         String savePath = appPath + File.separator + SAVE_DIR;
 		int id_seccion =  (int) sesion.getAttribute("idseccion");
-		System.out.println("-------------------------------------------------222222222222222222"+id_seccion);
 		String titulo = request.getParameter("titulo");
 		String formato = request.getParameter("formato");
 		String descripcion= request.getParameter("descripcion");

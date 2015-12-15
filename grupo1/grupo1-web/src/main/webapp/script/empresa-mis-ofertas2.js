@@ -1,5 +1,7 @@
 
+
 $(document).ready(function(){
+	
 	var añadiroferta = true;
 	var anadircupon = true;
 	var anadirseccion = true;
@@ -171,6 +173,8 @@ function validarcrearcupon(){
 	 }else{
 	     $("#mens9").hide();      /* Si si lo introduce, esconde el mensaje */
 	 }
+	
+	
 	
 	return validacion;
 
